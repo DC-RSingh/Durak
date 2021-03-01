@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OOP3_Durak
+
+namespace Durak.Client
 {
     static class Program
     {

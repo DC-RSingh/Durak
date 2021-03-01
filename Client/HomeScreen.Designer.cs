@@ -1,5 +1,5 @@
 ﻿
-namespace OOP3_Durak
+namespace Durak.Client
 {
     partial class HomeScreen
     {
@@ -102,7 +102,7 @@ namespace OOP3_Durak
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.BackgroundImage = global::OOP3_Durak.Properties.Resources.Regular_Durak1;
+            this.BackgroundImage = global::Durak.Client.Properties.Resources.Regular_Durak1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(1082, 789);

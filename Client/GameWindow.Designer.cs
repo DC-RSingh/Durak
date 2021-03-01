@@ -1,5 +1,5 @@
 ﻿
-namespace OOP3_Durak
+namespace Durak.Client
 {
     partial class GameWindow
     {
@@ -62,7 +62,7 @@ namespace OOP3_Durak
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::OOP3_Durak.Properties.Resources.table_top;
+            this.BackgroundImage = global::Durak.Client.Properties.Resources.table_top;
             this.ClientSize = new System.Drawing.Size(1082, 789);
             this.Controls.Add(this.btnRules);
             this.Controls.Add(this.btnExit);

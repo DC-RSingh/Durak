@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OOP3_Durak
+namespace Durak.Client
 {
     public partial class HomeScreen : Form
     {

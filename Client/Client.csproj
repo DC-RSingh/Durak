@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{FB0ADB1B-DD1D-4D52-B55E-7B418F5C0838}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>OOP3_Durak</RootNamespace>
-    <AssemblyName>OOP3_Durak</AssemblyName>
+    <RootNamespace>Durak.Client</RootNamespace>
+    <AssemblyName>Client</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
