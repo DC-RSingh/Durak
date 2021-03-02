@@ -46,6 +46,7 @@
     <Compile Include="Card.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="Durak.cs" />
+    <Compile Include="Empty.cs" />
     <Compile Include="Face.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
