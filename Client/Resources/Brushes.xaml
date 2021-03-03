@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Client.Resources">
+    <SolidColorBrush x:Key="durakButtonText" Color="White"/>
+    <SolidColorBrush x:Key="durakButton" Color="#323633" Opacity="0.7"/>
+    <SolidColorBrush x:Key="durakButtonBorder" Color="#323633"/>
+    <SolidColorBrush x:Key="durakActiveButton" Color="White"/>
+    
+</ResourceDictionary>
