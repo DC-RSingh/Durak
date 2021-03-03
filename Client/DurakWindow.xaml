@@ -8,8 +8,8 @@
         WindowStartupLocation="CenterScreen"
         Title="Durak" Height="300" Width="450" MinHeight ="300" MinWidth="450" Icon="/Resources/Background/icon.png">
     
-    <Grid>
+    <Grid x:Name="DurakRoot">
         <Image Source="/Resources/Background/background.png" Stretch="Fill"/>
-        <Image x:Name="imgPlayingCard" Source="/Resources/Pack/gray_back.png" Height="107" Width="70"/>
+        <!--<Image x:Name="imgPlayingCard" Source="/Resources/Pack/gray_back.png" Height="107" Width="70"/>-->
     </Grid>
 </Window>
