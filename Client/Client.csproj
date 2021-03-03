@@ -186,7 +186,7 @@
     <Resource Include="Resources\Pack\yellow_back.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Dropbox\Durham\Semester 4\OOP4200\Tutorial 6\Ch12CardLib\CardLib.csproj">
+    <ProjectReference Include="..\CardLib\CardLib.csproj">
       <Project>{a83d28b8-889b-425b-8c25-be2b42284ec9}</Project>
       <Name>CardLib</Name>
     </ProjectReference>
