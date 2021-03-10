@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.IO;
-using System.Threading;
 using Logging;
 using Path = System.IO.Path;
 // TODO: This class should abstract the Logging so everyone in the project can use it
+// TODO: Ability for listeners to ignore so different streams can have different messages, ties in with Logging filter and options
 namespace Client
 {
     /// <summary>
@@ -12,14 +12,13 @@ namespace Client
     /// </summary>
     public static class Logger
     {
-        private static BlockingCollection<LogMessage> pendingLogQueue = new BlockingCollection<LogMessage>();
+        private static BlockingCollection<LogMessage> _logQueue = new BlockingCollection<LogMessage>();
 
-        private static LoggerFactory loggerFactory = new LoggerFactory(pendingLogQueue);
+        private static LoggerFactory _loggerFactory = new LoggerFactory(_logQueue);
 
-        private static ILogger _logger = loggerFactory.For(typeof(Console));
+        private static ILogger _logger = _loggerFactory.For(typeof(Console));
 
-        private static ILogger _FileLogger = loggerFactory.For(typeof(File));
-
+        private static FileLogger _fileLogger;
 
         public static void Start()
         {
@@ -28,30 +27,51 @@ namespace Client
 
             if (!Directory.Exists(logDir)) Directory.CreateDirectory(logDir);
            
-            var textFileLogger = new FileLogger(logDir, "testLog.txt");
-            textFileLogger.Start();
-            var consoleListener = new Logging.ConsoleLogListener();
-            var listeners = new ILogListener[] {textFileLogger, consoleListener};
+            _fileLogger = new FileLogger(logDir, "testLog.txt");
+            _fileLogger.Start();
+            var consoleListener = new ConsoleLogListener();
+            var listeners = new ILogListener[] {_fileLogger, consoleListener};
 
-            var loggingQueueDispatcher = new LoggingQueueDispatcher(pendingLogQueue, listeners, loggerFactory.For(typeof(LoggingQueueDispatcher)));
+            var loggingQueueDispatcher = new LoggingQueueDispatcher(_logQueue, listeners, _loggerFactory.For(typeof(LoggingQueueDispatcher)));
             loggingQueueDispatcher.Start();
-
-            var thread = new Thread(LogTestLoop) {Name="Logger Thread", IsBackground = true};
-            thread.Start();
-            _logger.Debug("Asked to start Log Test Loop");
         }
 
-        public static void LogTestLoop()
+        public static void Log(string message, LoggingLevel level = LoggingLevel.Log, Type source = null)
         {
-            _logger.Debug("Entering Log Test input loop...");
-
-            string line;
-            while ((line = Console.ReadLine()) != "quit")
+            switch (level)
             {
-                _logger.Debug("You entered: " + line);
+                case LoggingLevel.Log:
+                    if (source == null)
+                        _logger.Log(message);
+                    else
+                        _loggerFactory.For(source).Log(message);
+                    break;
+                case LoggingLevel.Debug:
+                    if (source == null)
+                        _logger.Debug(message);
+                    else
+                        _loggerFactory.For(source).Debug(message);
+                    break;
+                case LoggingLevel.Warn:
+                    if (source == null)
+                        _logger.Warn(message);
+                    else
+                        _loggerFactory.For(source).Warn(message);
+                    break;
+                case LoggingLevel.Fatal:
+                    if (source == null)
+                        _logger.Fatal(message);
+                    else
+                        _loggerFactory.For(source).Fatal(message);
+                    break;
+                default:
+                    if (source == null)
+                        _logger.Log(message);
+                    else
+                        _loggerFactory.For(source).Log(message);
+                    break;
             }
-
-            _logger.Fatal("Exiting...");
         }
+
     }
 }
