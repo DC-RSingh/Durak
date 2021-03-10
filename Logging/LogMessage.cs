@@ -1,6 +1,7 @@
 ﻿using System;
 // TODO: Support for different string formats in toString, based on options given
 // TODO: Maybe incorporate LoggingLevel to the output format
+// TODO: Add Invoking method to the log message
 namespace Logging
 {
     /// <summary>
@@ -72,6 +73,7 @@ namespace Logging
         /// <returns>Returns the formatted log message.</returns>
         public override string ToString()
         {
+            // TODO: Display Month Day Year
             return $"{Importance} [TID:{ThreadId}] {Timestamp:h:mm:ss} ({Source})\t{Message}";
         }
     }

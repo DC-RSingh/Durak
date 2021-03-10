@@ -6,7 +6,7 @@
     public enum LoggingLevel
     {
         Debug,
-        Log,
+        Log,    // TODO: Change to INFO, Change all to Capital
         Warn,
         Fatal
     }
