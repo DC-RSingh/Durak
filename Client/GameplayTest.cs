@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Ink;
 using CardLib;
 using CardLib.CardLib;
 using CardUI;
@@ -28,6 +29,8 @@ namespace Client
             var deck = new Deck<PlayingCard>();
 
             var discardPile = new Cards();    
+
+            var river = new Cards();
 
             deck.Shuffle();
 
@@ -109,6 +112,10 @@ namespace Client
 
             // When a card is defended, the attacker can play another card, which must be of equal rank to at least one other
             // card already played in the bout.
+
+            // TODO: TRANSFERRING
+            // On the first turn of attack, if the defender plays a card of the same rank but different suit, they get to attack
+            // instead.
 
         }
 
