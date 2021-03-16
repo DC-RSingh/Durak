@@ -5,15 +5,14 @@ using System.Collections.Generic;
 namespace CardLib
 {
     // TODO: Add Comments
-    // TODO: Configure for PlayingCard
-    public class Cards : List<Card>, ICloneable
+    public class Cards : List<CardBase>, ICloneable
     {
         public object Clone()
         {
             var newCards = new Cards();
             foreach (var sourceCard in this)
             {
-                newCards.Add((Card)sourceCard.Clone());
+                newCards.Add((CardBase)sourceCard.Clone());
             }
 
             return newCards;

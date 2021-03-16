@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Durak" Height="300" Width="450" MinHeight ="300" MinWidth="450" Icon="/Resources/Background/icon.png">
+        Title="Durak" Height="300" Width="450" MinHeight ="300" MinWidth="450" Icon="icon.ico">
 
     <Grid>
         <Image Source="/Resources/Background/durak.png" Stretch="Fill"/>

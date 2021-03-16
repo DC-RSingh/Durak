@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardUI", "..\CardUI\CardUI.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardLib", "..\CardLib\CardLib.csproj", "{A83D28B8-889B-425B-8C25-BE2B42284EC9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "..\Logging\Logging.csproj", "{FC9D57E9-AD20-4B7F-924E-34E38EAF2D99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A83D28B8-889B-425B-8C25-BE2B42284EC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A83D28B8-889B-425B-8C25-BE2B42284EC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A83D28B8-889B-425B-8C25-BE2B42284EC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC9D57E9-AD20-4B7F-924E-34E38EAF2D99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC9D57E9-AD20-4B7F-924E-34E38EAF2D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC9D57E9-AD20-4B7F-924E-34E38EAF2D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC9D57E9-AD20-4B7F-924E-34E38EAF2D99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
