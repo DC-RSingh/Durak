@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 
 namespace CardLib
 {
@@ -89,6 +88,7 @@ namespace CardLib
             newDeck.CopyTo(_cards);
         }
 
+        // TODO: Throw exception if drawing would result in OutOfRange
         public T Draw()
         {
             var drawn = _cards.Last();
