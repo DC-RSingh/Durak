@@ -6,10 +6,15 @@
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Durak" Height="300" Width="450" MinHeight ="300" MinWidth="450" Icon="/Resources/Background/icon.png">
-    
+        Title="Durak" Height="500" Width="650" MinHeight ="300" MinWidth="450" Icon="/Resources/Background/icon.png">
+
     <Grid x:Name="DurakRoot">
         <Image Source="/Resources/Background/background.png" Stretch="Fill"/>
-        <!--<Image x:Name="imgPlayingCard" Source="/Resources/Pack/gray_back.png" Height="107" Width="70"/>-->
+        <Image x:Name="imgPlayingCard"  Height="107" Width="70" Margin="295,178,277,184">
+            <Image.RenderTransform>
+                <TranslateTransform X="{Binding MyXValue}" Y="{Binding MyYValue}" />
+            </Image.RenderTransform>
+        </Image>
+        <Canvas HorizontalAlignment="Left" Height="100" Margin="91,229,0,0" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Window>

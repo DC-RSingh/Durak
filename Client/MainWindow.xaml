@@ -6,14 +6,14 @@
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Durak" Height="300" Width="450" MinHeight ="300" MinWidth="450" Icon="icon.ico">
+        Title="Durak" Height="500" Width="650" MinHeight ="300" MinWidth="450" Icon="icon.ico">
 
     <Grid>
         <Image Source="/Resources/Background/durak.png" Stretch="Fill"/>
 
-        <Button x:Name="btnPlay" Style="{DynamicResource DurakMenuButton}" Content="Play" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Width="94" Height="27" Click="btnPlay_Click" />
-        <Button x:Name="btnAbout" Style="{DynamicResource DurakMenuButton}" Content="About" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Top" Width="94" Height="27" Click="btnAbout_Click"/>
-        <Button x:Name="btnHelp" Style="{DynamicResource DurakMenuButton}" Content="Help" HorizontalAlignment="Left" Margin="50,150,0,0" VerticalAlignment="Top" Width="94" Height="27"  Click="btnHelp_Click"/>
-        <Button x:Name="btnExit" Style="{DynamicResource DurakMenuButton}" Content="Exit" HorizontalAlignment="Left" Margin="50,200,0,0" VerticalAlignment="Top" Width="94" Height="27" Click="btnExit_Click"/>
+        <Button x:Name="btnPlay" Style="{DynamicResource DurakMenuButton}" Content="Play" HorizontalAlignment="Left" Margin="87,195,0,0" VerticalAlignment="Top" Width="146" Height="34" Click="btnPlay_Click" />
+        <Button x:Name="btnAbout" Style="{DynamicResource DurakMenuButton}" Content="About" HorizontalAlignment="Left" Margin="87,260,0,0" VerticalAlignment="Top" Width="146" Height="36" Click="btnAbout_Click"/>
+        <Button x:Name="btnHelp" Style="{DynamicResource DurakMenuButton}" Content="Help" HorizontalAlignment="Left" Margin="87,326,0,0" VerticalAlignment="Top" Width="146" Height="35"  Click="btnHelp_Click"/>
+        <Button x:Name="btnExit" Style="{DynamicResource DurakMenuButton}" Content="Exit" HorizontalAlignment="Left" Margin="87,391,0,0" VerticalAlignment="Top" Width="146" Height="35" Click="btnExit_Click"/>
     </Grid>
 </Window>
