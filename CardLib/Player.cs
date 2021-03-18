@@ -1,4 +1,6 @@
-﻿// TODO: This and DurakAI should probably be moved to a different class library
+﻿using System.Linq;
+
+// TODO: This should probably be moved to a different class library
 namespace CardLib
 {
     public class Player
@@ -21,6 +23,24 @@ namespace CardLib
         /// Indicates player's name
         /// </summary>
         public string PlayerName { get; private set; }
+
+        #endregion
+
+        #region Methods
+        // TODO: Might be useful to client code as well, will keep public for now
+        public bool IsPlayable(Cards river, CardBase card)
+        {
+            // An attacker can only play cards whose rank matches a card in the river
+            // A defender can only play cards that are greater than the last card played in the river, or a trump card.
+            // Trump logic is handled in CardBase class
+            if (river.Count > 0)
+                return IsAttacking
+                    ? river.Exists(ele => ele.Rank == card.Rank)
+                    : card > river.Last();
+
+            // If the River is Empty, any card is playable
+            return true;
+        }
 
         #endregion
 
