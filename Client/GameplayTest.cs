@@ -13,10 +13,11 @@ namespace Client
 {
     public class GameplayTest
     {
-        private Deck<PlayingCard> playDeck;
-        private Cards dicardPile;   // Where Discarded Cards Go
+        private static Deck<PlayingCard> playDeck;
+        private Cards discardPile;   // Where Discarded Cards Go
         private Cards inPlayPile;   // Where the attacking and defending cards go
-        private Player[] players;
+        private static Player[] players;
+        private static int currentCard;    // Represents the current card
 
         private GameplayTest()
         {
@@ -28,9 +29,13 @@ namespace Client
             #region Deck and Discard Pile Init
             var deck = new Deck<PlayingCard>();
 
-            var discardPile = new Cards();    
+            var discardPile = new Cards();
+
+            var inPlayPile = new Cards();
 
             var river = new Cards();
+
+            const int sixCards = 6;
 
             deck.Shuffle();
 
@@ -75,7 +80,356 @@ namespace Client
                 player1.IsAttacking = true;
             }
             #endregion
+            
 
+            /// <summary>
+            /// Game play logic
+            /// </summary>
+            public int Game()
+            {
+                bool winner = false; // Indicates if there is a winner
+
+                // Initialize game vars
+                Card playCard = playDeck.GetCard(currentCard++);
+                Card playCard2 = playDeck.GetCard(currentCard++);
+                Card cardToBeat; // Last card played by either attacker or defender, depending on whose turn it is
+
+                // Loops through game until there is a winner
+                do
+                { 
+                    // If player1 has no cards on their hand, end game and display winner
+                    if(player1.HandSize < 0)
+                    {
+                        Console.WriteLine("*******Player1 WON!!*********");
+                        winner = true;
+                    }
+                    
+                    // If player2 has no cards on their hand, end game and display winner
+                    if (player2.HandSize < 0)
+                    {
+                        Console.WriteLine("*******Player2 WON!!*********");
+                        winner = true;
+                    }
+
+                    // If player1 is attacking
+                    if (player1.IsAttacking == true)
+                    {
+                        // Prompts player1 to choose next move
+                        bool inputOK = false;
+                        do
+                        {
+                            // If Player1 chooses a card to play a card (Maybe a click event here?)
+                            Console.WriteLine("Choose your move:");
+                            string playerMove = Console.ReadLine();
+                            if (playerMove == "play")
+                            {
+                                // Prompts player1 to choose which card to play
+                                inputOK = false;
+                                int choice = -1;
+                                do
+                                {
+                                    Console.WriteLine("Choose card to discard:");
+                                    string input = Console.ReadLine();
+                                    try
+                                    {
+                                        // Attempt to convert input into a valid card number.
+                                        choice = Convert.ToInt32(input);
+                                        if ((choice > 0) && (choice <= 7))
+                                            inputOK = true;
+
+                                        // HOW CAN WE CHECK IF CARD IS FROM THE SAME SUIT AS TRUMP?
+
+                                        // Moves selected card to inPlayPile
+                                        inPlayPile.Add(choice);
+                                        
+                                    }
+                                    catch
+                                    {
+                                        // Ignore failed conversions, just continue prompting.
+                                    }
+                                } while (inputOK == false);
+
+                                // Player2 turn to defend
+                                // If Player2 chooses to defend by discarding a card
+                                // How can we do this??
+                                Console.WriteLine("Choose your move (player 2):");
+                                string playerMove2 = Console.ReadLine();
+                                if (playerMove2 == "play")
+                                {
+                                    // Prompts player2 to choose which card to play
+                                    int choice2 = -1;
+                                    do
+                                    {
+                                        Console.WriteLine("Choose card to discard:");
+                                        string input = Console.ReadLine();
+
+                                        try
+                                        {
+                                            // Attempt to convert input into a valid card number.
+                                            choice2 = Convert.ToInt32(input);
+                                            if ((choice2 > 0) && (choice2 <= 7)) // What if they have more than 7 cards?
+                                                inputOK = true;
+
+                                            // Moves selected card to inPlayPile
+                                            inPlayPile.Add(choice2);
+
+                                        }
+                                        catch
+                                        {
+                                            // Ignore failed conversions, just continue prompting.
+                                        }
+                                    } while (inputOK == false);
+                                    
+                                    // Checks if card played by defender is greater than card from attacker
+                                    if(choice2 > choice)
+                                    {
+                                        Console.WriteLine("player2 succesfully defended");
+                                    }
+                                }
+                                // Else if player2 chooses to take cards on the table
+                                else if (playerMove2 == "take")
+                                {
+                                    // Moves all cards from inPlayPile to DiscardPile
+                                    inPlayPile.Remove(playCard);
+                                    inPlayPile.Remove(playCard2);
+                                    discardPile.Add(playCard);
+                                    discardPile.Add(playCard2);
+
+                                    // Loop to draw new cards until both players have at least 6 cards or no more cards on deck
+                                    bool cardsToDraw = true;
+                                    do
+                                    {
+                                        // If deck has cards to be drawn
+                                        if (deck.Size <= 0)
+                                        {
+                                            cardsToDraw = false;
+                                        }
+                                        // otherwise, deck has cards to be drawn
+                                        else
+                                        {
+                                            // If player1 hand size is smaller than 6 cards
+                                            if (player1.HandSize < sixCards)
+                                            {
+                                                deck.Draw();  // Draw a card
+                                            }
+
+                                            // If player2 hand size is smaller than 6 cards
+                                            if (player2.HandSize < sixCards)
+                                            {
+                                                deck.Draw();  // Draw a card
+                                            }
+                                        }
+                                    }
+                                    while (cardsToDraw == false || (player1.HandSize >= sixCards && player2.HandSize >= sixCards));
+
+                                }
+
+
+                            }
+                            else if (playerMove == "end") // Else if Player1 chooses to end attack
+                            {
+                                // Moves all cards from inPlayPile to DiscardPile
+                                inPlayPile.Remove(playCard);
+                                inPlayPile.Remove(playCard2);
+                                discardPile.Add(playCard);
+                                discardPile.Add(playCard2);
+
+                                // Loop to draw new cards until both players have at least 6 cards or no more cards on deck
+                                bool cardsToDraw = true;
+                                do
+                                {
+                                    // If deck has cards to be drawn
+                                    if (deck.Size <= 0)
+                                    {
+                                        cardsToDraw = false;
+                                    }
+                                    // otherwise, deck has cards to be drawn
+                                    else
+                                    {
+                                        // If player1 hand size is smaller than 6 cards
+                                        if (player1.HandSize < sixCards)
+                                        {
+                                            deck.Draw();  // Draw a card
+                                        }
+                                        
+                                        // If player2 hand size is smaller than 6 cards
+                                        if (player2.HandSize < sixCards)
+                                        {
+                                            deck.Draw();  // Draw a card
+                                        }
+                                    }
+                                }
+                                while (cardsToDraw == false || (player1.HandSize >= sixCards && player2.HandSize >= sixCards));
+
+                                // Switches turn to attack
+                                player1.IsAttacking = false;
+                                player2.IsAttacking = true;
+                            }
+                        }
+                        while (inputOK == true);
+                        
+                        
+                    }
+                    // Else If, player2 is attacking
+                    else if (player2.IsAttacking == true)
+                    {
+                        // Prompts player2 to choose next move
+                        bool inputOK = false;
+                        do
+                        {
+                            // If Player2 chooses a card to play a card (Maybe a click event here?)
+                            Console.WriteLine("Choose your move:");
+                            string playerMove2 = Console.ReadLine();
+                            if (playerMove2 == "play")
+                            {
+                                // Prompts player1 to choose which card to play
+                                inputOK = false;
+                                int choice2 = -1;
+                                do
+                                {
+                                    Console.WriteLine("Choose card to discard:");
+                                    string input = Console.ReadLine();
+                                    try
+                                    {
+                                        // Attempt to convert input into a valid card number.
+                                        choice2 = Convert.ToInt32(input);
+                                        if ((choice2 > 0) && (choice2 <= 7))
+                                            inputOK = true;
+
+                                        // Moves selected card to inPlayPile
+                                        inPlayPile.Add(choice2);
+
+                                    }
+                                    catch
+                                    {
+                                        // Ignore failed conversions, just continue prompting.
+                                    }
+                                } while (inputOK == false);
+
+                                // Player1 turn to defend
+                                // If Player1 chooses to defend by discarding a card
+                                // How can we do this??
+                                Console.WriteLine("Choose your move:");
+                                string playerMove = Console.ReadLine();
+                                if (playerMove == "play")
+                                {
+                                    // Prompts player1 to choose which card to play
+                                    int choice = -1;
+                                    do
+                                    {
+                                        Console.WriteLine("Choose card to discard:");
+                                        string input = Console.ReadLine();
+
+                                        try
+                                        {
+                                            // Attempt to convert input into a valid card number.
+                                            choice = Convert.ToInt32(input);
+                                            if ((choice > 0) && (choice <= 7))
+                                                inputOK = true;
+
+                                            // Moves selected card to inPlayPile
+                                            inPlayPile.Add(choice);
+
+                                        }
+                                        catch
+                                        {
+                                            // Ignore failed conversions, just continue prompting.
+                                        }
+                                    } while (inputOK == false);
+
+                                    // Checks if card played by defender is greater than card from attacker
+                                    if (choice2 > choice)
+                                    {
+                                        Console.WriteLine("player1 succesfully defended");
+                                    }
+                                }
+                                // Else if player2 chooses to take cards on the table
+                                else if (playerMove == "take")
+                                {
+                                    // Moves all cards from inPlayPile to DiscardPile
+                                    inPlayPile.Remove(playCard);
+                                    inPlayPile.Remove(playCard2);
+                                    discardPile.Add(playCard);
+                                    discardPile.Add(playCard2);
+
+                                    // Loop to draw new cards until both players have at least 6 cards or no more cards on deck
+                                    bool cardsToDraw = true;
+                                    do
+                                    {
+                                        // If deck has cards to be drawn
+                                        if (deck.Size <= 0)
+                                        {
+                                            cardsToDraw = false;
+                                        }
+                                        // otherwise, deck has cards to be drawn
+                                        else
+                                        {
+                                            // If player1 hand size is smaller than 6 cards
+                                            if (player2.HandSize < sixCards)
+                                            {
+                                                deck.Draw();  // Draw a card
+                                            }
+
+                                            // If player2 hand size is smaller than 6 cards
+                                            if (player1.HandSize < sixCards)
+                                            {
+                                                deck.Draw();  // Draw a card
+                                            }
+                                        }
+                                    }
+                                    while (cardsToDraw == false || (player1.HandSize >= sixCards && player2.HandSize >= sixCards));
+
+                                }
+
+
+                            }
+                            else if (playerMove2 == "end") // Else if Player2 chooses to end attack
+                            {
+                                // Moves all cards from inPlayPile to DiscardPile
+                                inPlayPile.Remove(playCard);
+                                inPlayPile.Remove(playCard2);
+                                discardPile.Add(playCard);
+                                discardPile.Add(playCard2);
+
+                                // Loop to draw new cards until both players have at least 6 cards or no more cards on deck
+                                bool cardsToDraw = true;
+                                do
+                                {
+                                    // If deck has cards to be drawn
+                                    if (deck.Size <= 0)
+                                    {
+                                        cardsToDraw = false;
+                                    }
+                                    // otherwise, deck has cards to be drawn
+                                    else
+                                    {
+                                        // If player1 hand size is smaller than 6 cards
+                                        if (player2.HandSize < sixCards)
+                                        {
+                                            deck.Draw();  // Draw a card
+                                        }
+
+                                        // If player2 hand size is smaller than 6 cards
+                                        if (player1.HandSize < sixCards)
+                                        {
+                                            deck.Draw();  // Draw a card
+                                        }
+                                    }
+                                }
+                                while (cardsToDraw == false || (player1.HandSize >= sixCards && player2.HandSize >= sixCards));
+
+                                // Switches turn to attack
+                                player1.IsAttacking = true;
+                                player2.IsAttacking = false;
+                            }
+                        }
+                        while (inputOK == true);
+                    }
+                }
+                while (winner == false);
+
+                return 0; // Returns integer
+            }
 
             // OBJECTIVES
 
@@ -123,7 +477,7 @@ namespace Client
         {
             for (int i = 0; i < player1.Hand.Count; i++)
             {
-                Logger.Log($"{player1.PlayerName}'s Card {i+1}: {player1.Hand.ElementAt(i)}");
+                Logger.Log($"{player1.PlayerName}'s Card {i + 1}: {player1.Hand.ElementAt(i)}");
             }
         }
 
@@ -134,5 +488,7 @@ namespace Client
                 Logger.Log(s.GetCard(i).ToString());
             }
         }
+
+
     }
 }
