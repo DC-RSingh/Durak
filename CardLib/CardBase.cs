@@ -19,7 +19,7 @@ namespace CardLib
 
         public override string ToString()
         {
-            return $"Face {Face} {Rank} of {Suit}s.";
+            return Convert.ToBoolean(Face) ? $"{Rank} of {Suit}s" : "Face Down";
         }
 
         #region Static Members
