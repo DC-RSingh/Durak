@@ -9,12 +9,12 @@ namespace CardLib
     public enum Face
     {
         /// <summary>
-        /// Represents card facing up
+        /// Represents card facing down
         /// </summary>
         Down,
 
         /// <summary>
-        /// Represents card facing down
+        /// Represents card facing up
         /// </summary>
         Up
     }
