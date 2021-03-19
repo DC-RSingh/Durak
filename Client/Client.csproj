@@ -120,7 +120,7 @@
     <Resource Include="Resources\Background\durak.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Cards\TenClubs.png" />
+    <Resource Include="Resources\Cards\TenClub.png" />
     <Resource Include="Resources\Cards\TenDiamond.png" />
     <Resource Include="Resources\Cards\TenHeart.png" />
     <Resource Include="Resources\Cards\TenSpade.png" />
@@ -166,7 +166,7 @@
     <Resource Include="Resources\Cards\KingClub.png" />
     <Resource Include="Resources\Cards\KingDiamond.png" />
     <Resource Include="Resources\Cards\KingHeart.png" />
-    <Resource Include="Resources\Cards\KingSpade..png" />
+    <Resource Include="Resources\Cards\KingSpade.png" />
     <Resource Include="Resources\Cards\QueenClub.png" />
     <Resource Include="Resources\Cards\QueenDiamond.png" />
     <Resource Include="Resources\Cards\QueenHeart.png" />
