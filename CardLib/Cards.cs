@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CardLib
 {
@@ -29,6 +29,28 @@ namespace CardLib
             {
                 targetCards[index] = this[index];
             }
+        }
+
+        /// <summary>
+        /// Removes a Card from the list and returns the card removed.
+        /// </summary>
+        /// <param name="pos">The position of the card in the list.</param>
+        /// <returns>The CardBase object that was removed at the specified position.</returns>
+        public CardBase Retrieve(int pos)
+        {
+            var card = this[pos];
+            RemoveAt(pos);
+            return card;
+        }
+
+        /// <summary>
+        /// Gets a card at the specified position. Exactly the same as <see cref="List{T}"/> ElementAt.
+        /// </summary>
+        /// <param name="pos">The position of the card in the list.</param>
+        /// <returns>The card at the specified position.</returns>
+        public CardBase CardAt(int pos)
+        {
+            return this.ElementAt(pos);
         }
     }
 }
