@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Ink;
 using CardLib;
-using CardLib.CardLib;
 using CardUI;
 
 namespace Client
