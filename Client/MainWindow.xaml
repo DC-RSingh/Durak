@@ -4,16 +4,64 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
+        xmlns:viewmodels="clr-namespace:Client.ViewModels"
+        xmlns:views="clr-namespace:Client.Views" 
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Durak" Height="300" Width="450" MinHeight ="300" MinWidth="450" Icon="icon.ico">
 
+    <Window.Resources>
+        <DataTemplate x:Name="gameViewTemplate" DataType="{x:Type viewmodels:GameViewModel}">
+            <views:GameView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="aboutViewTemplate" DataType="{x:Type viewmodels:AboutViewModel}">
+            <views:AboutView DataContext="{Binding}"/>
+        </DataTemplate>
+    </Window.Resources>
+    
     <Grid>
-        <Image Source="/Resources/Background/durak.png" Stretch="Fill"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-        <Button x:Name="btnPlay" Style="{DynamicResource DurakMenuButton}" Content="Play" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Width="94" Height="27" Click="btnPlay_Click" />
-        <Button x:Name="btnAbout" Style="{DynamicResource DurakMenuButton}" Content="About" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Top" Width="94" Height="27" Click="btnAbout_Click"/>
-        <Button x:Name="btnHelp" Style="{DynamicResource DurakMenuButton}" Content="Help" HorizontalAlignment="Left" Margin="50,150,0,0" VerticalAlignment="Top" Width="94" Height="27"  Click="btnHelp_Click"/>
-        <Button x:Name="btnExit" Style="{DynamicResource DurakMenuButton}" Content="Exit" HorizontalAlignment="Left" Margin="50,200,0,0" VerticalAlignment="Top" Width="94" Height="27" Click="btnExit_Click"/>
+        <DockPanel  Grid.Row="0" Grid.Column="1"  Grid.RowSpan="6" Grid.ColumnSpan="5">
+            <Image Source="/Resources/Background/durak.png" Stretch="Fill"/>
+        </DockPanel>
+        <DockPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="6" Background="Gray">
+            
+        </DockPanel>
+        <DockPanel Grid.Row="1" Grid.Column="0">
+            <StackPanel>
+                <Button Style="{DynamicResource DurakMenuButton}" Content="Play" Click="Play_Click"/>
+            </StackPanel>
+        </DockPanel>
+        <DockPanel Grid.Row="2" Grid.RowSpan="2" Grid.Column="0">
+            <StackPanel>
+                <Button Style="{DynamicResource DurakMenuButton}" Content="About" Click="About_Click"/>
+            </StackPanel>
+        </DockPanel>
+        <DockPanel Grid.Row="3" Grid.RowSpan="2" Grid.Column="0">
+            <StackPanel>
+                <Button Style="{DynamicResource DurakMenuButton}" Content="Help" Click="Help_Click"/>
+            </StackPanel>
+        </DockPanel>
+        <DockPanel Grid.Row="4" Grid.RowSpan="2" Grid.Column="0">
+            <StackPanel>
+                <Button Style="{DynamicResource DurakMenuButton}" Content="Exit" Click="Exit_Click"/>
+            </StackPanel>
+        </DockPanel>
+        <ContentControl Grid.Row="0" Grid.Column="1"  Grid.RowSpan="6" Grid.ColumnSpan="5" Content="{Binding}"/>
     </Grid>
 </Window>

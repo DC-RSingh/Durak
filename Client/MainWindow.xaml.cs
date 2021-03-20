@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-
+using Client.ViewModels;
 
 namespace Client
 {
@@ -28,25 +28,23 @@ namespace Client
             
             GameplayTest.Play();
         }
-        private void btnPlay_Click(object sender, RoutedEventArgs e)
-        { 
-            DurakWindow gameWindow = new DurakWindow();
-            gameWindow.ShowDialog();
-        }
 
-        private void btnAbout_Click(object sender, RoutedEventArgs e)
+        private void Play_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("This is the final project for OOP4200, group 4. We have created a working version of the card game 'Durak'." +
-                " It was created by Gabriel Dietrich, Fleur Blanckaert, Raje Singh, and Dalton Young. ");
+            DataContext = new GameViewModel();
         }
 
-        private void btnHelp_Click(object sender, RoutedEventArgs e)
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext = new AboutViewModel();
+        }
+
+        private void Help_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://www.pagat.com/beating/podkidnoy_durak.html");
         }
 
-
-        private void btnExit_Click(object sender, RoutedEventArgs e)
+        private void Exit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
