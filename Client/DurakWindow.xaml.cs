@@ -36,7 +36,8 @@ namespace Client
             Play();
 
         }
-
+        //const string PACK_PATH = @"pack://application:,,,/Resources/Pack/";
+        
         public void Play()
         {
             #region Deck and Discard Pile Init
@@ -65,9 +66,9 @@ namespace Client
             //DisplayPlayer(player2);
         }
             #endregion
-            // Testing Displaying the Card
-            private void DisplayHand()
-            {
+        // Testing Displaying the Card
+        private void DisplayHand()
+        {
             // Create Face Up Card
             var test_card = new PlayingCard(Suit.Club, Rank.King, Face.Up);
 

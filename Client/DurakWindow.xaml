@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Durak" Height="500" Width="650" MinHeight ="300" MinWidth="450" Icon="/Resources/Background/icon.png">
-
+    
     <Grid x:Name="DurakRoot">
         <Image Source="/Resources/Background/background.png" Stretch="Fill"/>
         <Image x:Name="imgPlayingCard"  Height="107" Width="70" Margin="295,178,277,184">

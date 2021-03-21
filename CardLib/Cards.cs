@@ -12,6 +12,7 @@ namespace CardLib
             var newCards = new Cards();
             foreach (var sourceCard in this)
             {
+                newCards.Add((CardBase)sourceCard.Clone());
             }
 
             return newCards;
