@@ -16,14 +16,13 @@ using System.Windows.Shapes;
 namespace Client.Views
 {
     /// <summary>
-    /// Interaction logic for AboutView.xaml
+    /// Interaction logic for GameSettingsView.xaml
     /// </summary>
-    public partial class AboutView : UserControl
+    public partial class GameSettingsView : UserControl
     {
-        public AboutView()
+        public GameSettingsView()
         {
             InitializeComponent();
         }
-
     }
 }

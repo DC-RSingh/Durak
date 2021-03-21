@@ -6,7 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using CardLib;
+using CardUI;
 using Client.ViewModels;
+using Client.Views;
 
 
 namespace Client
@@ -33,6 +36,14 @@ namespace Client
         private void Play_Click(object sender, RoutedEventArgs e)
         {
             DataContext = new GameViewModel();
+            InitializeComponent();
+            //TODO: RESET GAME 
+            //ResetGame();
+            GameView gameView = new GameView();
+            gameView.Play();
+
+            //Delete Game object
+            //Recreate
         }
 
         private void About_Click(object sender, RoutedEventArgs e)
@@ -49,5 +60,11 @@ namespace Client
         {
             this.Close();
         }
+        private void MainMenu_Click(object sender, RoutedEventArgs e)
+        {
+            //Add a MainMenu View 
+            //DataContext = new GameViewModel();
+        }
+
     }
 }

@@ -18,7 +18,7 @@
             <views:AboutView DataContext="{Binding}"/>
         </DataTemplate>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -28,6 +28,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -36,32 +37,47 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <DockPanel  Grid.Row="0" Grid.Column="1"  Grid.RowSpan="6" Grid.ColumnSpan="5">
+        <StackPanel VerticalAlignment="Top" Grid.RowSpan="1" Grid.ColumnSpan="5">
+            <Menu Width="Auto" Height="35">
+                <MenuItem Style="{DynamicResource DurakMenuItem}" Height="35" Width="55">
+                    <MenuItem.Icon>
+                        <Image RenderOptions.BitmapScalingMode="HighQuality" Source="Resources/Background/menuicon.png" Height="62" Margin="0,-12,-29,-34" VerticalAlignment="Top" />
+                    </MenuItem.Icon>
+                    <MenuItem x:Name="mnuMainMenu" Header="Main Menu" HorizontalAlignment="Left" Click="MainMenu_Click" />
+                    <MenuItem x:Name="mnuPlayGame" Header="New Game" HorizontalAlignment="Left" Click="Play_Click" />
+                    <MenuItem x:Name="mnuAbout" Header="About" HorizontalAlignment="Left"  Click="About_Click"/>
+                    <MenuItem x:Name="mnuHelp" Header="Help" HorizontalAlignment="Left"  Click="Help_Click"/>
+                    <MenuItem x:Name="mnuExit" Header="Exit" HorizontalAlignment="Left" Click="Exit_Click"/>
+                </MenuItem>
+            </Menu>
+        </StackPanel>
+
+        <DockPanel Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="5">
+
+
+
             <Image Source="/Resources/Background/durak.png" Stretch="Fill"/>
         </DockPanel>
-        <DockPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="6" Background="Gray">
-            
-        </DockPanel>
-        <DockPanel Grid.Row="1" Grid.Column="0">
+        <DockPanel Grid.Row="3" Grid.Column="3">
             <StackPanel>
                 <Button Style="{DynamicResource DurakMenuButton}" Content="Play" Click="Play_Click"/>
             </StackPanel>
         </DockPanel>
-        <DockPanel Grid.Row="2" Grid.RowSpan="2" Grid.Column="0">
+        <DockPanel Grid.Row="4" Grid.RowSpan="2" Grid.Column="3">
             <StackPanel>
                 <Button Style="{DynamicResource DurakMenuButton}" Content="About" Click="About_Click"/>
             </StackPanel>
         </DockPanel>
-        <DockPanel Grid.Row="3" Grid.RowSpan="2" Grid.Column="0">
+        <DockPanel Grid.Row="5" Grid.RowSpan="2" Grid.Column="3">
             <StackPanel>
                 <Button Style="{DynamicResource DurakMenuButton}" Content="Help" Click="Help_Click"/>
             </StackPanel>
         </DockPanel>
-        <DockPanel Grid.Row="4" Grid.RowSpan="2" Grid.Column="0">
+        <DockPanel Grid.Row="6" Grid.RowSpan="2" Grid.Column="3">
             <StackPanel>
                 <Button Style="{DynamicResource DurakMenuButton}" Content="Exit" Click="Exit_Click"/>
             </StackPanel>
         </DockPanel>
-        <ContentControl Grid.Row="0" Grid.Column="1"  Grid.RowSpan="6" Grid.ColumnSpan="5" Content="{Binding}"/>
+        <ContentControl  Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="5" Content="{Binding}"/>
     </Grid>
 </Window>

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Client.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="500" d:DesignWidth="650">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -24,10 +24,10 @@
         </Grid.RowDefinitions>
         
         <DockPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="6" Grid.ColumnSpan="5">
-            <Image Source="/Resources/Background/background.png" Stretch="Fill"/>
+            <Image Source="/Resources/Background/aboutdurak.png" Stretch="Fill"/>
         </DockPanel>
-        <DockPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="6" Grid.ColumnSpan="5">
-            <TextBlock Text="This is the final project for OOP4200, group 4. We have created a working version of the card game 'Durak'. It was created by Gabriel Dietrich, Fleur Blanckaert, Raje Singh, and Dalton Young." FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="350" TextAlignment="Center" TextWrapping="Wrap"/>
+        <DockPanel Grid.Row="1" Grid.Column="0" Grid.RowSpan="6" Grid.ColumnSpan="5">
+            <TextBlock Text =" This is the final project for OOP4200, group 4. We have created a working version of the card game 'Durak'. It was created by Gabriel Dietrich, Fleur Blanckaert, Raje Singh, and Dalton Young." FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="350" TextAlignment="Center" TextWrapping="Wrap" Foreground="white"/>
         </DockPanel>
     </Grid>
 </UserControl>
