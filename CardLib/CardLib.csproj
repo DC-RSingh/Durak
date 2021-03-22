@@ -44,6 +44,7 @@
     <Compile Include="Card.cs" />
     <Compile Include="Cards.cs" />
     <Compile Include="Deck.cs" />
+    <Compile Include="DeckSize.cs" />
     <Compile Include="DurakAI.cs" />
     <Compile Include="Face.cs" />
     <Compile Include="CardBase.cs" />
