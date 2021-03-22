@@ -11,7 +11,7 @@ using CardLib;
 using CardUI;
 using Client.ViewModels;
 using Client.Views;
-
+using Logging;
 
 namespace Client
 {

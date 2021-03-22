@@ -44,9 +44,9 @@
     <Compile Include="Card.cs" />
     <Compile Include="Cards.cs" />
     <Compile Include="Deck.cs" />
+    <Compile Include="DeckSize.cs" />
     <Compile Include="Face.cs" />
     <Compile Include="CardBase.cs" />
-    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rank.cs" />
     <Compile Include="Suit.cs" />

@@ -1,5 +1,8 @@
 ﻿namespace CardLib
 {
+    /// <summary>
+    /// Represents the Ranks a standard Playing Card can have.
+    /// </summary>
     public enum Rank
     {
         Ace = 1,
