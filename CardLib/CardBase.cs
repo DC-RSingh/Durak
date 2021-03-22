@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.Remoting.Messaging;
 
 namespace CardLib
 {
     public abstract class CardBase : ICloneable
     {
+        public event EventHandler CardFlipped;
+
         public abstract object Clone();
 
         public override bool Equals(object card)
@@ -34,7 +37,18 @@ namespace CardLib
 
         public readonly Suit Suit;
         public readonly Rank Rank;
-        public Face Face { get; set; }
+
+        private Face _face;
+        public Face Face
+        {
+            get => _face;
+            set
+            {
+                if (_face == value) return;
+                _face = value;
+                CardFlipped?.Invoke(this, EventArgs.Empty);
+            }
+        }
 
         #endregion
 
