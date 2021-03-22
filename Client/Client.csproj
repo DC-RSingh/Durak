@@ -75,7 +75,6 @@
     <Compile Include="DurakWindow.xaml.cs">
       <DependentUpon>DurakWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GameplayTest.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
