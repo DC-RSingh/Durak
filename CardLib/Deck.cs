@@ -25,8 +25,6 @@ namespace CardLib
             _cards = newCards;
         }
 
-        private Cards cards = new Cards();
-
         public Deck(bool useTrumps, Suit trump) : this()
         {
             CardBase.UseTrumps = useTrumps;
