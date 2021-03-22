@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 using CardLib;
@@ -20,6 +22,15 @@ namespace CardUI
         // TODO: Dynamic Card Back
         private string CURRENT_BACK = "gray_back.png";
 
+        /// <summary>
+        /// The height of an image box control 
+        /// </summary>
+        private const int regularHeight = 107;
+
+        /// <summary>
+        /// The width of a image box control 
+        /// </summary>
+        private const int regularWidth = 75;
         ///// <summary>
         ///// Gets and sets the underlying card image object
         ///// </summary>
@@ -98,9 +109,14 @@ namespace CardUI
         }
 
         // Class Methods
-        public BitmapImage UpdateCardImage()
+        public Image UpdateCardImage()
         {
-            return PlayingCardImage;
+            Image img = new Image { Width = regularWidth, Height = regularHeight, Source = PlayingCardImage};
+
+            //Sets image quality to high
+            RenderOptions.SetBitmapScalingMode(img, BitmapScalingMode.HighQuality);
+
+            return img;
         }
 
         // Private Methods

@@ -32,7 +32,9 @@
         <Canvas  x:Name="pnlAIHand" Height="139" Width="400" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="5"/>
         <Canvas  x:Name="pnlPlayingField" Height="139" Width="400" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="5"/>
         <Canvas  x:Name="pnlPlayerHand" Height="139" Width="400" Grid.Row="5" Grid.RowSpan="2" Grid.ColumnSpan="5"/>
-3
+        <Canvas  x:Name="pnlDeck" Height="107" Width="100" Grid.Row="4" Grid.RowSpan="2" Grid.Column="5"/>
+        <Label  x:Name="lblDeckSize" Grid.Row="6" Foreground="White" Grid.Column="4" Margin="59,59,0,0"/>
+
     </Grid>
 
 </UserControl>

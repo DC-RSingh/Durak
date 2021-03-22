@@ -31,6 +31,7 @@ namespace Client.Views
             
             Play();
 
+
         }
 
         #region FIELDS AND PROPERTIES
@@ -72,6 +73,17 @@ namespace Client.Views
             #region Deck and Discard Pile Init
             var deck = new Deck<PlayingCard>();
             deck.Shuffle();
+
+            //DisplayDeck();
+            #endregion
+
+            #region Determine Trump
+            var trumpCard = deck.Draw();
+
+            CardBase.Trump = trumpCard.Suit;
+            var img = trumpCard.UpdateCardImage();
+
+            pnlDeck.Children.Add(img);
             #endregion
 
             #region Player 1 Init
@@ -83,6 +95,9 @@ namespace Client.Views
             var player2 = new Player("AI", deck.Draw(6));
             DisplayHand(player2);
             #endregion
+
+            lblDeckSize.Content = $"Remaining {deck.Size}";
+
         }
 
         // Testing Displaying the Card
@@ -102,11 +117,8 @@ namespace Client.Views
 
                 PlayingCard test_card = new PlayingCard(player.Hand.ElementAt(i).Suit, player.Hand.ElementAt(i).Rank, player.Hand.ElementAt(i).Face);
 
-                //Dynamically creates a new image
-                Image img = new Image { Width = regularWidth, Height = regularHeight, Source = test_card.UpdateCardImage() };
-
-                //Sets image quality to high
-                RenderOptions.SetBitmapScalingMode(img, BitmapScalingMode.HighQuality);
+                //Updates card image
+                var img = test_card.UpdateCardImage();
 
                 //Adds image to the canvas panel
                 canvas.Children.Add(img);
@@ -255,47 +267,22 @@ namespace Client.Views
             img.Width = regularWidth;
         }
 
-        /// <summary>
-        /// Reset the game view 
-        /// </summary>
-        //public void ResetGame()
-        //{
-        //    var deck = new Deck<PlayingCard>();
-        //    deck.Shuffle();
+        private void DisplayDeck(Deck<CardBase> s)
+        {
+            for (var i = 0; i < s.Size; i++)
+            {
+                s.GetCard(i);
+                //MessageBox.Show(s.GetCard(i).ToString());
 
-        //    Canvas canvas = pnlPlayerHand;
+                PlayingCard test_card = new PlayingCard(s.GetCard(i).Suit, s.GetCard(i).Rank, s.GetCard(i).Face = Face.Down);
 
-        //    Player player = new Player("Test Player", deck.Draw(6));
-        //    var player2 = new Player("AI", deck.Draw(6));
+                var img = test_card.UpdateCardImage();
 
-        //    for (int i = 0; i < player.Hand.Count; i++)
-        //    {
-        //        // Turn AI cards down
-        //        if (player.PlayerName == "AI")
-        //        {
-        //            player.Hand.ElementAt(i).Face = Face.Down;
-        //            canvas = pnlAIHand;
-        //        }
+                //Adds image to the canvas panel
+                pnlDeck.Children.Add(img);
 
-        //        PlayingCard test_card = new PlayingCard(player.Hand.ElementAt(i).Suit, player.Hand.ElementAt(i).Rank, player.Hand.ElementAt(i).Face);
-
-        //        //Dynamically creates a new image
-        //        Image img = new Image { Width = regularWidth, Height = regularHeight, Source = test_card.UpdateCardImage() };
-
-        //        //Sets image quality to high
-        //        RenderOptions.SetBitmapScalingMode(img, BitmapScalingMode.HighQuality);
-
-        //        //Adds image to the canvas panel
-        //        canvas.Children.Add(img);               
-
-        //        // Realign the cards 
-        //        RealignCards(canvas);
-
-        //        pnlPlayingField.Children.Remove(img);
-        //    }
-
-            
-        //}       
+            }
+        }
         #endregion
     }
 }

@@ -34,7 +34,7 @@ namespace Client
 
             deck.Shuffle();
 
-            Logger.Log($"Current Size: {deck.Size}");
+            Logger.Log($"Deck Size: {deck.Size}");
             #endregion
 
             #region Player 1 Init
