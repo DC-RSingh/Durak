@@ -1,7 +1,7 @@
 ﻿namespace CardLib
 {
     /// <summary>
-    /// Represents different sizes a deck can have, with the value of each member indicating the ranks in the deck.
+    /// Represents different sizes a deck can have, with the value of each member indicating the number of ranks in the deck.
     /// </summary>
     public enum DeckSize
     {
