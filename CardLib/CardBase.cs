@@ -123,8 +123,8 @@ namespace CardLib
         /// <returns>true if both the Suit and Rank of the Card are equal, false otherwise.</returns>
         public static bool operator ==(CardBase card1, CardBase card2)
         {
-            Debug.Assert(card1 != null, nameof(card1) + " != null");
-            Debug.Assert(card2 != null, nameof(card2) + " != null");
+            Debug.Assert(!(card1 is null), nameof(card1) + " != null");
+            Debug.Assert(!(card2 is null), nameof(card2) + " != null");
             return card1.Suit == card2.Suit && (card1.Rank == card2.Rank);
         }
 
@@ -146,7 +146,7 @@ namespace CardLib
         /// <param name="card2"></param>
         /// <returns>true if <paramref name="card1"/> is of the same suit and higher rank or if <see cref="UseTrumps"/>
         /// is enabled and <paramref name="card1"/> is of the <see cref="Trump"/> Suit and <paramref name="card2"/> is not.
-        /// Always returns true if <paramref name="card1"/> and <paramref name="card2"/> are of different Suits.
+        /// Always returns false if <paramref name="card1"/> and <paramref name="card2"/> are of different Suits.
         /// </returns>
         public static bool operator >(CardBase card1, CardBase card2)
         {
@@ -167,10 +167,7 @@ namespace CardLib
                 return (card1.Rank > card2.Rank);
             }
 
-            if (UseTrumps && (card2.Suit == Trump))
-                return false;
-            return true;
-
+            return UseTrumps && (card1.Suit == Trump);
         }
 
         /// <summary>
@@ -209,9 +206,7 @@ namespace CardLib
                 return (card1.Rank >= card2.Rank);
             }
 
-            if (UseTrumps && (card2.Suit == Trump))
-                return false;
-            return true;
+            return UseTrumps && (card1.Suit == Trump);
         }
 
         /// <summary>
