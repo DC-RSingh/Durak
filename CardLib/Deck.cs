@@ -4,17 +4,33 @@ using System.Linq;
 namespace CardLib
 {
     // TODO: Add Comments
-    // TODO: Configure for different deck sizes 20, 36, 52
-    public class Deck<T> : ICloneable where T : CardBase
+    /// <summary>
+    /// Represents a Deck of <see cref="Card"/> that emulates Playing Card deck functionality.
+    /// </summary>
+    /// <typeparam name="T">A type that is convertible to the class <see cref="Card"/></typeparam>
+    public class Deck<T> : ICloneable where T : Card
     {
+        /// <summary>
+        /// Event that is invoked when the last card in the deck is drawn.
+        /// Replaces <see cref="CardDrawn"/> event in that case.
+        /// </summary>
         public event EventHandler LastCardDrawn;
+
+        /// <summary>
+        /// Event that is invoked whenever the deck is shuffled.
+        /// </summary>
         public event EventHandler DeckShuffled;
+
+
         public event EventHandler CardDrawn;
 
-        // TODO: 20 = 10 to Ace All Suits, 36 = 6 to Ace All Suits
         private readonly Cards _cards = new Cards();
 
         public int Size => _cards.Count;
+
+        public DeckSize DeckType { get; private set; }
+
+        public int OriginalDeckSize => (int)DeckType * 4;
 
         public bool CanDraw => _cards.Count > 0;
 
@@ -29,29 +45,38 @@ namespace CardLib
             _cards = newCards;
         }
 
-        public Deck(bool useTrumps, Suit trump) : this()
+        public Deck(bool useTrumps, Suit trump = Suit.Blank, DeckSize size = DeckSize.FiftyTwo) : this(size)
         {
             CardBase.UseTrumps = useTrumps;
             CardBase.Trump = trump;
         }
 
-        public Deck(bool isAceHigh) : this()
+        public Deck(bool isAceHigh, DeckSize size = DeckSize.FiftyTwo) : this(size)
         {
             CardBase.IsAceHigh = isAceHigh;
         }
 
-        public Deck(bool isAceHigh, bool useTrumps, Suit trump) : this()
+        public Deck(bool isAceHigh, bool useTrumps, Suit trump = Suit.Blank, DeckSize size = DeckSize.FiftyTwo) : this(size)
         {
             CardBase.IsAceHigh = isAceHigh;
             CardBase.UseTrumps = useTrumps;
             CardBase.Trump = trump;
         }
 
-        public Deck()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="size"></param>
+        public Deck(DeckSize size = DeckSize.FiftyTwo)
         {
+            DeckType = size;
+            
             for (var suitVal = 0; suitVal < 4; suitVal++)
             {
-                for (var rankVal = 1; rankVal < 14; rankVal++)
+                // Add the ACE for that suit
+                _cards.Add((T)Activator.CreateInstance(typeof(T), (Suit)suitVal, (Rank)1));
+
+                for (var rankVal = 13; rankVal > 13 - (int)size + 1; rankVal--)
                 {
                     _cards.Add((T)Activator.CreateInstance(typeof(T), (Suit)suitVal, (Rank)rankVal));
                 }
@@ -60,20 +85,20 @@ namespace CardLib
 
         public T GetCard(int cardNum)
         {
-            if (cardNum >= 0 && cardNum <= 51)
+            if (cardNum >= 0 && cardNum <= Size)
                 return (T)_cards[cardNum];
    
-            throw new ArgumentOutOfRangeException(nameof(cardNum), cardNum, "Value must be between 0 and 51.");
+            throw new ArgumentOutOfRangeException(nameof(cardNum), cardNum, $"Value must be between 0 and {Size}.");
         }
 
         public void Shuffle()
         {
             var newDeck = new Cards();
 
-            var assigned = new bool[52];
+            var assigned = new bool[Size];
             var sourceGen = new Random();
 
-            for (var i = 0; i < 52; i++)
+            for (var i = 0; i < Size; i++)
             {
 
                 var destCard = 0;
@@ -81,7 +106,7 @@ namespace CardLib
 
                 while (foundCard == false)
                 {
-                    destCard = sourceGen.Next(52);
+                    destCard = sourceGen.Next(Size);
                     if (assigned[destCard] == false)
                         foundCard = true;
                 }
@@ -93,12 +118,12 @@ namespace CardLib
             DeckShuffled?.Invoke(this, EventArgs.Empty);
         }
 
-        // TODO: Throw exception if drawing would result in OutOfRange
+        // TODO: Make a note that it throws an exception if the cards are out of range
         public T Draw()
         {
             var drawn = _cards.Last();
 
-            _cards.RemoveAt(_cards.Count - 1);
+            _cards.RemoveAt(Size - 1);
 
             InvokeDrawEvents(EventArgs.Empty);
             return (T)drawn;
@@ -107,6 +132,9 @@ namespace CardLib
         public Cards Draw(int amount)
         {
             var cards = new Cards();
+
+            if (amount > Size) throw new ArgumentOutOfRangeException(nameof(amount), amount, 
+                $"Cannot draw {amount}! Deck only has {Size} cards!");
 
             for (var i = 0; i < amount; i++)
             {
