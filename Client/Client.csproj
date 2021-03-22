@@ -243,5 +243,8 @@
   <ItemGroup>
     <Resource Include="Resources\Background\menuicon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Background\menuicon_yellow.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

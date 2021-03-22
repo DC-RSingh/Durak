@@ -29,7 +29,6 @@ namespace Client
             ConsoleManager.SetConsoleIcon(new Icon($"{icoPath}/icon.ico"));
             InitializeComponent();
             Logger.Start();
-
         }
         private void Play_Click(object sender, RoutedEventArgs e)
         {

@@ -57,21 +57,34 @@
         </Setter>
     </Style>
 
-    <Style x:Key="DurakMenuItem" TargetType="MenuItem">
-        <Setter Property="HeaderTemplate">
-            <Setter.Value>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                </DataTemplate>
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Background" Value="Gray" />
-                <Setter Property="Foreground" Value ="{StaticResource durakButtonText}"/>
-            </Trigger>
-        </Style.Triggers>
+    <Style x:Key="DurakMenu" TargetType="{x:Type Menu}">
+        <Setter Property="Background" Value="Black" />
+        <Setter Property="Opacity" Value="0.3" />
     </Style>
 
+    <Style x:Key="DurakMenuItem" TargetType="{x:Type MenuItem}">
+        <Setter Property="Background" Value="#FFE533" />
+        <Setter Property="Foreground" Value ="{StaticResource durakButtonText}" />
+        <Setter Property="TextBlock.FontWeight" Value="Bold"/>
+        <Setter Property="TextBlock.FontSize" Value="12.5"/>
+        <Setter Property="MaxWidth" Value="150"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Foreground" Value ="White" />
+                <Setter Property="Width" Value="150"/>
+                
+            </Trigger>
+        </Style.Triggers>
+        <!--<Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type MenuItem}">
+                   
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>-->
+    </Style>
 
 </ResourceDictionary>

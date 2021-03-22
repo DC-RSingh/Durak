@@ -26,12 +26,8 @@ namespace Client.Views
     {
         public GameView()
         {
-            
             InitializeComponent();
-            
             Play();
-
-
         }
 
         #region FIELDS AND PROPERTIES

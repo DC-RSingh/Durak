@@ -10,19 +10,7 @@
         WindowStartupLocation="CenterScreen"
         Title="Durak" Height="600" Width="750" MinHeight ="500" MinWidth="650" Icon="icon.ico">
     
-
     <Grid>
-        
-
-    <!--<Window.Resources>
-        --><!--<DataTemplate x:Name="gameViewTemplate" DataType="{x:Type viewmodels:GameViewModel}">
-            <views:GameView DataContext="{Binding}"/>
-        </DataTemplate>-->
-        <!--<DataTemplate x:Name="aboutViewTemplate" DataType="{x:Type viewmodels:AboutViewModel}">
-            <views:AboutView DataContext="{Binding}"/>
-        </DataTemplate>--><!--
-    </Window.Resources>-->
-
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -39,48 +27,26 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
-        
+
+        <DockPanel Grid.RowSpan="7" Grid.ColumnSpan="5">
+            <Image Source="/Resources/Background/durak.png" Stretch="Fill"/>
+        </DockPanel>
         <StackPanel VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="5">
-            <Menu Width="Auto" Height="35">
-                <MenuItem Style="{DynamicResource DurakMenuItem}" Height="35" Width="55">
+            <Menu  Style="{DynamicResource DurakMenu}" Width="Auto" Height="35">
+                <MenuItem Height="35" Width="55" >
                     <MenuItem.Icon>
-                        <Image RenderOptions.BitmapScalingMode="HighQuality" Source="Resources/Background/menuicon.png" Height="62" Margin="0,-12,-29,-34" VerticalAlignment="Top" />
+                        <Image RenderOptions.BitmapScalingMode="HighQuality" Source="Resources/Background/menuicon_yellow.png" Margin="0,-12,-29,-34" VerticalAlignment="Top" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="mnuMainMenu" Header="Main Menu" HorizontalAlignment="Left" Click="MainMenu_Click" />
-                    <MenuItem x:Name="mnuPlayGame" Header="New Game" HorizontalAlignment="Left" Click="Play_Click" />
-                    <MenuItem x:Name="mnuAbout" Header="About" HorizontalAlignment="Left"  Click="About_Click"/>
-                    <MenuItem x:Name="mnuHelp" Header="Help" HorizontalAlignment="Left"  Click="Help_Click"/>
-                    <MenuItem x:Name="mnuExit" Header="Exit" HorizontalAlignment="Left" Click="ExitMenu_Click"/>
+                    <MenuItem Style="{DynamicResource DurakMenuItem}" x:Name="mnuMainMenu" Header="Main Menu" Click="MainMenu_Click" />
+                    <MenuItem Style="{DynamicResource DurakMenuItem}" x:Name="mnuPlayGame" Header="New Game" Click="Play_Click" />
+                    <MenuItem Style="{DynamicResource DurakMenuItem}" x:Name="mnuAbout" Header="About" Click="About_Click" />
+                    <MenuItem Style="{DynamicResource DurakMenuItem}" x:Name="mnuHelp" Header="Help" Click="Help_Click" />
+                    <MenuItem Style="{DynamicResource DurakMenuItem}" x:Name="mnuExit" Header="Exit" Click="ExitMenu_Click"/>
                 </MenuItem>
             </Menu>
         </StackPanel>
         <views:MainPageView x:Name="mainPage" Grid.Row="0" Grid.RowSpan ="7" Grid.ColumnSpan="5"/>
         <ContentControl Grid.RowSpan ="7" Grid.ColumnSpan="5" Content="{Binding}"/>
         
-        <!--<DockPanel Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="5">
-            <Image Source="/Resources/Background/durak.png" Stretch="Fill"/>
-        </DockPanel>
-        <DockPanel Grid.Row="3" Grid.Column="3">
-            <StackPanel>
-                <Button Style="{DynamicResource DurakMenuButton}" Content="Play" Click="Play_Click"/>
-            </StackPanel>
-        </DockPanel>
-        <DockPanel Grid.Row="4" Grid.RowSpan="2" Grid.Column="3">
-            <StackPanel>
-                <Button Style="{DynamicResource DurakMenuButton}" Content="About" Click="About_Click"/>
-            </StackPanel>
-        </DockPanel>
-        <DockPanel Grid.Row="5" Grid.RowSpan="2" Grid.Column="3">
-            <StackPanel>
-                <Button Style="{DynamicResource DurakMenuButton}" Content="Help" Click="Help_Click"/>
-            </StackPanel>
-        </DockPanel>
-        <DockPanel Grid.Row="6" Grid.RowSpan="2" Grid.Column="3">
-            <StackPanel>
-                <Button Style="{DynamicResource DurakMenuButton}" Content="Game Options" Click="GameOptions_Click"/>
-            </StackPanel>
-        </DockPanel>
-        <ContentControl  Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="5" Content="{Binding}"/>-->
     </Grid>
 </Window>
