@@ -31,19 +31,21 @@ namespace DurakLib
         /// </summary>
         public string PlayerName { get; private set; }
 
-        private Cards _playableCards;
+        private Cards _playableCards = new Cards();
 
         public Cards PlayableCards
         {
             get
             {
-                var isSubset = !_playableCards.Except(Hand).Any();
-                if (!isSubset)
-                {
-                    _playableCards = null;
-                }
-
+                //if (!(_playableCards is null)) return _playableCards;
+                //_playableCards = new Cards();
                 return _playableCards;
+                //var isSubset = !_playableCards.Except(Hand).Any();
+                //if (!isSubset)
+                //{
+                //    _playableCards = null;
+                //}
+
             }
 
             protected set => _playableCards = value;
@@ -56,8 +58,8 @@ namespace DurakLib
         #endregion
 
         #region Methods
-        // TODO: Might be useful to client code as well, will keep public for now
-        public bool IsPlayable(Cards river, CardBase card)
+        
+        protected bool IsPlayable(Cards river, CardBase card)
         {
             // An attacker can only play cards whose rank matches a card in the river
             // A defender can only play cards that are greater than the last card played in the river, or a trump card.
@@ -81,17 +83,19 @@ namespace DurakLib
 
         public void ChooseCard(int choice)
         {
-            ChosenCard = Hand.Retrieve(choice);
+            HasChosen = true;
+            ChosenCard = Hand.Retrieve(Hand.IndexOf(PlayableCards.CardAt(choice)));
         }
 
         public void ChooseCard(CardBase card)
         {
-            ChosenCard = Hand.Retrieve(Hand.IndexOf(card));
+            ChooseCard(PlayableCards.IndexOf(card));
         }
 
         protected void DeterminePlayable(Cards river)
         {
-            _playableCards = Hand.FindAll(ele => IsPlayable(river, ele)) as Cards;
+            _playableCards.Clear();
+            _playableCards.AddRange(Hand.FindAll(ele => IsPlayable(river, ele)));
         }
 
         protected void ResetChosen()

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using CardLib;
 
@@ -18,18 +19,20 @@ namespace DurakLib
             ThinkDelay = 3000;
         }
 
-        public override async void TakeTurn(Cards river)
+        public override void TakeTurn(Cards river)
         {
             ResetChosen();
             DeterminePlayable(river);
 
             StartedThinking?.Invoke(this, EventArgs.Empty);
-            await Task.Delay(ThinkDelay);
+            // await Task.Delay(ThinkDelay)
+            Task.Delay(ThinkDelay).Wait();
 
-            if (PlayableCards.Count == 0)
+            if (!CanPlay)
             {
                 ChosenCard = null;
-                HasChosen = true;
+                HasChosen = false;
+                StoppedThinking?.Invoke(this, EventArgs.Empty);
                 return;
             }
 

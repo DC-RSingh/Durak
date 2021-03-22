@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardLib", "..\CardLib\CardL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "..\Logging\Logging.csproj", "{FC9D57E9-AD20-4B7F-924E-34E38EAF2D99}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleDurak", "..\ConsoleDurak\ConsoleDurak.csproj", "{D8F8401C-FCAD-4D49-8DBF-A8FC6D22A648}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DurakLib", "..\DurakLib\DurakLib.csproj", "{9A945031-C9CF-4229-909D-9DDA9F117B71}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{FC9D57E9-AD20-4B7F-924E-34E38EAF2D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC9D57E9-AD20-4B7F-924E-34E38EAF2D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC9D57E9-AD20-4B7F-924E-34E38EAF2D99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8F8401C-FCAD-4D49-8DBF-A8FC6D22A648}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8F8401C-FCAD-4D49-8DBF-A8FC6D22A648}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8F8401C-FCAD-4D49-8DBF-A8FC6D22A648}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8F8401C-FCAD-4D49-8DBF-A8FC6D22A648}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A945031-C9CF-4229-909D-9DDA9F117B71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A945031-C9CF-4229-909D-9DDA9F117B71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A945031-C9CF-4229-909D-9DDA9F117B71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A945031-C9CF-4229-909D-9DDA9F117B71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
