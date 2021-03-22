@@ -21,7 +21,7 @@ namespace CardLib
         }
 
         /// <summary>
-        /// Utility method for copying card instances into another Cards instance-used in Deck.Shuffle().
+        /// Utility method for copying card instances into another Cards instances.
         /// This implementation assumes that source and target collections are the same size.
         /// </summary>
         /// <param name="targetCards"></param>
@@ -47,8 +47,9 @@ namespace CardLib
         }
 
         /// <summary>
-        /// Gets a card at the specified position. Exactly the same as <see cref="List{T}"/> ElementAt.
+        /// Gets a card at the specified position.
         /// </summary>
+        /// <remarks> Exactly the same as <see cref="List{T}"/> ElementAt. Only a semantic difference.</remarks>
         /// <param name="pos">The position of the card in the list.</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
