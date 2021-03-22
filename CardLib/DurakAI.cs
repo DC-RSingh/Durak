@@ -1,4 +1,5 @@
 ﻿// TODO: This should probably be moved to a different class library
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,9 @@ namespace CardLib
 {
     public class DurakAI : Player
     {
+        public event EventHandler StartedThinking;
+        public event EventHandler StoppedThinking;
+
         public int ThinkDelay { get; set; }
 
         public DurakAI(string name, Cards hand) : base(name, hand)
@@ -18,6 +22,7 @@ namespace CardLib
         {
             PlayableCards = (Cards) Hand.FindAll(card => IsPlayable(river, card));
 
+            StartedThinking?.Invoke(this, EventArgs.Empty);
             await Task.Delay(ThinkDelay);
 
             if (PlayableCards.Count == 0)
@@ -31,6 +36,8 @@ namespace CardLib
                 Attacking();
             else
                 Defending();
+
+            StoppedThinking?.Invoke(this, EventArgs.Empty);
         }
 
         protected void Attacking()
