@@ -62,7 +62,7 @@ namespace ConsoleDurak
             var sizeChosen = false;
             do
             {
-                ConsoleAlert("What Deck Size would you like to play with 52, 36 or 20 (52 is Default): ", ConsoleColor.DarkYellow);
+                ConsoleAlert("What Deck Size would you like to play with 52, 36 or 20 (Enter for 52): ", ConsoleColor.DarkYellow);
                 var deckSizeChoice = Console.ReadLine();
                 switch (deckSizeChoice)
                 {
@@ -251,9 +251,7 @@ namespace ConsoleDurak
                 }
                 else
                 {   // otherwise, the current attacker gets to attack again
-                    ConsoleAlert($"\nAttack Success! {attacker.PlayerName} is attacking again!", ConsoleColor.Green);
-                    Console.WriteLine("When does it brick?");
-                    Console.WriteLine("Is it in here?");
+                    ConsoleAlert($"\nAttack Success! {attacker.PlayerName} is attacking again!\n", ConsoleColor.Green);
                 }
 
             } while (true);
@@ -423,9 +421,9 @@ namespace ConsoleDurak
 
                     if (!_playDeck.CanDraw) continue;
                     player.Hand.Add(_playDeck.Draw());
-
+                    if (player.HandSize == refillTo) refilledCount++;
                 }
-            } while (_playDeck.CanDraw && refilledCount != _players.Length);
+            } while (_playDeck.CanDraw && refilledCount < _players.Length);
 
         }
 
@@ -439,25 +437,31 @@ namespace ConsoleDurak
         {
             #region Game State Info
 
+            // Wait for User Input to Continue
             Console.Write("\nPress any key to continue...");
             Console.ReadKey();
             Console.Clear();
 
+            Console.WriteLine("                  DURAK                  ");
             Console.WriteLine("=========================================");
 
+            // Output Deck Size, Turn and Bout Count and Current Player and Phase in DarkCyan
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine($"Current Deck Size: {_playDeck.Size}");
             Console.WriteLine($"Turn: {_turnCount} | Bout: {_boutCount}");
             var currentPhase = currentPlayer == attacker ? "Attacking" : "Defending";
             Console.WriteLine($"Currently Playing: {currentPlayer.PlayerName} | Current Phase: {currentPhase}");
 
+            // Output This Turn's Attacker and Defender and their Hand Size in Magenta
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine($"Turn Attacker: {attacker.PlayerName} | Hand Size: {attacker.HandSize}");
             Console.WriteLine($"Turn Defender: {defender.PlayerName} | Hand Size: {defender.HandSize}");
 
+            // Output Trump Card and Suit in DarkCyan
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine($"TRUMP CARD: {_trumpCard} | TRUMP SUIT: {_trumpCard.Suit}");
 
+            // Output River Card Count and Cards in DarkBlue
             Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.WriteLine($"# of Cards in River: {_river.Count}");
 
