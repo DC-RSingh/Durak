@@ -84,7 +84,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ConsoleManager.cs" />
-    
     <Compile Include="Logger.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -222,6 +221,10 @@
     <ProjectReference Include="..\CardUI\CardUI.csproj">
       <Project>{7f06a553-eb78-49de-ba4b-aeccc35d9f9f}</Project>
       <Name>CardUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DurakLib\DurakLib.csproj">
+      <Project>{9a945031-c9cf-4229-909d-9dda9f117b71}</Project>
+      <Name>DurakLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{fc9d57e9-ad20-4b7f-924e-34e38eaf2d99}</Project>
