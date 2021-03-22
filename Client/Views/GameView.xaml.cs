@@ -28,6 +28,7 @@ namespace Client.Views
         {
             
             InitializeComponent();
+            
             Play();
 
         }
@@ -63,17 +64,9 @@ namespace Client.Views
         /// The regular size of a CardBox control
         /// </summary>
         static private Size regularSize = new Size(75, 107);
-
-
         #endregion EVENT HANDLERS
-        #region
-        #endregion
 
-
- 
         #region METHODS
-
-
         public void Play()
         {
             #region Deck and Discard Pile Init
@@ -261,6 +254,48 @@ namespace Client.Views
             img.Height = regularHeight;
             img.Width = regularWidth;
         }
+
+        /// <summary>
+        /// Reset the game view 
+        /// </summary>
+        //public void ResetGame()
+        //{
+        //    var deck = new Deck<PlayingCard>();
+        //    deck.Shuffle();
+
+        //    Canvas canvas = pnlPlayerHand;
+
+        //    Player player = new Player("Test Player", deck.Draw(6));
+        //    var player2 = new Player("AI", deck.Draw(6));
+
+        //    for (int i = 0; i < player.Hand.Count; i++)
+        //    {
+        //        // Turn AI cards down
+        //        if (player.PlayerName == "AI")
+        //        {
+        //            player.Hand.ElementAt(i).Face = Face.Down;
+        //            canvas = pnlAIHand;
+        //        }
+
+        //        PlayingCard test_card = new PlayingCard(player.Hand.ElementAt(i).Suit, player.Hand.ElementAt(i).Rank, player.Hand.ElementAt(i).Face);
+
+        //        //Dynamically creates a new image
+        //        Image img = new Image { Width = regularWidth, Height = regularHeight, Source = test_card.UpdateCardImage() };
+
+        //        //Sets image quality to high
+        //        RenderOptions.SetBitmapScalingMode(img, BitmapScalingMode.HighQuality);
+
+        //        //Adds image to the canvas panel
+        //        canvas.Children.Add(img);               
+
+        //        // Realign the cards 
+        //        RealignCards(canvas);
+
+        //        pnlPlayingField.Children.Remove(img);
+        //    }
+
+            
+        //}       
         #endregion
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using CardLib;
 using CardUI;
 using Client.ViewModels;
@@ -19,36 +20,27 @@ namespace Client
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+
         public MainWindow()
         {
-            ConsoleManager.Show();  // Show the Console
             var icoPath = Directory.GetParent(Environment.CurrentDirectory).
                 Parent.
                 FullName; // Really Scuffed Icon Path Retrieval
             ConsoleManager.SetConsoleIcon(new Icon($"{icoPath}/icon.ico"));
             InitializeComponent();
-            Logger.Start(); // Start Logging
-            
-            GameplayTest.Play();
-        }
+            Logger.Start();
 
+        }
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-            DataContext = new GameViewModel();
-            InitializeComponent();
-            //TODO: RESET GAME 
-            //ResetGame();
             GameView gameView = new GameView();
-            gameView.Play();
-
-            //Delete Game object
-            //Recreate
+            DataContext = gameView;
         }
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
-            DataContext = new AboutViewModel();
+            AboutView aboutView = new AboutView();
+            DataContext = aboutView;
         }
 
         private void Help_Click(object sender, RoutedEventArgs e)
@@ -56,15 +48,20 @@ namespace Client
             System.Diagnostics.Process.Start("https://www.pagat.com/beating/podkidnoy_durak.html");
         }
 
-        private void Exit_Click(object sender, RoutedEventArgs e)
+        private void GameOptions_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ExitMenu_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
         private void MainMenu_Click(object sender, RoutedEventArgs e)
         {
-            //Add a MainMenu View 
-            //DataContext = new GameViewModel();
-        }
+            MainPageView mainPage = new MainPageView();
+            DataContext = mainPage;
 
+        }
     }
 }

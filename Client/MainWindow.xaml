@@ -8,18 +8,21 @@
         xmlns:views="clr-namespace:Client.Views" 
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Durak" Height="500" Width="650" MinHeight ="300" MinWidth="450" Icon="icon.ico">
-
-    <Window.Resources>
-        <DataTemplate x:Name="gameViewTemplate" DataType="{x:Type viewmodels:GameViewModel}">
-            <views:GameView DataContext="{Binding}"/>
-        </DataTemplate>
-        <DataTemplate x:Name="aboutViewTemplate" DataType="{x:Type viewmodels:AboutViewModel}">
-            <views:AboutView DataContext="{Binding}"/>
-        </DataTemplate>
-    </Window.Resources>
+        Title="Durak" Height="600" Width="750" MinHeight ="500" MinWidth="650" Icon="icon.ico">
+    
 
     <Grid>
+        
+
+    <!--<Window.Resources>
+        --><!--<DataTemplate x:Name="gameViewTemplate" DataType="{x:Type viewmodels:GameViewModel}">
+            <views:GameView DataContext="{Binding}"/>
+        </DataTemplate>-->
+        <!--<DataTemplate x:Name="aboutViewTemplate" DataType="{x:Type viewmodels:AboutViewModel}">
+            <views:AboutView DataContext="{Binding}"/>
+        </DataTemplate>--><!--
+    </Window.Resources>-->
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -36,8 +39,9 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
-        <StackPanel VerticalAlignment="Top" Grid.RowSpan="1" Grid.ColumnSpan="5">
+        
+        
+        <StackPanel VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="5">
             <Menu Width="Auto" Height="35">
                 <MenuItem Style="{DynamicResource DurakMenuItem}" Height="35" Width="55">
                     <MenuItem.Icon>
@@ -47,15 +51,14 @@
                     <MenuItem x:Name="mnuPlayGame" Header="New Game" HorizontalAlignment="Left" Click="Play_Click" />
                     <MenuItem x:Name="mnuAbout" Header="About" HorizontalAlignment="Left"  Click="About_Click"/>
                     <MenuItem x:Name="mnuHelp" Header="Help" HorizontalAlignment="Left"  Click="Help_Click"/>
-                    <MenuItem x:Name="mnuExit" Header="Exit" HorizontalAlignment="Left" Click="Exit_Click"/>
+                    <MenuItem x:Name="mnuExit" Header="Exit" HorizontalAlignment="Left" Click="ExitMenu_Click"/>
                 </MenuItem>
             </Menu>
         </StackPanel>
-
-        <DockPanel Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="5">
-
-
-
+        <views:MainPageView x:Name="mainPage" Grid.Row="0" Grid.RowSpan ="7" Grid.ColumnSpan="5"/>
+        <ContentControl Grid.RowSpan ="7" Grid.ColumnSpan="5" Content="{Binding}"/>
+        
+        <!--<DockPanel Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="5">
             <Image Source="/Resources/Background/durak.png" Stretch="Fill"/>
         </DockPanel>
         <DockPanel Grid.Row="3" Grid.Column="3">
@@ -75,9 +78,9 @@
         </DockPanel>
         <DockPanel Grid.Row="6" Grid.RowSpan="2" Grid.Column="3">
             <StackPanel>
-                <Button Style="{DynamicResource DurakMenuButton}" Content="Exit" Click="Exit_Click"/>
+                <Button Style="{DynamicResource DurakMenuButton}" Content="Game Options" Click="GameOptions_Click"/>
             </StackPanel>
         </DockPanel>
-        <ContentControl  Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="5" Content="{Binding}"/>
+        <ContentControl  Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="5" Content="{Binding}"/>-->
     </Grid>
 </Window>

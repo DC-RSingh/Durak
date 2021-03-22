@@ -5,25 +5,34 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Client.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="430" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="750" >
 
     <Grid x:Name="DurakRoot">
-        <Image Source="/Resources/Background/background.png" Stretch="Fill"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-        <Image x:Name="imgPlayingCard"  Height="107" Width="70" Margin="295,178,277,184">
-            <Image.RenderTransform>
-                <TranslateTransform X="{Binding MyXValue}" Y="{Binding MyYValue}" />
-            </Image.RenderTransform>
-        </Image>
-        <Image x:Name="imgPlayingCard1"  Height="107" Width="70" Margin="295,178,277,184">
-            <Image.RenderTransform>
-                <TranslateTransform X="{Binding MyXValue}" Y="{Binding MyYValue}" />
-            </Image.RenderTransform>
-        </Image>
-        <Canvas  x:Name="pnlPlayingField" HorizontalAlignment="Left" Height="139" Margin="139,137,0,0" VerticalAlignment="Top" Width="400"/>
-        <Canvas  x:Name="pnlPlayerHand" HorizontalAlignment="Left" Height="139" Margin="139,276,0,0" VerticalAlignment="Top" Width="400"/>
-        <Canvas  x:Name="pnlAIHand" HorizontalAlignment="Left" Height="139" Margin="209,34,0,0" VerticalAlignment="Top" Width="400"/>
+        <DockPanel Grid.Row="1" Grid.RowSpan="7" Grid.ColumnSpan="5">
+            <Image Source="/Resources/Background/background.png" Stretch="Fill"/>
+        </DockPanel>
 
+        <Canvas  x:Name="pnlAIHand" Height="139" Width="400" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="5"/>
+        <Canvas  x:Name="pnlPlayingField" Height="139" Width="400" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="5"/>
+        <Canvas  x:Name="pnlPlayerHand" Height="139" Width="400" Grid.Row="5" Grid.RowSpan="2" Grid.ColumnSpan="5"/>
+3
     </Grid>
 
 </UserControl>
