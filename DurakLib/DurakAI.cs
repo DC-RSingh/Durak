@@ -1,10 +1,10 @@
-﻿// TODO: This should probably be moved to a different class library
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CardLib;
 
-namespace CardLib
+namespace DurakLib
 {
     public class DurakAI : Player
     {
@@ -20,7 +20,8 @@ namespace CardLib
 
         public override async void TakeTurn(Cards river)
         {
-            PlayableCards = (Cards) Hand.FindAll(card => IsPlayable(river, card));
+            ResetChosen();
+            DeterminePlayable(river);
 
             StartedThinking?.Invoke(this, EventArgs.Empty);
             await Task.Delay(ThinkDelay);
@@ -46,7 +47,7 @@ namespace CardLib
 
             var bestCard = cardValues.OrderBy(kvp => kvp.Value).First().Key;
 
-            ChosenCard = bestCard;
+            ChooseCard(bestCard);
         }
 
         protected void Defending()
@@ -62,7 +63,7 @@ namespace CardLib
             foreach (var card in playable)
             {
                 int trumpIncrease = card.Suit == CardBase.Trump ? 1000 : 0;
-                int cardValue = card.Rank == Rank.Ace ? aceValue : (int) card.Rank;
+                int cardValue = card.Rank == Rank.Ace ? aceValue : (int)card.Rank;
 
                 values.Add(card, cardValue + trumpIncrease);
             }
