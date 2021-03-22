@@ -5,19 +5,49 @@ using DurakLib;
 
 namespace ConsoleDurak
 {
+    /// <summary>
+    /// Plays a game of Durak in a Console!
+    /// </summary>
     public static class Durak
     {
         #region FIELDS
 
+        /// <summary>
+        /// A deck of <see cref="Card"/> representing the Play Deck.
+        /// </summary>
         private static Deck<Card> _playDeck;
+
+        /// <summary>
+        /// A <see cref="Cards"/> collection representing the cards in play during a bout.
+        /// </summary>
         private static Cards _river;
+
+        /// <summary>
+        /// An array of <see cref="Player"/> containing the players of the game.
+        /// </summary>
         private static Player[] _players;
+
+        /// <summary>
+        /// Represents the amount of turns that have elapsed (a turn ends when an attack ends)
+        /// </summary>
         private static int _turnCount;
+
+        /// <summary>
+        /// Represents the amount of bouts during the current turn (a bout ends after both players move)
+        /// </summary>
         private static int _boutCount;
+
+        /// <summary>
+        /// The trump card that was chosen.
+        /// </summary>
         private static CardBase _trumpCard;
 
         #endregion
 
+        /// <summary>
+        /// Durak Entry Point.
+        /// </summary>
+        /// <param name="args">Command line arguments.</param>
         private static void Main(string[] args)
         {
             Console.Title = "Durak - The Fool!";
@@ -28,7 +58,7 @@ namespace ConsoleDurak
 
             #region Prompt for Deck Size
 
-            var sizeChoice = DeckSize.FiftyTwo;
+            var sizeChoice = DeckSize.FiftyTwo; // Set Default DeckSize to 52
             var sizeChosen = false;
             do
             {
@@ -64,7 +94,7 @@ namespace ConsoleDurak
 
             _river = new Cards();
 
-            const int DRAW_AMT = 6;
+            const int DRAW_AMT = 6; // The Amount of Cards to Players should have in their hand at the start of every turn
 
             _playDeck.Shuffle();
 
@@ -96,7 +126,7 @@ namespace ConsoleDurak
 
             var flip = new Random();
 
-            if (flip.Next(2) == 0)
+            if (flip.Next(2) == 0)  // Coin Flip, randomly choosing the first attacker
             {
                 player2.IsAttacking = true;
                 player1.IsAttacking = false;
@@ -111,6 +141,7 @@ namespace ConsoleDurak
 
             #region Wire Events
 
+            // Add the Necessary Event Handlers to the players events
             player1.TurnBegin += HumanPlayer_TurnStart;
             player1.TurnEnd += HumanPlayer_TurnEnd;
 
@@ -119,9 +150,9 @@ namespace ConsoleDurak
 
             #endregion
 
-            _players = new[] { player1, player2 };
+            _players = new[] { player1, player2 };  // initialize the player array
 
-            var winner = false;
+            var winner = false; // set the winner boolean to false
 
             // Init Turn Count
             _turnCount = 0;
@@ -161,20 +192,23 @@ namespace ConsoleDurak
                 // Reset Bout Count
                 _boutCount = 1;
 
+                // Refill Hands and Prompt the Player with the Current Game State
                 RefillHands(DRAW_AMT);
                 PromptGameState(currentPlayer, attacker, defender);
 
+                // Turn Loop (increments bout every iteration), ends when an attack is failed
                 do
                 {
-                    attacker.TakeTurn(_river);
+                    attacker.TakeTurn(_river);  // Perform the attacker's turn, handled by the HumanPlayer_StartTurn and HumanPlayer_EndTurn event handlers
 
+                    // if the attacker chose a card to play, add that card to the play pile (river)
                     if (attacker.HasChosen)
                     {
                         _river.Add(attacker.ChosenCard);
-                        if (attacker.HandSize == 0) break;
+                        if (attacker.HandSize == 0) break;  // if the attacker played their last card, break from the turn loop
                     }
                     else
-                    {
+                    { // otherwise, clear the river and declare the attack a failure (set attackSuccess to false)
                         _river.Clear();
                         attackSuccess = false;
                         continue;
@@ -183,17 +217,17 @@ namespace ConsoleDurak
                     currentPlayer = defender;
                     PromptGameState(currentPlayer, attacker, defender);
 
-                    defender.TakeTurn(_river);
+                    defender.TakeTurn(_river);  // Perform the defender's turn, logic is handled by the class for the differences.
 
                     _boutCount++;
 
-                    if (defender.HasChosen)
+                    if (defender.HasChosen) // if the defender chose, add to the play pile
                     {
                         _river.Add(defender.ChosenCard);
                         if (defender.HandSize == 0) break;
                     }
                     else
-                    {
+                    {   // otherwise, prompt that the defense failed and add the play pile (river) to the defender's hand
                         ConsoleAlert($"Defense Failed! {defender.PlayerName} will now take the River Cards!\n", ConsoleColor.DarkRed);
                         defender.Hand.AddRange(_river);
                         _river.Clear();
@@ -201,13 +235,13 @@ namespace ConsoleDurak
                         
                     }
 
-                    currentPlayer = attacker;
-                    PromptGameState(currentPlayer, attacker, defender);
+                    currentPlayer = attacker;   // Switch the current player to the attacker
+                    PromptGameState(currentPlayer, attacker, defender); // Prompt the user with the game state
                 } while (attackSuccess && defenseSuccess);
 
-                if (defenseSuccess)
+                if (defenseSuccess) // if the defense was a success, prompt user that attack failed and swap roles
                 {
-                    ConsoleAlert("Attack Failed! Switching attackers...\n", ConsoleColor.DarkRed);
+                    ConsoleAlert("\nAttack Failed! Switching attackers...", ConsoleColor.DarkRed);
 
                     // swap attacker and defender
                     foreach (var player in _players)
@@ -216,8 +250,10 @@ namespace ConsoleDurak
                     }
                 }
                 else
-                {
-                    ConsoleAlert($"Attack Success! {attacker.PlayerName} is attacking again!\n", ConsoleColor.Green);
+                {   // otherwise, the current attacker gets to attack again
+                    ConsoleAlert($"\nAttack Success! {attacker.PlayerName} is attacking again!", ConsoleColor.Green);
+                    Console.WriteLine("When does it brick?");
+                    Console.WriteLine("Is it in here?");
                 }
 
             } while (true);
@@ -230,6 +266,12 @@ namespace ConsoleDurak
 
         #region EVENT HANDLERS
 
+        /// <summary>
+        /// An EventHandler that handles most of the game logic for the Human <see cref="Player"/> turn in Durak, outputting to and requesting input from the Console.
+        /// </summary>
+        /// <remarks>EventArgs passed is always <seealso cref="EventArgs.Empty"/>.</remarks>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The EventArgs of the event</param>
         private static void HumanPlayer_TurnStart(object sender, EventArgs e)
         {
             if (sender is Player player)
@@ -239,6 +281,8 @@ namespace ConsoleDurak
                 var moveChoice = "";
                 var validChoices = new[] { "p", "e", "play", "end" };
                 DisplayCards(player.Hand, "Your Hand");
+
+                // Ask for Move Loop
                 do
                 {
                     if (_boutCount == 1 && player.IsAttacking)
@@ -250,14 +294,14 @@ namespace ConsoleDurak
 
                     if (!player.CanPlay)
                     {
-                        ConsoleAlert(@"You have no cards you can play!\n", ConsoleColor.Yellow);
+                        ConsoleAlert("You have no cards you can play!\n", ConsoleColor.Yellow);
                         moveChoice = "e";
                         break;
                     }
 
                     try
                     {
-                        ConsoleAlert(@"What will you do, '(P)lay' or '(E)nd'? ", ConsoleColor.DarkYellow);
+                        ConsoleAlert("What will you do, '(P)lay' or '(E)nd'? ", ConsoleColor.DarkYellow);
                         moveChoice = Console.ReadLine();
 
                         if (validChoices.Contains(moveChoice.ToLower()))
@@ -274,11 +318,13 @@ namespace ConsoleDurak
 
                 // Prompts player1 to choose which card to play
                 bool inputOk = false;
+
+                // Ask for Play Card Loop
                 do
                 {
                     DisplayCards(player.PlayableCards, "Your Playable Cards");
 
-                    ConsoleAlert(@"Choose card to play: ", ConsoleColor.DarkYellow);
+                    ConsoleAlert("Choose card to play: ", ConsoleColor.DarkYellow);
                     string input = Console.ReadLine();
                     try
                     {
@@ -297,6 +343,12 @@ namespace ConsoleDurak
             }
         }
 
+        /// <summary>
+        /// An EventHandler that executes at the end of a Human <see cref="Player"/>'s Turn.
+        /// </summary>
+        /// <remarks>EventArgs passed is always <seealso cref="EventArgs.Empty"/>.</remarks>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The EventArgs of the event</param>
         private static void HumanPlayer_TurnEnd(object sender, EventArgs e)
         {
             if (sender is Player player)
@@ -304,6 +356,12 @@ namespace ConsoleDurak
             }
         }
 
+        /// <summary>
+        /// An EventHandler that executes when <see cref="DurakAI"/> "starts thinking".
+        /// </summary>
+        /// <remarks>EventArgs passed is always <seealso cref="EventArgs.Empty"/>.</remarks>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The EventArgs of the event.</param>
         private static void AI_StartThink(object sender, EventArgs e)
         {
             if (sender is DurakAI ai)
@@ -312,6 +370,12 @@ namespace ConsoleDurak
             }
         }
 
+        /// <summary>
+        /// An EventHandler that executes when <see cref="DurakAI"/> "stops thinking".
+        /// </summary>
+        /// <remarks>EventArgs passed is always <seealso cref="EventArgs.Empty"/>.</remarks>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The EventArgs of the event.</param>
         private static void AI_StopThink(object sender, EventArgs e)
         {
             if (sender is DurakAI ai)
@@ -324,6 +388,12 @@ namespace ConsoleDurak
 
         #region PRIVATE HELPER METHODS
 
+        /// <summary>
+        /// Performs a <see cref="Console.Write(string)"/> of the specified string and sets a <see cref="ConsoleColor"/> for that message.
+        /// </summary>
+        /// <remarks>Be careful with <b>\n</b> at the end of messages before reading from the <see cref="System.Console.In"/> stream.</remarks>
+        /// <param name="message">The message to write.</param>
+        /// <param name="color">The color to set the foreground to.</param>
         private static void ConsoleAlert(string message, ConsoleColor color)
         {
             Console.ForegroundColor = color;
@@ -331,6 +401,11 @@ namespace ConsoleDurak
             Console.ResetColor();
         }
 
+        /// <summary>
+        /// Sets the number of cards in hands of the <see cref="Player"/> instances in <see cref="_players"/>, alternating until target amount
+        /// is met or the <see cref="_playDeck"/> is empty.
+        /// </summary>
+        /// <param name="refillTo">The amount to refill the hands to.</param>
         private static void RefillHands(int refillTo)
         {
             if (!_playDeck.CanDraw) return;
@@ -354,6 +429,12 @@ namespace ConsoleDurak
 
         }
 
+        /// <summary>
+        /// Outputs to the console information relevant to the current state of the Durak game.
+        /// </summary>
+        /// <param name="currentPlayer">The player who is currently making their move.</param>
+        /// <param name="attacker">The player who is the attacker in the current turn.</param>
+        /// <param name="defender">The player who is the defender in the current turn.</param>
         private static void PromptGameState(Player currentPlayer, Player attacker, Player defender)
         {
             #region Game State Info
@@ -389,6 +470,10 @@ namespace ConsoleDurak
             Console.WriteLine("=========================================\n");
         }
 
+        /// <summary>
+        /// Displays the contents of a <see cref="Player"/> Hand.
+        /// </summary>
+        /// <param name="player1">The player to display.</param>
         private static void DisplayPlayer(Player player1)
         {
             for (int i = 0; i < player1.Hand.Count; i++)
@@ -397,6 +482,10 @@ namespace ConsoleDurak
             }
         }
 
+        /// <summary>
+        /// Displays the contents of a <see cref="Deck{Card}"/>.
+        /// </summary>
+        /// <param name="s">The deck to display.</param>
         private static void DisplayDeck(Deck<Card> s)
         {
             for (var i = 0; i < s.Size; i++)
@@ -405,6 +494,12 @@ namespace ConsoleDurak
             }
         }
 
+        /// <summary>
+        /// Displays the contents of a <see cref="Cards"/> collection. If <paramref name="displayName"/> is passed, output is formatted to include
+        /// title of the collection.
+        /// </summary>
+        /// <param name="cards">The cards to display.</param>
+        /// <param name="displayName">The display name, if any.</param>
         private static void DisplayCards(Cards cards, string displayName = "")
         {
             var isDisplayNameSet = !displayName.Equals("");
