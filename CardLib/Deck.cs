@@ -7,6 +7,10 @@ namespace CardLib
     // TODO: Configure for different deck sizes 20, 36, 52
     public class Deck<T> : ICloneable where T : CardBase
     {
+        public event EventHandler LastCardDrawn;
+        public event EventHandler DeckShuffled;
+        public event EventHandler CardDrawn;
+
         // TODO: 20 = 10 to Ace All Suits, 36 = 6 to Ace All Suits
         private readonly Cards _cards = new Cards();
 
@@ -86,6 +90,7 @@ namespace CardLib
                 newDeck.Add(_cards[destCard]);
             }
             newDeck.CopyTo(_cards);
+            DeckShuffled?.Invoke(this, EventArgs.Empty);
         }
 
         // TODO: Throw exception if drawing would result in OutOfRange
@@ -95,6 +100,7 @@ namespace CardLib
 
             _cards.RemoveAt(_cards.Count - 1);
 
+            InvokeDrawEvents(EventArgs.Empty);
             return (T)drawn;
         }
 
@@ -114,7 +120,16 @@ namespace CardLib
         {
             var card = GetCard(pos);
             _cards.RemoveAt(pos);
+            InvokeDrawEvents(EventArgs.Empty);
             return card;
+        }
+
+        private void InvokeDrawEvents(EventArgs e)
+        {
+            if ( _cards.Count == 1)
+                LastCardDrawn?.Invoke(this, e);
+            else
+                CardDrawn?.Invoke(this, e);
         }
 
     }
