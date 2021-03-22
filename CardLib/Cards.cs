@@ -4,7 +4,9 @@ using System.Linq;
 
 namespace CardLib
 {
-    // TODO: Add Comments
+    /// <summary>
+    /// A cloneable collection that holds concrete instances of <see cref="CardBase"/>. 
+    /// </summary>
     public class Cards : List<CardBase>, ICloneable
     {
         public object Clone()
@@ -35,6 +37,7 @@ namespace CardLib
         /// Removes a Card from the list and returns the card removed.
         /// </summary>
         /// <param name="pos">The position of the card in the list.</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <returns>The CardBase object that was removed at the specified position.</returns>
         public CardBase Retrieve(int pos)
         {
@@ -47,6 +50,8 @@ namespace CardLib
         /// Gets a card at the specified position. Exactly the same as <see cref="List{T}"/> ElementAt.
         /// </summary>
         /// <param name="pos">The position of the card in the list.</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         /// <returns>The card at the specified position.</returns>
         public CardBase CardAt(int pos)
         {
