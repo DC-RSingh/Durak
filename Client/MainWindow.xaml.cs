@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Logging;
 
 
 namespace Client
@@ -19,14 +20,19 @@ namespace Client
         public MainWindow()
         {
             ConsoleManager.Show();  // Show the Console
-            var icoPath = Directory.GetParent(Environment.CurrentDirectory).
-                Parent.
-                FullName; // Really Scuffed Icon Path Retrieval
-            ConsoleManager.SetConsoleIcon(new Icon($"{icoPath}/icon.ico"));
-            InitializeComponent();
             Logger.Start(); // Start Logging
+            try
+            {
+                var icoPath = Directory.GetParent(Environment.CurrentDirectory).
+                    Parent?.
+                    FullName; // Really Scuffed Icon Path Retrieval
+                ConsoleManager.SetConsoleIcon(new Icon($"{icoPath}/icon.ico"));
+            } catch
+            {
+                Logger.Log("Could not find Icon!", LoggingLevel.Warn, typeof(Directory));// Ignore exception
+            }
             
-            GameplayTest.Play();
+            InitializeComponent();
         }
         private void btnPlay_Click(object sender, RoutedEventArgs e)
         { 
