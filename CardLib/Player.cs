@@ -24,6 +24,28 @@ namespace CardLib
         /// </summary>
         public string PlayerName { get; private set; }
 
+        private Cards _playableCards;
+
+        public Cards PlayableCards
+        {
+            get
+            {
+                var isSubset = !_playableCards.Except(Hand).Any();
+                if (!isSubset)
+                {
+                    _playableCards = null;
+                }
+
+                return _playableCards;
+            }
+
+            protected set => _playableCards = value;
+        }
+
+        public CardBase ChosenCard { get; protected set; }
+
+        public bool HasChosen { get; protected set; }
+
         #endregion
 
         #region Methods
@@ -40,6 +62,12 @@ namespace CardLib
 
             // If the River is Empty, any card is playable
             return true;
+        }
+
+        public virtual void TakeTurn(Cards river)
+        {
+            _playableCards = (Cards) Hand.FindAll(ele => IsPlayable(river, ele));
+            ChosenCard = new Card(Suit.Diamond, Rank.Ace);
         }
 
         #endregion
