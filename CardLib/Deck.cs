@@ -28,6 +28,8 @@ namespace CardLib
         /// </summary>
         public event EventHandler CardDrawn;
 
+        #region PROPERTIES
+
         // Readonly collection of Cards
         private readonly Cards _cards = new Cards();
 
@@ -51,6 +53,8 @@ namespace CardLib
         /// </summary>
         public bool CanDraw => _cards.Count > 0;
 
+        #endregion
+
         public object Clone()
         {
             var newDeck = new Deck<T>(_cards.Clone() as Cards);
@@ -63,6 +67,7 @@ namespace CardLib
             _cards = newCards;
         }
 
+        #region CONSTRUCTORS
         /// <summary>
         /// Instantiates an instance of a deck of the specified size and sets the <see cref="CardBase.UseTrumps"/> property.
         /// and <see cref="CardBase.Trump"/>.
@@ -121,6 +126,10 @@ namespace CardLib
                 }
             }
         }
+
+        #endregion
+
+        #region PUBLIC METHODS
 
         /// <summary>
         /// Gets the card at the specified position. Indexes start at 0.
@@ -220,6 +229,19 @@ namespace CardLib
             return card;
         }
 
+        /// <summary>
+        /// Determines whether the deck contains the specified card.
+        /// </summary>
+        /// <param name="card">The card to check for.</param>
+        /// <returns>true if the deck contains the card, false otherwise.</returns>
+        public bool Contains(T card)
+        {
+            return _cards.Contains(card);
+        }
+
+        #endregion
+
+        #region PRIVATE METHODS
         // Invokes either LastCardDrawn or CardDrawn depending on the state of the Deck object.
         private void InvokeDrawEvents(EventArgs e)
         {
@@ -228,6 +250,7 @@ namespace CardLib
             else
                 CardDrawn?.Invoke(this, e);
         }
+        #endregion
 
     }
 }
