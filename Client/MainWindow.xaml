@@ -46,7 +46,6 @@
             </Menu>
         </StackPanel>
         <views:MainPageView x:Name="mainPage" Grid.Row="0" Grid.RowSpan ="7" Grid.ColumnSpan="5"/>
-        <ContentControl Grid.RowSpan ="7" Grid.ColumnSpan="5" Content="{Binding}"/>
-        
+        <ContentControl Grid.RowSpan ="7" Grid.ColumnSpan="5" Content="{Binding}"/>        
     </Grid>
 </Window>

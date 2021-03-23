@@ -44,12 +44,17 @@ namespace Client
 
         private void Help_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://www.pagat.com/beating/podkidnoy_durak.html");
+            HelpView helpWindow = new HelpView();
+
+            helpWindow.Name = "GameRules";
+
+            helpWindow.Show();
         }
 
         private void GameOptions_Click(object sender, RoutedEventArgs e)
         {
-
+            GameSettingsView gameSettingsView = new GameSettingsView();
+            DataContext = gameSettingsView;
         }
 
         private void ExitMenu_Click(object sender, RoutedEventArgs e)

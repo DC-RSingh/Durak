@@ -8,7 +8,19 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <DockPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="6" Grid.ColumnSpan="5">
-            <Image Source="/Resources/Background/aboutdurak.png" Stretch="Fill"/>
+            <Image Source="/Resources/Background/aboutdurak.png" Stretch="Fill"/>            
+        </DockPanel>
+        <DockPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="100,0,0,100">
+            <Label Content="Deck Size"  FontSize="20" FontWeight="Bold" Foreground="#FFDCD746"/>            
+        </DockPanel>
+        <DockPanel>
+            <RadioButton Content="52" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="123,0,0,0" FontSize="20" Foreground="#FFDCD746"/>            
+        </DockPanel>
+        <DockPanel>
+            <RadioButton Content="36" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="123,70,0,0" FontSize="20" Foreground="#FFDCD746"/>
+        </DockPanel>
+        <DockPanel>
+            <RadioButton Content="20" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="123,140,0,0" FontSize="20" Foreground="#FFDCD746"/>
         </DockPanel>
     </Grid>
 </UserControl>
