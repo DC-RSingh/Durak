@@ -1,4 +1,6 @@
-﻿using Client.ViewModels;
+﻿using CardLib;
+using CardUI;
+using Client.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

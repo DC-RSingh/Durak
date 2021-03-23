@@ -49,6 +49,7 @@
                 <Button Style="{DynamicResource DurakMenuButton}" Content="Game Options" Click="GameOptions_Click"/>
             </StackPanel>
         </DockPanel>
+        
         <ContentControl Grid.RowSpan="7" Grid.ColumnSpan="5" Content="{Binding}"/>
     </Grid>
 </UserControl>

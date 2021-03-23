@@ -26,31 +26,38 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <!--Background Image-->
         <DockPanel Grid.Row="1" Grid.RowSpan="7" Grid.ColumnSpan="5">
             <Image Source="/Resources/Background/background.png" Stretch="Fill"/>
         </DockPanel>
-
+        
+        <!--AI Playing Field-->
         <Canvas  x:Name="pnlAIHand" Height="139" Width="400" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3"/>
         <Label  x:Name="lblAi" Content ="Player 2 (AI)" Style="{DynamicResource GameViewLabel}" Grid.ColumnSpan="2" Margin="25,0,125,60" Grid.Row="1" Grid.Column="1"/>
 
+        <!--River!-->
         <Canvas  x:Name="pnlRiver" Height="107" Width="400" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="3" Grid.Column="1" Margin="25,10,25,71" />
 
+        <!--Player 1 Playing Field-->
         <Canvas  x:Name="pnlPlayerHand" Height="139" Width="400" Grid.Row="5" Grid.RowSpan="2" Grid.ColumnSpan="3" Margin="25,9,25,40"/>
         <Label  x:Name="lblPlayer" Content ="Player 1" Style="{DynamicResource GameViewLabel}" Grid.ColumnSpan="2" Margin="25,54,125,5" Grid.Row="6" Grid.Column="1"/>
 
+        <!--Deck-->
         <Canvas  x:Name="pnlDeck" Height="107" Width="120" Grid.Row="3" Grid.RowSpan="2" Grid.Column="5" />
-
         <Image Source="/Resources/Pack/gray_back.png" Height="107" Width="75" RenderOptions.BitmapScalingMode="HighQuality" Grid.Column="4" Grid.Row="3" Grid.RowSpan="2"/>
 
+        <!--Game Log-->
         <Rectangle Fill="Black" Opacity="0.3" Height="139" Stroke="Black" Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" Margin="0,25"/>
-
         <Label  x:Name="lblDeckSize" Content="Label" Grid.Row="1" Grid.Column="3" Style="{DynamicResource GameViewLabel}" Grid.ColumnSpan="2" Margin="0,49,100,70" Grid.RowSpan="2" />
         <Label  x:Name="lbl1" Content="Label" Grid.Row="1" Grid.Column="3" Style="{DynamicResource GameViewLabel}" Grid.ColumnSpan="2" Margin="0,25,100,0" />
 
+        <!--Buttons-->
         <Button  x:Name="btnPass" Content="Pass" Grid.Row="5" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" Style="{DynamicResource DurakPassButton}" Margin="0,24,0,-24" Click="btnPass_Click"/>
         <Button  x:Name="btnDealNew" Content="New Game" Grid.Row="4" Grid.RowSpan="3" Grid.Column="3" Grid.ColumnSpan="2" Style="{DynamicResource DurakDealNewButton}" Margin="0,67,0,27" Click="btnDealNew_Click"/>
 
+        <!--Content Control-->
         <ContentControl Grid.RowSpan="7" Grid.ColumnSpan="5" Content="{Binding}"/>
+
     </Grid>
 
 </UserControl>
