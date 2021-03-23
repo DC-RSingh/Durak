@@ -1,6 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Client.Resources">
+    
+    <!--Durak Main Menu Button--> 
     <Style x:Key="DurakMenuButton" TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>
@@ -57,11 +59,127 @@
         </Setter>
     </Style>
 
+    <!--Durak Pass Turn Button-->
+    <Style x:Key="DurakPassButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="btnBorder1"
+                        Padding="2" BorderThickness="1" CornerRadius="5" 
+                        Height="40"
+                        Width="130"
+                        Background="{StaticResource durakPassButton}" 
+                        Cursor="Hand"
+                        RenderTransformOrigin="0.5,0.5">
+
+                        <ContentPresenter x:Name="btnText1" 
+                        TextBlock.Foreground="{StaticResource durakPassButtonText}"
+                        TextBlock.FontSize="14"
+                        TextBlock.FontWeight="SemiBold"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="{TemplateBinding Content}"
+                     />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                                <Condition Property="IsEnabled" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="RenderTransform" TargetName="btnBorder1">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Background" TargetName="btnBorder1" Value="{StaticResource durakPassActiveButton}"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="True"/>
+                                <Condition Property="IsEnabled" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="RenderTransform" TargetName="btnBorder1">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Background" TargetName="btnBorder1" Value="{StaticResource durakPassButtonBorder}"/>                           
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--Durak Deal new Game Button-->
+    <Style x:Key="DurakDealNewButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="btnBorder1"
+                        Padding="2" BorderThickness="1" CornerRadius="5" 
+                        Height="40"
+                        Width="130"
+                        Background="{StaticResource durakPassButton}" 
+                        Cursor="Hand"
+                        RenderTransformOrigin="0.5,0.5">
+
+                        <ContentPresenter x:Name="btnText1" 
+                        TextBlock.Foreground="{StaticResource durakPassButtonText}"
+                        TextBlock.FontSize="14"
+                        TextBlock.FontWeight="SemiBold"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="{TemplateBinding Content}"
+                     />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                                <Condition Property="IsEnabled" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="RenderTransform" TargetName="btnBorder1">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Background" TargetName="btnBorder1" Value="{StaticResource durakDealActiveButton}"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="True"/>
+                                <Condition Property="IsEnabled" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="RenderTransform" TargetName="btnBorder1">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Background" TargetName="btnBorder1" Value="{StaticResource durakDealButtonBorder}"/>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--Durak Menu Button Style-->
     <Style x:Key="DurakMenu" TargetType="{x:Type Menu}">
         <Setter Property="Background" Value="Black" />
         <Setter Property="Opacity" Value="0.3" />
     </Style>
 
+    <!--Durak Menu Item Style-->
     <Style x:Key="DurakMenuItem" TargetType="{x:Type MenuItem}">
         <Setter Property="Background" Value="#FFE533" />
         <Setter Property="Foreground" Value ="{StaticResource durakButtonText}" />
@@ -73,7 +191,7 @@
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Foreground" Value ="White" />
                 <Setter Property="Width" Value="150"/>
-                
+
             </Trigger>
         </Style.Triggers>
         <!--<Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -86,5 +204,17 @@
             </Setter.Value>
         </Setter>-->
     </Style>
+
+    <!--Durak Label Style-->
+    <Style x:Key="GameViewLabel" TargetType="{x:Type Label}">
+        <Setter Property="Foreground" Value="{StaticResource durakPassButtonText}"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Opacity" Value="0.95" />
+        <Setter Property="Height" Value="70"/>
+        <Setter Property="Width" Value="200"/>
+    </Style>
+
+
 
 </ResourceDictionary>

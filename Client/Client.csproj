@@ -35,7 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -248,9 +249,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Cards\AceDiamond.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Background\durak.png" />

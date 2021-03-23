@@ -23,12 +23,10 @@ namespace Client
 
         public MainWindow()
         {
-            var icoPath = Directory.GetParent(Environment.CurrentDirectory).
-                Parent.
-                FullName; // Really Scuffed Icon Path Retrieval
-            ConsoleManager.SetConsoleIcon(new Icon($"{icoPath}/icon.ico"));
             InitializeComponent();
             Logger.Start();
+
+
         }
         private void Play_Click(object sender, RoutedEventArgs e)
         {

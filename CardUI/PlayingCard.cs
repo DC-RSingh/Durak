@@ -31,67 +31,7 @@ namespace CardUI
         /// The width of a image box control 
         /// </summary>
         private const int regularWidth = 75;
-        ///// <summary>
-        ///// Gets and sets the underlying card image object
-        ///// </summary>
-        //private PlayingCard myCard;
-        //public PlayingCard Card
-        //{
-        //    set
-        //    {
-        //        myCard = value;
-        //        UpdateCardImage();
-        //    }
-        //    get { return myCard; }
-        //}
 
-        ///// <summary>
-        ///// Gets and sets the card suit 
-        ///// </summary>
-        //public Suit Suit
-        //{
-        //    set
-        //    {
-        //        Card.Suit = value;
-        //        UpdateCardImage();
-        //    }
-        //    get { return Card.Suit; }
-        //}
-
-        ///// <summary>
-        ///// Gets and sets the card rank 
-        ///// </summary>
-        //public Rank Rank
-        //{
-        //    set
-        //    {
-        //        Card.Rank = value;
-        //        UpdateCardImage();
-        //    }
-        //    get { return Card.Rank; }
-        //}
-
-        ///// <summary>
-        ///// Gets and sets the card face
-        ///// </summary>
-        //public Face Face
-        //{
-        //    set
-        //    {
-        //        //if value is different from underlying object's FaceUp property 
-        //        if (myCard.Face != Face.Up) //then the card is flipping over 
-        //        {
-        //            myCard.Face = Face.Down; //Change the card property 
-        //            UpdateCardImage(); //Update image front or back 
-        //        }
-        //        else
-        //        {
-        //            myCard.Face = Face.Up;
-        //            UpdateCardImage(); //Update image front or back 
-        //        }
-        //    }
-        //    get { return Card.Face; }
-        //}
         #endregion
 
         #region CONSTRUCTORS
@@ -142,6 +82,10 @@ namespace CardUI
 
         #endregion
 
+        #region PUBLIC METHODS 
+
+        #endregion
+
         #region EVENTS and EVENT HANDLERS
 
         /// <summary>
@@ -149,7 +93,7 @@ namespace CardUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CardBox_Load(object sender, EventArgs e)
+        private void Image_Load(object sender, EventArgs e)
         {
             UpdateCardImage();
         }

@@ -3,7 +3,15 @@
                     xmlns:local="clr-namespace:Client.Resources">
     <SolidColorBrush x:Key="durakButtonText" Color="#808000"/>
     <SolidColorBrush x:Key="durakButton" Color="#FFE533" />
-    <SolidColorBrush x:Key="durakButtonBorder" Color="#FFE533"/>
+    <SolidColorBrush x:Key="durakButtonBorder" Color="#FFE533" Opacity="0.75"/>
     <SolidColorBrush x:Key="durakActiveButton" Color="#FFE533" Opacity="0.75"/>
+
+    <SolidColorBrush x:Key="durakPassButtonText" Color="white"/>
+    <SolidColorBrush x:Key="durakPassButton" Color="#FFE533" Opacity="0.75"/>
+    <SolidColorBrush x:Key="durakPassButtonBorder" Color="#ff3333" Opacity="0.5"/>
+    <SolidColorBrush x:Key="durakPassActiveButton" Color="#ff3333" Opacity="0.75"/>
+
+    <SolidColorBrush x:Key="durakDealButtonBorder" Color="#47d147" Opacity="0.5"/>
+    <SolidColorBrush x:Key="durakDealActiveButton" Color="#47d147" Opacity="0.75"/>
 
 </ResourceDictionary>

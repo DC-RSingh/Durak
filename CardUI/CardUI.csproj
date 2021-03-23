@@ -44,6 +44,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animate.cs" />
+    <Compile Include="GameLog.cs" />
     <Compile Include="PlayingCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
