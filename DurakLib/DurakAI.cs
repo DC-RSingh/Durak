@@ -23,7 +23,7 @@ namespace DurakLib
         public event EventHandler StoppedThinking;
 
         /// <summary>
-        /// The delay that the <see cref="DurakAI"/> should wait before selecting it's move.
+        /// The delay that the <see cref="DurakAI"/> should wait before selecting it's move in milliseconds.
         /// </summary>
         public int ThinkDelay { get; set; }
 
