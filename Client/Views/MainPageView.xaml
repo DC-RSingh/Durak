@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Client.Views"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="750" 
-             DataContext="{Binding MainViewModel, ElementName=mainViewModel}">
+            >
     <Grid>
 
         <Grid.ColumnDefinitions>
