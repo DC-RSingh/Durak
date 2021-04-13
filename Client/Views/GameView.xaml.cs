@@ -50,40 +50,6 @@ namespace Client.Views
         #endregion
 
         #region EVENT HANDLERS
-
-        private void UpdateNewGameStats()
-        {
-            var pwd = Directory.GetCurrentDirectory();
-            var fileName = System.IO.Path.Combine(pwd, "GameLog");
-            var textFile = System.IO.Path.Combine(fileName, "statistics.txt");
-            // Store each line in array of strings
-            string[] option = File.ReadAllLines(textFile);
-
-
-            if (File.Exists(textFile))
-            {
-
-                var name = option[0];
-                var wins = option[1];
-                var losses = option[2];
-                var ties = option[3];
-                var total = option[4];
-
-                // Create the file and use streamWriter to write text to it.
-                //If the file existence is not check, this will overwrite said file.
-                //Use the using block so the file can close and vairable disposed correctly
-                using (StreamWriter writer = File.CreateText(textFile))
-                {
-                    writer.WriteLine(name);
-                    writer.WriteLine(Int32.Parse(wins) + 1);
-                    writer.WriteLine(ties);
-                    writer.WriteLine(total);
-                }
-            }
-        }
-
-
-
         /// <summary>
         /// An EventHandler that handles most of the game logic for the Human <see cref="Player"/> turn in Durak, outputting to and requesting input from the Console.
         /// </summary>
@@ -104,17 +70,18 @@ namespace Client.Views
         {
         }
 
+        //TODO: Removed static 
         /// <summary>
         /// An EventHandler that executes when <see cref="DurakAI"/> "starts thinking".
         /// </summary>
         /// <remarks>EventArgs passed is always <seealso cref="EventArgs.Empty"/>.</remarks>
         /// <param name="sender">The sender of the event.</param>
         /// <param name="e">The EventArgs of the event.</param>
-        private static void AI_StartThink(object sender, EventArgs e)
+        private void AI_StartThink(object sender, EventArgs e)
         {
             if (sender is DurakAI ai)
             {
-                //MessageBox.Show($"Thinking...");
+                lblAIThink.Content = "Thinking...";
             }
         }
 
@@ -195,6 +162,7 @@ namespace Client.Views
 
         private void WireMouseEvents(Image img, Canvas canvas)
         {
+
             img.MouseEnter += (sender, args) =>
             {
                 // Convert sender to a CardBox
@@ -207,8 +175,8 @@ namespace Client.Views
                     if (img.Parent == canvas)
                     {
                         // Enlarge the card for visual effect
-                        img.Height += POP;
-                        img.Width += POP;
+                        img.Height = 132;
+                        img.Width = 100;
 
                         // move the card to the top edge of the panel.
                         Canvas.SetTop(img, 0);
@@ -230,10 +198,11 @@ namespace Client.Views
                 // move the card to the top edge of the panel.
                 Canvas.SetTop(img, POP);
             };
-
+            
             img.MouseLeftButtonDown -= PlayingCard_LeftMouseButtonDown;
             img.MouseLeftButtonDown += PlayingCard_LeftMouseButtonDown;
-        }
+
+        }   
 
         private void PlayingCard_LeftMouseButtonDown (object sender, MouseButtonEventArgs args) 
         {
@@ -254,7 +223,6 @@ namespace Client.Views
 
                 //MessageBox.Show($"You have Chosen: {(!(_gameViewModel.Attacker.ChosenCard is null) ? _gameViewModel.Attacker.ChosenCard.ToString() : "You did not choose a card")}");
             }
-
         }
 
         /// <summary>
@@ -266,13 +234,15 @@ namespace Client.Views
             img.Height = regularHeight;
             img.Width = regularWidth;
             img.Opacity = 0.7;
+
+            //Animate.RealignCards(pnlPlayerHand);
         }
 
-        private void EnableImage(Image img)
-        {
-            img.Height += POP;
-            img.Width += POP;
-        }
+        //private void EnableImage(Image img)
+        //{
+        //    img.Height += POP;
+        //    img.Width += POP;
+        //}
         #endregion
 
         private void InitGame()
@@ -307,6 +277,8 @@ namespace Client.Views
 
             Animate.RealignCards(pnlPlayerHand);
 
+
+
             // Wiring Player Turn Events
             _gameViewModel.HumanPlayer.TurnBegin += HumanPlayer_TurnStart;
             _gameViewModel.AiPlayer.StartedThinking += AI_StartThink;
@@ -326,10 +298,15 @@ namespace Client.Views
         {
             MessageBox.Show($"{_gameViewModel.Winner.PlayerName} has won the match!");
 
-            // Add to Win Stats
-            //if (_gameViewModel.Winner == _gameViewModel.HumanPlayer)
-            //{
-            //}
+            //Add to Win Stats
+            if (_gameViewModel.Winner == _gameViewModel.HumanPlayer)
+            {
+                Statistics.UpdateWins();
+            }
+            else
+            {
+                Statistics.UpdateLosses();
+            }
         }
 
         private void btnPass_Click(object sender, RoutedEventArgs e)
@@ -340,7 +317,7 @@ namespace Client.Views
             }
             else
             {
-                MessageBox.Show("You Have Chosen Not to Play.");
+                lblPass.Content = "You Have Chosen Not to Play.";
                 _gameViewModel.PlayerChoseCompletionSource.TrySetResult(true);
             }
         }
@@ -350,6 +327,7 @@ namespace Client.Views
             var msgBoxResult = MessageBox.Show("Are you sure you want to start a new game?", "Start New Game?", MessageBoxButton.YesNo);
 
             if (msgBoxResult == MessageBoxResult.Yes) InitGame();
+            Statistics.UpdateGame();
         }
 
 

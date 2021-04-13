@@ -9,113 +9,170 @@ using System.Windows.Controls;
 
 namespace CardUI
 {
-    class Statistics
+    public class Statistics
     {
 
-
-        Label lblWins;
         #region METHODS
-
-        private void Generate(Label lblWins, Label lblLosses, Label lblTies, Label lblTotal)
+        public static void UpdateGame()
         {
-            // Stores file path in the system
             var pwd = Directory.GetCurrentDirectory();
             var fileName = System.IO.Path.Combine(pwd, "GameLog");
-            var read = System.IO.Path.Combine(fileName, "game_statistics.txt");
-            var readWins = System.IO.Path.Combine(fileName, "wins.txt");
-            var readLosses = System.IO.Path.Combine(fileName, "losses.txt");
-            var readTies = System.IO.Path.Combine(fileName, "ties.txt");
-            var readTotal = System.IO.Path.Combine(fileName, "total.txt");
+            var textFile = System.IO.Path.Combine(fileName, "statistics.txt");
 
-            //// Reads entire file
-            //if (File.Exists(readWins))
-            //{
-            //    // Reads and displays content
-            //    string streamWins = File.ReadAllText(readWins);
-            //    Console.WriteLine(streamWins);
-            //}
+            // Store each line in array of strings
+            string[] option = File.ReadAllLines(textFile);
 
-            // To read a text file line by line
-            if (File.Exists(readWins))
+
+            if (File.Exists(textFile))
             {
-                // Store each line in array of strings
-                string[] linesWins = File.ReadAllLines(readWins);
 
-                lblWins.Content = $"Number of Wins: {linesWins[0]}";
-            }
+                var name = option[0];
+                var wins = option[1];
+                var losses = option[2];
+                var ties = option[3];
+                var total = option[4];
 
-            //// Reads entire file
-            //if (File.Exists(readLosses))
-            //{
-            //    // Reads and displays content
-            //    string streamLosses = File.ReadAllText(readLosses);
-            //    Console.WriteLine(streamLosses);
-            //}
-
-            // To read a text file line by line
-            if (File.Exists(readLosses))
-            {
-                // Store each line in array of strings
-                string[] linesLosses = File.ReadAllLines(readLosses);
-
-                lblLosses.Content = $"Number of Losses: {linesLosses[1]}";
-            }
-
-            //// Reads entire file
-            //if (File.Exists(readTies))
-            //{
-            //    // Reads and displays content
-            //    string streamTies = File.ReadAllText(readTies);
-            //    Console.WriteLine(streamTies);
-            //}
-
-            // To read a text file line by line
-            if (File.Exists(readTies))
-            {
-                // Store each line in array of strings
-                string[] linesTies = File.ReadAllLines(readTies);
-
-                lblTies.Content = $"Number of Ties: {linesTies[2]}";
-            }
-
-            //// Reads entire file
-            //if (File.Exists(readTotal))
-            //{
-            //    // Reads and displays content
-            //    string streamTotal = File.ReadAllText(readTotal);
-            //    Console.WriteLine(streamTotal);
-            //}
-
-            // To read a text file line by line
-            if (File.Exists(readTotal))
-            {
-                // Store each line in array of strings
-                string[] linesTotal = File.ReadAllLines(readTotal);
-
-                lblTotal.Content = $"Number of Games Played: {linesTotal[3]}";
-            }
-
-            // By using StreamReader
-            if (File.Exists(read))
-            {
-                // Reads file line by line
-                StreamReader Textfile = new StreamReader(read);
-                string line;
-
-                while ((line = Textfile.ReadLine()) != null)
+                // Create the file and use streamWriter to write text to it.
+                //If the file existence is not check, this will overwrite said file.
+                //Use the using block so the file can close and vairable disposed correctly
+                using (StreamWriter writer = File.CreateText(textFile))
                 {
-                    Console.WriteLine(line);
+                    writer.WriteLine(name);
+                    writer.WriteLine(wins);
+                    writer.WriteLine(losses);
+                    writer.WriteLine(ties);
+                    writer.WriteLine(Int32.Parse(total) + 1);
+
                 }
-
-                Textfile.Close();
-
-                Console.Read();
             }
-            Console.WriteLine();
+        }
+
+        public static void UpdateWins()
+        {
+            var pwd = Directory.GetCurrentDirectory();
+            var fileName = System.IO.Path.Combine(pwd, "GameLog");
+            var textFile = System.IO.Path.Combine(fileName, "statistics.txt");
+
+            // Store each line in array of strings
+            string[] option = File.ReadAllLines(textFile);
 
 
-            #endregion
+            if (File.Exists(textFile))
+            {
 
+                var name = option[0];
+                var wins = option[1];
+                var losses = option[2];
+                var ties = option[3];
+                var total = option[4];
+
+                // Create the file and use streamWriter to write text to it.
+                //If the file existence is not check, this will overwrite said file.
+                //Use the using block so the file can close and vairable disposed correctly
+                using (StreamWriter writer = File.CreateText(textFile))
+                {
+                    writer.WriteLine(name);
+                    writer.WriteLine(Int32.Parse(wins) + 1);
+                    writer.WriteLine(losses);
+                    writer.WriteLine(ties);
+                    writer.WriteLine(Int32.Parse(total) + 1);
+
+                }
+            }
+        }
+
+        public static void UpdateLosses()
+        {
+            var pwd = Directory.GetCurrentDirectory();
+            var fileName = System.IO.Path.Combine(pwd, "GameLog");
+            var textFile = System.IO.Path.Combine(fileName, "statistics.txt");
+
+            // Store each line in array of strings
+            string[] option = File.ReadAllLines(textFile);
+
+
+            if (File.Exists(textFile))
+            {
+
+                var name = option[0];
+                var wins = option[1];
+                var losses = option[2];
+                var ties = option[3];
+                var total = option[4];
+
+                // Create the file and use streamWriter to write text to it.
+                //If the file existence is not check, this will overwrite said file.
+                //Use the using block so the file can close and vairable disposed correctly
+                using (StreamWriter writer = File.CreateText(textFile))
+                {
+                    writer.WriteLine(name);
+                    writer.WriteLine(wins);
+                    writer.WriteLine(Int32.Parse(losses) + 1);
+                    writer.WriteLine(ties);
+                    writer.WriteLine(Int32.Parse(total) + 1);
+
+                }
+            }
+        }
+
+        public static void UpdateTies()
+        {
+            var pwd = Directory.GetCurrentDirectory();
+            var fileName = System.IO.Path.Combine(pwd, "GameLog");
+            var textFile = System.IO.Path.Combine(fileName, "statistics.txt");
+
+            // Store each line in array of strings
+            string[] option = File.ReadAllLines(textFile);
+
+
+            if (File.Exists(textFile))
+            {
+
+                var name = option[0];
+                var wins = option[1];
+                var losses = option[2];
+                var ties = option[3];
+                var total = option[4];
+
+                // Create the file and use streamWriter to write text to it.
+                //If the file existence is not check, this will overwrite said file.
+                //Use the using block so the file can close and vairable disposed correctly
+                using (StreamWriter writer = File.CreateText(textFile))
+                {
+                    writer.WriteLine(name);
+                    writer.WriteLine(wins);
+                    writer.WriteLine(losses);
+                    writer.WriteLine(Int32.Parse(ties) + 1);
+                    writer.WriteLine(Int32.Parse(total) + 1);
+                }
+            }
+        }
+
+        public static void Reset()
+        {
+            //string fileName = @"log/pregame_settings.txt";
+            var pwd = Directory.GetCurrentDirectory();
+            var fileName = System.IO.Path.Combine(pwd, "GameLog");
+            var textFile = System.IO.Path.Combine(fileName, "statistics.txt");
+
+            //Check if the file exists
+            if (!Directory.Exists(fileName))
+            {
+                Directory.CreateDirectory(fileName);
+            }
+
+            // Create the file and use streamWriter to write text to it.
+            //If the file existence is not check, this will overwrite said file.
+            //Use the using block so the file can close and vairable disposed correctly
+            using (StreamWriter writer = File.CreateText(textFile))
+            {
+                writer.WriteLine("");
+                writer.WriteLine("0");
+                writer.WriteLine("0");
+                writer.WriteLine("0");
+                writer.WriteLine("0");
+            }
         }
     }
 }
+#endregion

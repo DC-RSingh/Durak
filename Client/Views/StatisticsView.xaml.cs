@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Windows;
 using System.Windows.Controls;
+using CardUI;
 
 namespace Client.Views
 {
@@ -13,16 +15,22 @@ namespace Client.Views
         {
             InitializeComponent();
             this.DataContext = null;
-            Statistics();
+            GenerateStatistics();
+        }
+        private void Reset_Click(object sender, RoutedEventArgs e)
+        {
+            Statistics.Reset();
+            StatisticsView statisticsView = new StatisticsView();
+            DataContext = statisticsView;
         }
 
-        private void Statistics()
-        {
+            private void GenerateStatistics()
+            {
             // Stores file path in the system
             var pwd = Directory.GetCurrentDirectory();
             var fileName = System.IO.Path.Combine(pwd, "GameLog");
             var read = System.IO.Path.Combine(fileName, "statistics.txt");
-            
+          
 
             if (File.Exists(read))
             {
@@ -34,55 +42,7 @@ namespace Client.Views
                 lblTies.Content = $"Number of Ties: {option[3]}";
                 lblTotal.Content = $"Number of Games Played: {option[4]}";
             }
-
-            // By using StreamReader
-            if (File.Exists(read))
-            {
-                // Reads file line by line
-                StreamReader Textfile = new StreamReader(read);
-                string line;
-
-                while ((line = Textfile.ReadLine()) != null)
-                {
-                    Console.WriteLine(line);
-                }
-
-                Textfile.Close();
-
-                Console.Read();
-            }
-            Console.WriteLine();
-        }
-
-        public void UpdateNewGameStats()
-        {
-
-            var pwd = Directory.GetCurrentDirectory();
-            var fileName = System.IO.Path.Combine(pwd, "GameLog");
-            var textFile = System.IO.Path.Combine(fileName, "statistics.txt");
-            // Store each line in array of strings
-            string[] option = File.ReadAllLines(textFile);
-
-            
-            if (File.Exists(textFile))
-            {
-                
-                var name = option[0];
-                var wins = option[1];
-                var losses = option[2];
-                var ties = option[3];
-                var total = option[4];
-
-                // Create the file and use streamWriter to write text to it.
-                //If the file existence is not check, this will overwrite said file.
-                //Use the using block so the file can close and vairable disposed correctly
-                using (StreamWriter writer = File.CreateText(textFile))
-                {
-                    writer.WriteLine(Int32.Parse(wins) + 1);
-                }
-            }          
-
-
+        
         }
     }
 }

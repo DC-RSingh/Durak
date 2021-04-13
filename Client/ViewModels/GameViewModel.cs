@@ -33,7 +33,7 @@ namespace Client.ViewModels
 
         public ObservableCollection<PlayingCard> HumanCards { get; set; } = new ObservableCollection<PlayingCard>();
 
-        public ObservableCollection<PlayingCard> AiCards{ get; set; } = new ObservableCollection<PlayingCard>();
+        public ObservableCollection<PlayingCard> AiCards { get; set; } = new ObservableCollection<PlayingCard>();
 
         public ObservableCollection<PlayingCard> River { get; set; } = new ObservableCollection<PlayingCard>();
 
@@ -95,7 +95,7 @@ namespace Client.ViewModels
 
             HumanPlayer = new Player(humanName, humanCards);
             AiPlayer = new DurakAI(aiName, aiCards);
-            Players = new[] {HumanPlayer, AiPlayer};
+            Players = new[] { HumanPlayer, AiPlayer };
 
             TrumpCard = PlayDeck.Draw();
             CardBase.Trump = TrumpCard.Suit;
@@ -178,7 +178,7 @@ namespace Client.ViewModels
                         AddCardToObservableCollection(River, (PlayingCard)Attacker.ChosenCard);
 
                         if (HumanPlayer == Attacker) HumanCards.Remove((PlayingCard)Attacker.ChosenCard);
-                        if (AiPlayer == Attacker) AiCards.Remove((PlayingCard) Attacker.ChosenCard);
+                        if (AiPlayer == Attacker) AiCards.Remove((PlayingCard)Attacker.ChosenCard);
                         if (Attacker.HandSize == 0) break;
                     }
                     else

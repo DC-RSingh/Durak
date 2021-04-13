@@ -150,7 +150,7 @@ namespace CardUI
 
             }
         }
-        #endregion
 
     }
 }
+#endregion
