@@ -59,6 +59,63 @@
         </Setter>
     </Style>
 
+    <!--Durak Scroll Button-->
+    <Style x:Key="DurakScrollButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="btnBorder"
+                        Padding="4" BorderThickness="1" CornerRadius="15" 
+                        Height="40"
+                        Background="{StaticResource durakButton}"
+                        BorderBrush="{StaticResource durakButtonBorder}"  
+                        Cursor="Hand"
+                        RenderTransformOrigin="0.5,0.5">
+
+                        <ContentPresenter x:Name="btnText" 
+                        TextBlock.Foreground="{StaticResource durakButtonText}"
+                        TextBlock.FontSize="16"
+                        TextBlock.FontWeight="SemiBold"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="{TemplateBinding Content}"
+                     />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                                <Condition Property="IsEnabled" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="RenderTransform" TargetName="btnBorder">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Background" TargetName="btnBorder" Value="{StaticResource durakActiveButton}"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="True"/>
+                                <Condition Property="IsEnabled" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="RenderTransform" TargetName="btnBorder">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Background" TargetName="btnBorder" Value="{StaticResource durakButtonBorder}"/>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!--Durak Pass Turn Button-->
     <Style x:Key="DurakPassButton" TargetType="{x:Type Button}">
         <Setter Property="Template">
@@ -181,28 +238,19 @@
 
     <!--Durak Menu Item Style-->
     <Style x:Key="DurakMenuItem" TargetType="{x:Type MenuItem}">
-        <Setter Property="Background" Value="#FFE533" />
+        <Setter Property="Background" Value="#FFE533"/>
         <Setter Property="Foreground" Value ="{StaticResource durakButtonText}" />
         <Setter Property="TextBlock.FontWeight" Value="Bold"/>
         <Setter Property="TextBlock.FontSize" Value="12.5"/>
-        <Setter Property="MaxWidth" Value="150"/>
         <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Width" Value="180"/>
+        <Setter Property="Height" Value="40"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Foreground" Value ="White" />
-                <Setter Property="Width" Value="150"/>
-
+                <Setter Property="Width" Value="180"/>
             </Trigger>
         </Style.Triggers>
-        <!--<Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="Foreground" Value="Black"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type MenuItem}">
-                   
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>-->
     </Style>
 
     <!--Durak Label Style-->
@@ -215,6 +263,44 @@
         <Setter Property="Width" Value="200"/>
     </Style>
 
+    <!--Durak Text Style
+        Reference: https://stackoverflow.com/questions/43730714/wpf-textbox-background-color-not-work
+    -->
+    <Style x:Key="GameSettingsTextBox" TargetType="{x:Type TextBox}">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Margin" Value="5,5,5,5"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="{StaticResource durakTextBoxText}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border x:Name="bg" 
+                            BorderBrush="{StaticResource durakTextBoxBorder}" 
+                            BorderThickness="2" Background="{StaticResource durakTextBoxBg}" 
+                            CornerRadius="10"
+                            Height="30"
+                            Width="200" 
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Cursor="Hand"
+                            >
+                        <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" TargetName="bg" Value="{StaticResource durakTextBoxHoverBorder}"/>
+                            <Setter Property="BorderThickness" TargetName="bg" Value="2.5"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" TargetName="bg" Value="{StaticResource durakTextBoxBorder}"/>
+                            <Setter Property="BorderThickness" TargetName="bg" Value="2.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 
 </ResourceDictionary>

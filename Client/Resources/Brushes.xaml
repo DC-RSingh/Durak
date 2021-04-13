@@ -14,4 +14,10 @@
     <SolidColorBrush x:Key="durakDealButtonBorder" Color="#47d147" Opacity="0.5"/>
     <SolidColorBrush x:Key="durakDealActiveButton" Color="#47d147" Opacity="0.75"/>
 
+    <SolidColorBrush x:Key="durakTextBoxBorder" Color="#FFE533" Opacity="0.75"/>
+    <SolidColorBrush x:Key="durakTextBoxHoverBorder" Color="#c3aa09" Opacity="0.75"/>
+    <SolidColorBrush x:Key="durakTextBoxFocusBorder" Color="#aa9508" Opacity="0.75"/>
+    <SolidColorBrush x:Key="durakTextBoxText" Color="#808000"/>
+    <SolidColorBrush x:Key="durakTextBoxBg" Color="#FCF2B6" />
+
 </ResourceDictionary>

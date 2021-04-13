@@ -29,8 +29,8 @@ namespace Client.Views
         }
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-            GameView gameView = new GameView();
-            DataContext = gameView;
+            UserView userView = new UserView();
+            DataContext = userView;
         }
 
         private void About_Click(object sender, RoutedEventArgs e)
@@ -44,9 +44,10 @@ namespace Client.Views
             System.Diagnostics.Process.Start("https://www.pagat.com/beating/podkidnoy_durak.html");
         }
 
-        private void GameOptions_Click(object sender, RoutedEventArgs e)
+        private void Statistics_Click(object sender, RoutedEventArgs e)
         {
-
+            StatisticsView statisticsView = new StatisticsView();
+            DataContext = statisticsView;
         }
 
         private void ExitMenu_Click(object sender, RoutedEventArgs e)

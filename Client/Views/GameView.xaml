@@ -30,7 +30,7 @@
         <DockPanel Grid.Row="1" Grid.RowSpan="7" Grid.ColumnSpan="5">
             <Image Source="/Resources/Background/background.png" Stretch="Fill"/>
         </DockPanel>
-        
+
         <!--AI Playing Field-->
         <Canvas  x:Name="pnlAIHand" Height="139" Width="400" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3"/>
         <Label  x:Name="lblAi" Content ="Player 2 (AI)" Style="{DynamicResource GameViewLabel}" Grid.ColumnSpan="2" Margin="25,0,125,60" Grid.Row="1" Grid.Column="1"/>
@@ -50,6 +50,10 @@
         <Rectangle Fill="Black" Opacity="0.3" Height="139" Stroke="Black" Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" Margin="0,25"/>
         <Label  x:Name="lblDeckSize" Content="Label" Grid.Row="1" Grid.Column="3" Style="{DynamicResource GameViewLabel}" Grid.ColumnSpan="2" Margin="0,49,100,70" Grid.RowSpan="2" />
         <Label  x:Name="lbl1" Content="Label" Grid.Row="1" Grid.Column="3" Style="{DynamicResource GameViewLabel}" Grid.ColumnSpan="2" Margin="0,25,100,0" />
+        <Label  x:Name="lblWins" Content="Number of Wins: " Grid.Column="3" Style="{DynamicResource GameViewLabel}" HorizontalAlignment="Left" Margin="0,71.667,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.RowSpan="2" Height="31" Width="164" Grid.ColumnSpan="2"/>
+        <Label  x:Name="lblLosses" Content="Number of Losses: " Grid.Column="3" Grid.Row="1" Style="{DynamicResource GameViewLabel}" HorizontalAlignment="Left" Margin="0,91.667,0,0" VerticalAlignment="Top" Height="27" Width="174" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+        <Label  x:Name="lblTies" Content="Number of Ties: " Grid.Column="3" Grid.Row="2" Style="{DynamicResource GameViewLabel}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="27" Width="138" Margin="0,22,0,0"/>
+        <Label  x:Name="lblTotal" Content="Number of Games Played: " Grid.Column="3" Grid.Row="2" Style="{DynamicResource GameViewLabel}" HorizontalAlignment="Left" Margin="1,39,0,0" VerticalAlignment="Top" Height="31" Width="199" Grid.ColumnSpan="2"/>
 
         <!--Buttons-->
         <Button  x:Name="btnPass" Content="Pass" Grid.Row="5" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" Style="{DynamicResource DurakPassButton}" Margin="0,24,0,-24" Click="btnPass_Click"/>

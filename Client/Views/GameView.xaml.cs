@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,7 +18,8 @@ namespace Client.Views
         {
             InitializeComponent();
             Play();
-
+            GameOptions();
+            Statistics();
 
         }
 
@@ -113,6 +115,17 @@ namespace Client.Views
             const int DRAW_AMT = 6; // The Amount of Cards to Players should have in their hand at the start of every turn
 
             _playDeck.Shuffle();
+
+            for (int i = 1; i < _playDeck.Size; i++)
+            {
+
+                PlayingCard player_card = _playDeck.GetCard(i);
+                Image img1 = player_card.UpdateCardImage();
+
+                //Adds image to the canvas panel
+                pnlDeck.Children.Add(img1);
+
+            }
             #endregion
 
             #region Player 1 Init
@@ -138,6 +151,9 @@ namespace Client.Views
             var img = _trumpCard.UpdateCardImage();
 
             pnlDeck.Children.Add(img);
+
+            Animate.MoveTo(img, 25, 0);
+
 
             #endregion
 
@@ -284,6 +300,59 @@ namespace Client.Views
         #endregion
 
         #region EVENT HANDLERS
+        /// <summary>
+        /// Player passes their turn 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnPass_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        /// <summary>
+        /// Deal new pack window 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDealNew_Click(object sender, RoutedEventArgs e)
+        {
+            GameView gameView = new GameView();
+            DataContext = gameView;
+            //UpdateNewGameStats();
+        }
+
+        private void UpdateNewGameStats()
+        {
+            var pwd = Directory.GetCurrentDirectory();
+            var fileName = System.IO.Path.Combine(pwd, "GameLog");
+            var textFile = System.IO.Path.Combine(fileName, "statistics.txt");
+            // Store each line in array of strings
+            string[] option = File.ReadAllLines(textFile);
+
+
+            if (File.Exists(textFile))
+            {
+
+                var name = option[0];
+                var wins = option[1];
+                var losses = option[2];
+                var ties = option[3];
+                var total = option[4];
+
+                // Create the file and use streamWriter to write text to it.
+                //If the file existence is not check, this will overwrite said file.
+                //Use the using block so the file can close and vairable disposed correctly
+                using (StreamWriter writer = File.CreateText(textFile))
+                {
+                    writer.WriteLine(name);
+                    writer.WriteLine(Int32.Parse(wins) + 1);
+                    writer.WriteLine(ties);
+                    writer.WriteLine(total);
+                }
+            }
+        }
+
+
 
         /// <summary>
         /// An EventHandler that handles most of the game logic for the Human <see cref="Player"/> turn in Durak, outputting to and requesting input from the Console.
@@ -306,14 +375,14 @@ namespace Client.Views
 
                 for (int i = 0; i < player.Hand.Count; i++)
                 {
-                    
+
                     PlayingCard player_card = new PlayingCard(player.Hand.ElementAt(i).Suit, player.Hand.ElementAt(i).Rank, player.Hand.ElementAt(i).Face);
 
                     //Updates card image
                     var img = player_card.UpdateCardImage();
 
                     //Adds image to the canvas panel
-                    canvas.Children.Add(img);                   
+                    canvas.Children.Add(img);
 
                     MouseEvents(img, canvas);
                 }
@@ -323,23 +392,23 @@ namespace Client.Views
                 //// Ask for Move Loop
                 //do
                 //{
-                    if (_boutCount == 1 && player.IsAttacking)
-                    {
-                        lbl1.Content = "Player 1 is Attacking!";
+                if (_boutCount == 1 && player.IsAttacking)
+                {
+                    lbl1.Content = "Player 1 is Attacking!";
                     //ConsoleAlert("You must select a card to attack on the first bout!\n", ConsoleColor.Yellow);
                     //moveChoice = "p";
                     //break;
-                    }
+                }
 
-                    if (!player.CanPlay)
-                    {
-                        //TODO: Disable Images?
-                        //TODO: Add button click event
-                        lbl1.Content = "You have no cards! End your turn...";                        
-                        //ConsoleAlert("You have no cards you can play!\n", ConsoleColor.Yellow);
-                        //moveChoice = "e";
-                        //break;
-                     }
+                if (!player.CanPlay)
+                {
+                    //TODO: Disable Images?
+                    //TODO: Add button click event
+                    lbl1.Content = "You have no cards! End your turn...";
+                    //ConsoleAlert("You have no cards you can play!\n", ConsoleColor.Yellow);
+                    //moveChoice = "e";
+                    //break;
+                }
 
                 //try
                 //{
@@ -446,7 +515,7 @@ namespace Client.Views
                 var cardBase = (PlayingCard)cards[index];
                 if (index != cards.Count - 1)
 
-                pnlPlayerHand.Children.Add(cardBase.UpdateCardImage());
+                    pnlPlayerHand.Children.Add(cardBase.UpdateCardImage());
             }
         }
 
@@ -454,7 +523,7 @@ namespace Client.Views
         {
             //Canvas myCanvas = new Canvas()
 
-            Canvas canvas = pnlPlayerHand;            
+            Canvas canvas = pnlPlayerHand;
 
             for (int i = 0; i < player.Hand.Count; i++)
             {
@@ -472,7 +541,7 @@ namespace Client.Views
 
                 //Adds image to the canvas panel
                 canvas.Children.Add(img);
-               
+
             }
 
             Animate.RealignCards(canvas);
@@ -546,69 +615,8 @@ namespace Client.Views
                 Animate.RealignCards(pnlRiver);
             };
         }
-        
-
-        ///// <summary>
-        ///// Repositions the cards in a panel so that they are evenly distributed in the area available.
-        ///// </summary>
-        ///// @see 
-        ///// <param name="panelHand"></param>
-        //private void RealignCards(Canvas canvasHand)
-        //{
-        //    // Determine the number of cards/controls in the panel.
-        //    int myCount = canvasHand.Children.Count;
-
-        //    // If there are any cards in the panel
-        //    if (myCount > 0)
-        //    {
-        //        // Determine how wide one card/control is.
-
-        //        int cardWidth = 50;
-        //        // Determine where the left-hand edge of a card/control placed 
-        //        // in the middle of the panel should be  
-        //        int startPoint = (int)((canvasHand.Width - cardWidth) / 2);
-
-        //        // An offset for the remaining cards
-        //        int offset = 0;
-
-        //        // If there are more than one cards/controls in the panel
-        //        if (myCount > 1)
-        //        {
-        //            // Determine how wide one card/control is.
-        //            offset = (int)((canvasHand.Width - cardWidth - 2 * POP) / (myCount - 1));
-
-        //            // If the offset is bigger than the card/control width, i.e. there is lots of room, 
-        //            // set the offset to the card width. The cards/controls will not overlap at all.
-        //            if (offset > cardWidth)
-        //                offset = cardWidth;
 
 
-        //            // Determine width of all the cards/controls 
-        //            int allCardsWidth = (myCount - 1) * offset + cardWidth;
-
-        //            startPoint = (int)((canvasHand.Width - allCardsWidth) / 2);
-
-        //        }
-
-        //        // Aligning the cards: Note that I align them in reserve order from how they
-        //        // are stored in the controls collection. This is so that cards on the left 
-        //        // appear underneath cards to the right. This allows the user to see the rank
-        //        // and suit more easily.
-        //        //// Align the "first" card (which is the last control in the collection)
-        //        Canvas.SetTop(canvasHand.Children[myCount - 1], POP);
-        //        Canvas.SetRight(canvasHand.Children[myCount - 1], startPoint);
-
-
-        //        // for each of the remaining controls, in reverse order.
-        //        for (int index = myCount - 2; index >= 0; index--)
-        //        {
-        //            // Align the current card
-        //            Canvas.SetTop(canvasHand.Children[index], POP);
-        //            Canvas.SetRight(canvasHand.Children[index], Canvas.GetRight(canvasHand.Children[index + 1]) + offset);
-        //        }
-
-        //    }
-        //}
 
         /// <summary>
         /// Disables an image in the playing field 
@@ -618,6 +626,7 @@ namespace Client.Views
         {
             img.Height = regularHeight;
             img.Width = regularWidth;
+            //img.Opacity = 0.50;
         }
 
         private void DisplayDeck<T>(Deck<T> s) where T : Card
@@ -675,8 +684,51 @@ namespace Client.Views
         /// <param name="currentPlayer">The player who is currently making their move.</param>
         /// <param name="attacker">The player who is the attacker in the current turn.</param>
         /// <param name="defender">The player who is the defender in the current turn.</param>
-        private static void PromptGameState(Player currentPlayer, Player attacker, Player defender)
+        private void GameOptions()
         {
+            // Stores file path in the system
+            //Deck<PlayingCard> playDeck;
+            var pwd = Directory.GetCurrentDirectory();
+            var fileName = System.IO.Path.Combine(pwd, "GameLog");
+            var read = System.IO.Path.Combine(fileName, "pregame_settings.txt");
+
+            //// Reads entire file
+            //if (File.Exists(read))
+            //{
+            //    // Reads and displays content
+            //    string stream = File.ReadAllText(read);
+            //    Console.WriteLine(stream);
+            //}
+
+            // To read a text file line by line
+            if (File.Exists(read))
+            {
+                // Store each line in array of strings
+                string[] option = File.ReadAllLines(read);
+
+                lblDeckSize.Content = $"Deck Size: {option[0]}";
+
+                //DeckSize deckSize = (DeckSize)(Int32.Parse(lines[1])/4);
+                // return deckSize;
+            }
+            //return DeckSize.ThirtySix;
+            //// By using StreamReader
+            //if (File.Exists(read))
+            //{
+            //    // Reads file line by line
+            //    StreamReader Textfile = new StreamReader(read);
+            //    string line;
+
+            //    while ((line = Textfile.ReadLine()) != null)
+            //    {
+            //        Console.WriteLine(line);
+            //    }
+
+            //    Textfile.Close();
+
+            //    Console.Read();
+            //}
+
             #region Game State Info
 
             //// Wait for User Input to Continue
@@ -717,17 +769,121 @@ namespace Client.Views
             #endregion
         }
 
-        #endregion
-
-        private void btnPass_Click(object sender, RoutedEventArgs e)
+        private void Statistics()
         {
+            // Stores file path in the system
+            var pwd = Directory.GetCurrentDirectory();
+            var fileName = System.IO.Path.Combine(pwd, "GameLog");
+            var read = System.IO.Path.Combine(fileName, "statistics.txt");
+            var readWins = System.IO.Path.Combine(fileName, "wins.txt");
+            var readLosses = System.IO.Path.Combine(fileName, "losses.txt");
+            var readTies = System.IO.Path.Combine(fileName, "ties.txt");
+            var readTotal = System.IO.Path.Combine(fileName, "total.txt");
+
+
+            //// Reads entire file
+            //if (File.Exists(readWins))
+            //{
+            //    // Reads and displays content
+            //    string streamWins = File.ReadAllText(readWins);
+            //    Console.WriteLine(streamWins);
+            //}
+
+            if (File.Exists(read))
+            {
+                // Store each line in array of strings
+                string[] option = File.ReadAllLines(read);
+
+                lbl1.Content = $"{option[0]} is Playing!";
+                lblPlayer.Content = option[0];
+
+                //DeckSize deckSize = (DeckSize)(Int32.Parse(lines[1])/4);
+                // return deckSize;
+            }
+
+            // To read a text file line by line
+            if (File.Exists(readWins))
+            {
+                // Store each line in array of strings
+                string[] linesWins = File.ReadAllLines(readWins);
+
+                lblWins.Content = $"Number of Wins: {linesWins[1]}";
+            }
+
+            //// Reads entire file
+            //if (File.Exists(readLosses))
+            //{
+            //    // Reads and displays content
+            //    string streamLosses = File.ReadAllText(readLosses);
+            //    Console.WriteLine(streamLosses);
+            //}
+
+            // To read a text file line by line
+            if (File.Exists(readLosses))
+            {
+                // Store each line in array of strings
+                string[] linesLosses = File.ReadAllLines(readLosses);
+
+                lblLosses.Content = $"Number of Losses: {linesLosses[2]}";
+            }
+
+            //// Reads entire file
+            //if (File.Exists(readTies))
+            //{
+            //    // Reads and displays content
+            //    string streamTies = File.ReadAllText(readTies);
+            //    Console.WriteLine(streamTies);
+            //}
+
+            // To read a text file line by line
+            if (File.Exists(readTies))
+            {
+                // Store each line in array of strings
+                string[] linesTies = File.ReadAllLines(readTies);
+
+                lblTies.Content = $"Number of Ties: {linesTies[3]}";
+            }
+
+            //// Reads entire file
+            //if (File.Exists(readTotal))
+            //{
+            //    // Reads and displays content
+            //    string streamTotal = File.ReadAllText(readTotal);
+            //    Console.WriteLine(streamTotal);
+            //}
+
+            // To read a text file line by line
+            if (File.Exists(readTotal))
+            {
+                // Store each line in array of strings
+                string[] linesTotal = File.ReadAllLines(readTotal);
+
+                lblTotal.Content = $"Number of Games Played: {linesTotal[4]}";
+            }
+
+            // By using StreamReader
+            if (File.Exists(read))
+            {
+                // Reads file line by line
+                StreamReader Textfile = new StreamReader(read);
+                string line;
+
+                while ((line = Textfile.ReadLine()) != null)
+                {
+                    Console.WriteLine(line);
+                }
+
+                Textfile.Close();
+
+                Console.Read();
+            }
+            Console.WriteLine();
+
+
+            #endregion
 
         }
 
-        private void btnDealNew_Click(object sender, RoutedEventArgs e)
-        {            
-            GameView gameView = new GameView();
-            DataContext = gameView;
-        }
+
     }
 }

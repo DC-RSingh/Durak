@@ -1,5 +1,4 @@
-﻿using CardLib;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,24 +17,21 @@ using System.Windows.Shapes;
 namespace Client.Views
 {
     /// <summary>
-    /// Interaction logic for GameSettingsView.xaml
+    /// Interaction logic for UserView.xaml
     /// </summary>
-    public partial class GameSettingsView : UserControl
+    public partial class UserView : UserControl
     {
-        public GameSettingsView()
+        public UserView()
         {
             InitializeComponent();
         }
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-
-           
-
             //string fileName = @"log/pregame_settings.txt";
             var pwd = Directory.GetCurrentDirectory();
             var fileName = System.IO.Path.Combine(pwd, "GameLog");
-            var textFile = System.IO.Path.Combine(fileName, "pregame_settings.txt");
+            var textFile = System.IO.Path.Combine(fileName, "statistics.txt");
 
             //Check if the file exists
             if (!Directory.Exists(fileName))
@@ -48,18 +44,11 @@ namespace Client.Views
             //Use the using block so the file can close and vairable disposed correctly
             using (StreamWriter writer = File.CreateText(textFile))
             {
-                if (rb1.IsChecked == true)
-                {
-                    writer.WriteLine(DeckSize.FiftyTwo);
-                }
-                else if (rb2.IsChecked == true)
-                {
-                    writer.WriteLine(DeckSize.ThirtySix);
-                }
-                else if (rb3.IsChecked == true)
-                {
-                    writer.WriteLine(DeckSize.Twenty);
-                }
+                writer.WriteLine(tbName.Text);
+                writer.WriteLine("0");
+                writer.WriteLine("0");
+                writer.WriteLine("0");
+                writer.WriteLine("0");
             }
 
             GameView gameView = new GameView();

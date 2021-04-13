@@ -28,7 +28,7 @@ namespace Client
 
 
         }
-        private void Play_Click(object sender, RoutedEventArgs e)
+        private void PlayMenu_Click(object sender, RoutedEventArgs e)
         {
             GameView gameView = new GameView();
             DataContext = gameView;
@@ -45,14 +45,15 @@ namespace Client
             System.Diagnostics.Process.Start("https://www.pagat.com/beating/podkidnoy_durak.html");
         }
 
-        private void GameOptions_Click(object sender, RoutedEventArgs e)
+        private void GameOptionsMenu_Click(object sender, RoutedEventArgs e)
         {
-
+            GameSettingsView gameSettingsView = new GameSettingsView();
+            DataContext = gameSettingsView;
         }
-
         private void ExitMenu_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+
         }
         private void MainMenu_Click(object sender, RoutedEventArgs e)
         {

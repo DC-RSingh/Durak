@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="Client.Views.StatisticsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Views"
+             mc:Ignorable="d" 
+                        d:DesignHeight="600" d:DesignWidth="750" 
+             DataContext="{Binding StatisticsViewModel, ElementName=statisticsViewModel}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+        </Grid.RowDefinitions>
+
+            <DockPanel Grid.Row="1" Grid.RowSpan="11" Grid.ColumnSpan="5">
+            <Image Source="/Resources/Background/statistics.png" Stretch="Fill"/>
+        </DockPanel>
+        <Label  x:Name="lbl1" Content="Label" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource GameViewLabel}"  />
+        <Label  x:Name="lblWins" Content="Number of Wins: " Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource GameViewLabel}" />
+        <Label  x:Name="lblLosses" Content="Number of Losses: " Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource GameViewLabel}"/>
+        <Label  x:Name="lblTies" Content="Number of Ties: " Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource GameViewLabel}" />
+        <Label  x:Name="lblTotal" Content="Number of Games Played:" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource GameViewLabel}" />
+
+        <!--Content Control-->
+        <ContentControl Grid.RowSpan="11" Grid.ColumnSpan="5" Content="{Binding}"/>
+    </Grid>
+    
+</UserControl>

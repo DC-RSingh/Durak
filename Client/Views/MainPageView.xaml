@@ -46,7 +46,7 @@
         </DockPanel>
         <DockPanel Grid.Row="6" Grid.RowSpan="2" Grid.Column="3">
             <StackPanel>
-                <Button Style="{DynamicResource DurakMenuButton}" Content="Game Options" Click="GameOptions_Click"/>
+                <Button Style="{DynamicResource DurakMenuButton}" Content="Statistics" Click="Statistics_Click"/>
             </StackPanel>
         </DockPanel>
         
