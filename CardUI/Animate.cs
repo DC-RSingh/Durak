@@ -35,7 +35,7 @@ namespace CardUI
 
         #endregion
 
-        #region PRIVATE METHODS
+        #region METHODS
         /// <summary>
         /// Reference: https://stackoverflow.com/questions/35969705/double-animations-with-image-in-wpf-form
         /// </summary>
@@ -44,17 +44,6 @@ namespace CardUI
         /// <param name="newY"></param>
         public static void MoveTo(Image target, double newX, double newY)
         {
-            //Image target = card.UpdateCardImage();
-
-            //doubleAnimation = new DoubleAnimation(500, new Duration(new TimeSpan(0, 0, 0, 0, 900)));
-            //doubleAnimation.AutoReverse = true;
-            //Storyboard.SetTarget(doubleAnimation, img);
-            //storyBoard.Children.Add(doubleAnimation);
-
-            //doubleAnimation = new DoubleAnimation(850, new Duration(new TimeSpan(0, 0, 0, 0, 700)));
-            //Storyboard.SetTarget(doubleAnimation, img);
-            //Storyboard.SetTargetProperty(doubleAnimation, new PropertyPath("(canvas.Left)"));
-            //storyBoard.Children.Add(doubleAnimation);
            
             //storyBoard.Begin();
             var top = Canvas.GetTop(target);
@@ -64,24 +53,39 @@ namespace CardUI
 
             var storyboard = new Storyboard();
 
-            DoubleAnimation doubleAnimation = new DoubleAnimation(top, newY, TimeSpan.FromSeconds(10));
+            DoubleAnimation doubleAnimation = new DoubleAnimation(top, newY, TimeSpan.FromSeconds(1));
             Storyboard.SetTarget(doubleAnimation, target);
             Storyboard.SetTargetProperty(doubleAnimation, new PropertyPath(Canvas.TopProperty));
             storyboard.Children.Add(doubleAnimation);
 
-            DoubleAnimation doubleAnimation2 = new DoubleAnimation(left, newX, TimeSpan.FromSeconds(10));
+            DoubleAnimation doubleAnimation2 = new DoubleAnimation(left, newX, TimeSpan.FromSeconds(1));
             Storyboard.SetTarget(doubleAnimation2, target);
             Storyboard.SetTargetProperty(doubleAnimation2, new PropertyPath(Canvas.LeftProperty));
             storyboard.Children.Add(doubleAnimation2);
 
             storyboard.Begin();
         }
-        #endregion 
-
-        #region PUBLIC METHODS
-        public static void Deal(Deck<PlayingCard> deck)
+        
+        /// <summary>
+        /// Deals the deck of cards to players at the start of the game 
+        /// </summary>
+        /// <param name="deck"></param>
+        public static void Deal(Deck<PlayingCard> deck, Canvas canvas)
         {
             
+            for (int i = 1; i < deck.Size; i++)
+            {
+
+                PlayingCard player_card = deck.GetCard(i);
+                player_card.Face = Face.Down;
+                Image img1 = player_card.UpdateCardImage();
+
+                //MoveTo Controls 
+
+                //Adds image to the canvas panel
+                canvas.Children.Add(img1);
+
+            }
         }
 
         /// <summary>

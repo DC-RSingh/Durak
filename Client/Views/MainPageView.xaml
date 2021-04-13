@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Client.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="750" 
-            >
+             d:DesignHeight="600" d:DesignWidth="750">
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -46,7 +45,7 @@
         </DockPanel>
         <DockPanel Grid.Row="6" Grid.RowSpan="2" Grid.Column="3">
             <StackPanel>
-                <Button Style="{DynamicResource DurakMenuButton}" Content="Game Options" Click="GameOptions_Click"/>
+                <Button Style="{DynamicResource DurakMenuButton}" Content="Statistics" Click="Statistics_Click"/>
             </StackPanel>
         </DockPanel>
         

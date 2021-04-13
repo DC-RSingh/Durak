@@ -38,9 +38,10 @@
                         <Image RenderOptions.BitmapScalingMode="HighQuality" Source="Resources/Background/menuicon_yellow.png" Margin="0,-12,-29,-34" VerticalAlignment="Top" />
                     </MenuItem.Icon>
                     <MenuItem Style="{DynamicResource DurakMenuItem}" x:Name="mnuMainMenu" Header="Main Menu" Click="MainMenu_Click" />
-                    <MenuItem Style="{DynamicResource DurakMenuItem}" x:Name="mnuPlayGame" Header="New Game" Click="Play_Click" />
-                    <MenuItem Style="{DynamicResource DurakMenuItem}" x:Name="mnuAbout" Header="About" Click="About_Click" />
-                    <MenuItem Style="{DynamicResource DurakMenuItem}" x:Name="mnuHelp" Header="Help" Click="Help_Click" />
+                    <MenuItem Style="{DynamicResource DurakMenuItem}" x:Name="mnuPlayGame" Header="New Game" Click="PlayMenu_Click" />
+                    <MenuItem Style="{DynamicResource DurakMenuItem}" x:Name="mnuGameOptions" Header="Game Options" Click="GameOptionsMenu_Click" />
+                    <MenuItem Style="{DynamicResource DurakMenuItem}" x:Name="mnuAbout" Header="About" Click="AboutMenu_Click" />
+                    <MenuItem Style="{DynamicResource DurakMenuItem}" x:Name="mnuHelp" Header="Help" Click="HelpMenu_Click" />
                     <MenuItem Style="{DynamicResource DurakMenuItem}" x:Name="mnuExit" Header="Exit" Click="ExitMenu_Click"/>
                 </MenuItem>
             </Menu>

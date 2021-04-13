@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Animate.cs" />
-    <Compile Include="GameLog.cs" />
+    <Compile Include="Statistics.cs" />
     <Compile Include="PlayingCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

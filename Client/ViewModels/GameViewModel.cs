@@ -285,7 +285,7 @@ namespace Client.ViewModels
         {
             foreach (var card in hand.Cast<PlayingCard>())
             {
-                card.Face = Face.Up;
+                //card.Face = Face.Up;
                 card.UpdateCardImage();
                 collection.Add(card);
             }

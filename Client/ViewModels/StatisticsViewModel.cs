@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CardUI
+namespace Client.ViewModels
 {
-    class GameLog
+    class StatisticsViewModel
     {
     }
 }

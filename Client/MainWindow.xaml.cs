@@ -1,17 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using CardLib;
-using CardUI;
-using Client.ViewModels;
 using Client.Views;
-using Logging;
 
 namespace Client
 {
@@ -25,44 +16,41 @@ namespace Client
         {
             InitializeComponent();
             Logger.Start();
-
-
         }
-        private void Play_Click(object sender, RoutedEventArgs e)
+
+        private void PlayMenu_Click(object sender, RoutedEventArgs e)
         {
             GameView gameView = new GameView();
             DataContext = gameView;
         }
 
-        private void About_Click(object sender, RoutedEventArgs e)
+        private void AboutMenu_Click(object sender, RoutedEventArgs e)
         {
             AboutView aboutView = new AboutView();
             DataContext = aboutView;
         }
 
-        private void Help_Click(object sender, RoutedEventArgs e)
+        private void HelpMenu_Click(object sender, RoutedEventArgs e)
         {
-            HelpView helpWindow = new HelpView();
-
-            helpWindow.Name = "GameRules";
+            HelpView helpWindow = new HelpView {Name = "GameRules"};
 
             helpWindow.Show();
         }
 
-        private void GameOptions_Click(object sender, RoutedEventArgs e)
+        private void GameOptionsMenu_Click(object sender, RoutedEventArgs e)
         {
             GameSettingsView gameSettingsView = new GameSettingsView();
             DataContext = gameSettingsView;
         }
-
         private void ExitMenu_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+
         }
         private void MainMenu_Click(object sender, RoutedEventArgs e)
         {
-            MainPageView mainPage = new MainPageView();
-            DataContext = mainPage;
+            MainPageView dataContext = new MainPageView();
+            DataContext = dataContext;
 
         }
     }

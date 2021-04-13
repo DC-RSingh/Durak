@@ -1,9 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using CardLib;
 using CardUI;
 using Client.ViewModels;
 using DurakLib;
@@ -16,13 +18,17 @@ namespace Client.Views
     /// </summary>
     public partial class GameView : UserControl
     {
-        public GameView()
+        public GameView(DeckSize deckSize = DeckSize.ThirtySix, string playerName = "Player 1 (Human)")
         {
             InitializeComponent();
+            ChosenDeckSize = deckSize;
+            Username = playerName;
             InitGame();
         }
 
         private GameViewModel _gameViewModel;
+        private string Username;
+        private DeckSize ChosenDeckSize;
 
         #region FIELDS
 
@@ -44,6 +50,39 @@ namespace Client.Views
         #endregion
 
         #region EVENT HANDLERS
+
+        private void UpdateNewGameStats()
+        {
+            var pwd = Directory.GetCurrentDirectory();
+            var fileName = System.IO.Path.Combine(pwd, "GameLog");
+            var textFile = System.IO.Path.Combine(fileName, "statistics.txt");
+            // Store each line in array of strings
+            string[] option = File.ReadAllLines(textFile);
+
+
+            if (File.Exists(textFile))
+            {
+
+                var name = option[0];
+                var wins = option[1];
+                var losses = option[2];
+                var ties = option[3];
+                var total = option[4];
+
+                // Create the file and use streamWriter to write text to it.
+                //If the file existence is not check, this will overwrite said file.
+                //Use the using block so the file can close and vairable disposed correctly
+                using (StreamWriter writer = File.CreateText(textFile))
+                {
+                    writer.WriteLine(name);
+                    writer.WriteLine(Int32.Parse(wins) + 1);
+                    writer.WriteLine(ties);
+                    writer.WriteLine(total);
+                }
+            }
+        }
+
+
 
         /// <summary>
         /// An EventHandler that handles most of the game logic for the Human <see cref="Player"/> turn in Durak, outputting to and requesting input from the Console.
@@ -238,7 +277,7 @@ namespace Client.Views
 
         private void InitGame()
         {
-            var vm = new GameViewModel();
+            var vm = new GameViewModel(ChosenDeckSize, Username);
             this.DataContext = vm;
             _gameViewModel = vm;
 
@@ -285,7 +324,7 @@ namespace Client.Views
 
         private void Player_Won(object sender, EventArgs e)
         {
-            MessageBox.Show($"{_gameViewModel.Winner} has won the match!");
+            MessageBox.Show($"{_gameViewModel.Winner.PlayerName} has won the match!");
 
             // Add to Win Stats
             //if (_gameViewModel.Winner == _gameViewModel.HumanPlayer)
@@ -312,5 +351,7 @@ namespace Client.Views
 
             if (msgBoxResult == MessageBoxResult.Yes) InitGame();
         }
+
+
     }
 }
