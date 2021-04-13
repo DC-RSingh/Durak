@@ -36,25 +36,31 @@ namespace CardUI
 
         #region CONSTRUCTORS
 
-        public BitmapImage PlayingCardImage { get; set; }
+        //private BitmapImage PlayingCardImage { get; set; }
+
+        public Image CardImage { get; private set; }
 
         public PlayingCard(Suit suit, Rank rank) : base(suit, rank)
         {
-            PlayingCardImage = GetCardImage(suit, rank, Face.Down);
+            //PlayingCardImage = GetCardImage(suit, rank, Face.Down);
+            UpdateCardImage();
         }
 
         public PlayingCard(Suit suit, Rank rank, Face face) : base(suit, rank, face)
         {
-            PlayingCardImage = GetCardImage(suit, rank, face);
+            //PlayingCardImage = GetCardImage(suit, rank, face);
+            UpdateCardImage();
         }
 
         // Class Methods
         public Image UpdateCardImage()
         {
-            Image img = new Image { Width = regularWidth, Height = regularHeight, Source = PlayingCardImage};
+            Image img = new Image { Width = regularWidth, Height = regularHeight, Source = GetCardImage(Suit, Rank, Face) };
 
             //Sets image quality to high
             RenderOptions.SetBitmapScalingMode(img, BitmapScalingMode.HighQuality);
+
+            CardImage = img;
 
             return img;
         }
@@ -101,12 +107,12 @@ namespace CardUI
         /// <summary>
         /// An event the client can handle when the users clicks a control 
         /// </summary>
-        new public event EventHandler Click;
+        public event EventHandler Click;
 
         /// <summary>
         /// An event the client can handle when the users flips a card 
         /// </summary>
-        new public event EventHandler CardFlipped;
+        public event EventHandler CardFlipped;
 
         #endregion
 
