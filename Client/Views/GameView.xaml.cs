@@ -81,7 +81,7 @@ namespace Client.Views
         {
             if (sender is DurakAI ai)
             {
-                lblAIThink.Content = "Thinking...";
+                //txtAIThink.Text = "Thinking...";
             }
         }
 
@@ -317,7 +317,7 @@ namespace Client.Views
             }
             else
             {
-                lblPass.Content = "You Have Chosen Not to Play.";
+                //txtPass.Text = "You Have Chosen Not to Play.";
                 _gameViewModel.PlayerChoseCompletionSource.TrySetResult(true);
             }
         }
