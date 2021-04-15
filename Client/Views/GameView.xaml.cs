@@ -355,7 +355,7 @@ namespace Client.Views
 
             Animate.RealignCards(pnlPlayerHand);
 
-
+            Statistics.UpdateGame();
 
             // Wiring Player Turn Events
             _gameViewModel.HumanPlayer.TurnBegin += HumanPlayer_TurnStart;
@@ -420,7 +420,6 @@ namespace Client.Views
             var msgBoxResult = MessageBox.Show("Are you sure you want to start a new game?", "Start New Game?", MessageBoxButton.YesNo);
 
             if (msgBoxResult == MessageBoxResult.Yes) InitGame();
-            Statistics.UpdateGame();
         }
 
     }

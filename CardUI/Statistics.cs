@@ -5,7 +5,7 @@ using CardLib;
 
 // TODO: Wrong library?
 // TODO: Maybe more firm check of the file or serializable format?
-// TODO: Parse or Create is pretty much required before every property called. Might want to
+// TODO: Parse or Create is pretty much required before every property called. Might want to reduce file reads as well.
 namespace CardUI
 {
     public static class Statistics
