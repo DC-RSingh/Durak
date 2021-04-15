@@ -1,4 +1,15 @@
-﻿using System.Windows;
+﻿/**
+ * OOP 4200 - Final Project - Durak
+ * 
+ * MainHelpView.xaml.cs supports MainHelpView.xaml. This is where the user can have a better notion
+ * of how the game works, followed by the option to start the game.
+ * 
+ * @author      Raje Singh, Fleur Blanckaert, Gabriel Dietrich, Dalton Young
+ * @version     1.0
+ * @since       2021-02 
+ */
+
+using System.Windows;
 using System.Windows.Controls;
 using CardUI;
 
@@ -9,6 +20,9 @@ namespace Client.Views
     /// </summary>
     public partial class MainHelpView : UserControl
     {
+        /// <summary>
+        /// Initializes the Main HelpView
+        /// </summary>
         public MainHelpView()
         {
             InitializeComponent();
@@ -16,6 +30,11 @@ namespace Client.Views
             this.DataContext = null;
         }
 
+        /// <summary>
+        /// General text for the MainHelpView containing Objective, Game Setup, and Game Play rules
+        /// References: https://gathertogethergames.com/durak
+        ///             https://gamerules.com/rules/2-player-durak/#:%7E:text=In%20Durak%2C%20each%20trick%20is,their%20hand%20to%20lead%20first
+        ///  </summary>
         private void GenerateText()
         {
             txtHeader1.Text = "Game Objectives";
@@ -48,6 +67,12 @@ namespace Client.Views
                 "Gamerules.com. Game Rules. https://gamerules.com/rules/2-player-durak/#:%7E:text=In%20Durak%2C%20each%20trick%20is,their%20hand%20to%20lead%20first. \n\n";
 
         }
+
+        /// <summary>
+        /// Initializes the game if the user clicks on this button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Play_Click(object sender, RoutedEventArgs e)
         {
             GameView gameView = new GameView(Statistics.DeckSize, Statistics.PlayerName);

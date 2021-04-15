@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="750">
     <Grid>
+        <!-- Defines the columns-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -14,6 +15,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <!-- Defines the rows -->
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition/>
@@ -24,6 +26,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         
+        <!-- About the Application --> 
         <DockPanel Grid.Row="1" Grid.RowSpan="7" Grid.ColumnSpan="5">
             <Image Source="/Resources/Background/aboutdurak.png" Stretch="Fill"/>
         </DockPanel>

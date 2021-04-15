@@ -1,8 +1,19 @@
-﻿using System;
+﻿/**
+ * OOP 4200 - Final Project - Durak
+ * 
+ * LoggingQueueDispatcher.cs listens to log messages added and dispatches them to all listeners
+ * in the thread
+ * 
+ * @author      Raje Singh, Fleur Blanckaert, Gabriel Dietrich, Dalton Young
+ * @version     1.0
+ * @since       2021-02 
+ */
+
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
-// TODO: LoggerOptions and LoggerFilters for delegation of log messages
+
 namespace Logging
 {
     /**

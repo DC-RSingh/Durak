@@ -1,4 +1,15 @@
-﻿using CardLib;
+﻿/**
+ * OOP 4200 - Final Project - Durak
+ * 
+ * Animate.cs is a class used to make our application more user friendly simply by providing animation
+ * to when cards are selected.
+ * 
+ * @author      Raje Singh, Fleur Blanckaert, Gabriel Dietrich, Dalton Young
+ * @version     1.0
+ * @since       2021-04 
+ */
+
+using CardLib;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +34,10 @@ namespace CardUI
 
         #region CONSTRUCTORS
 
+        /// <summary>
+        /// Animates the updated card
+        /// </summary>
+        /// <param name="card">Represents a card of the deck</param>
         public Animate(PlayingCard card)
         {
             cardImage = card.UpdateCardImage();
@@ -32,6 +47,7 @@ namespace CardUI
 
         #region METHODS
         /// <summary>
+        /// Method used to make our application more user friendly
         /// Reference: https://stackoverflow.com/questions/35969705/double-animations-with-image-in-wpf-form
         /// </summary>
         /// <param name="target"></param>
@@ -64,7 +80,7 @@ namespace CardUI
         /// <summary>
         /// Deals the deck of cards to players at the start of the game 
         /// </summary>
-        /// <param name="deck"></param>
+        /// <param name="deck">Represents the deck of cards</param>
         public static void Deal(Deck<PlayingCard> deck, Canvas canvas)
         {
             

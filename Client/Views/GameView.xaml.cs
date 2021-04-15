@@ -1,4 +1,14 @@
-﻿using System;
+﻿/**
+ * OOP 4200 - Final Project - Durak
+ * 
+ * GameView.xaml.cs supports the GameView.xaml. The Game view is view when the game is being played.
+ * 
+ * @author      Raje Singh, Fleur Blanckaert, Gabriel Dietrich, Dalton Young
+ * @version     1.0
+ * @since       2021-02 
+ */
+
+using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -15,7 +25,6 @@ using Logging;
 
 namespace Client.Views
 {
-    // TODO: Have a Visual Change for Cards that cannot be played
     /// <summary>
     /// Interaction logic for GameView.xaml, presenting a two player game of Durak.
     /// </summary>
@@ -37,6 +46,7 @@ namespace Client.Views
             InitGame();
         }
 
+        // Declarations
         private GameViewModel _gameViewModel;
         private readonly string _username;
         private readonly DeckSize _chosenDeckSize;

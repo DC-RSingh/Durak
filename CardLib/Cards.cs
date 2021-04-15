@@ -1,4 +1,14 @@
-﻿using System;
+﻿/**
+ * OOP 4200 - Final Project - Durak
+ * 
+ * Cards.cs is used to action all the cards that will be availble to be played within the game.
+ * 
+ * @author      Raje Singh, Fleur Blanckaert, Gabriel Dietrich, Dalton Young
+ * @version     1.0
+ * @since       2021-02 
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,6 +19,10 @@ namespace CardLib
     /// </summary>
     public class Cards : List<CardBase>, ICloneable
     {
+        /// <summary>
+        /// USed to clones the cards
+        /// </summary>
+        /// <returns></returns>
         public object Clone()
         {
             var newCards = new Cards();
@@ -59,6 +73,10 @@ namespace CardLib
             return this.ElementAt(pos);
         }
 
+        /// <summary>
+        /// Overrides the ToString method, used to get the card list
+        /// </summary>
+        /// <returns>Returns the card list</returns>
         public override string ToString()
         {
             var cardList = "";

@@ -1,10 +1,19 @@
-﻿using System;
+﻿/**
+ * OOP 4200 - Final Project - Durak
+ * 
+ * Logger.cs Represents the logs of our application
+ * 
+ * @author      Raje Singh, Fleur Blanckaert, Gabriel Dietrich, Dalton Young
+ * @version     1.0
+ * @since       2021-03 
+ */
+
+using System;
 using System.Collections.Concurrent;
 using System.IO;
 using Logging;
 using Path = System.IO.Path;
-// TODO: This class should abstract the Logging so everyone in the project can use it
-// TODO: Ability for listeners to ignore so different streams can have different messages, ties in with Logging filter and options
+
 namespace Client
 {
     /// <summary>

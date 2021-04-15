@@ -10,6 +10,7 @@
         Title="HelpView" Height="450" Width="300">
 
     <Grid>
+        <!-- Defines the columns -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -22,6 +23,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <!-- Defines the rows -->
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
@@ -33,6 +35,8 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
+        <!-- Image for the Help View -->
         <DockPanel  Grid.Row="0" Grid.Column="0"  Grid.RowSpan="9" Grid.ColumnSpan="10">
             <Image Source="/Resources/Background/helpresized.png" Stretch="Fill"/>
         </DockPanel>

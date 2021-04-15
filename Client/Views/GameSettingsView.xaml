@@ -8,6 +8,7 @@
              d:DesignHeight="600" d:DesignWidth="750">
 
     <Grid>
+        <!-- Defines the Columns -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -15,6 +16,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <!-- Defines the rows -->
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition/>
@@ -25,13 +27,16 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <!-- Game options image -->
         <Rectangle Fill="Black" Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="5" Opacity="0.75"/>
         <DockPanel Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="5" Margin="0,0,10,10">
             <Image Source="/Resources/Background/gameoptions.png" Stretch="Fill" Width="748" />
         </DockPanel>
 
+        <!-- Button to play game -->
         <Button Style="{DynamicResource DurakScrollEnterButton}" Grid.Column="2" Grid.Row="4"  Content="Play new game" Click="Play_Click"/>
         
+        <!-- Radio buttons representing deck sizes of 20, 36, and 52-->
         <RadioButton x:Name="rb1" Content="52" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
         <RadioButton x:Name="rb2" Content="36" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
         <RadioButton x:Name="rb3" Content="20" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>

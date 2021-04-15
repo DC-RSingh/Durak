@@ -9,6 +9,7 @@
              >
 
     <Grid x:Name="DurakRoot">
+        <!-- Columns Definitions -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition/>
@@ -16,6 +17,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <!-- Row definitions -->
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition/>
