@@ -40,10 +40,7 @@ namespace Client
 
         private void HelpMenu_Click(object sender, RoutedEventArgs e)
         {
-            //if (AbortGamePrompt() == MessageBoxResult.No) return;
-            // TODO: HelpView is still using old empty view, brings up new window and does not change
             HelpView helpWindow = new HelpView {Name = "GameRules"};
-
             helpWindow.Show();
         }
 

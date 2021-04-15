@@ -14,7 +14,7 @@ namespace Client.Views
     {
         public StatisticsView()
         {
-            InitializeComponent();
+            InitializeComponent();            
             this.DataContext = null;
             GenerateStatistics();
         }
@@ -38,6 +38,7 @@ namespace Client.Views
             lblLosses.Content = $"Number of Losses: {Statistics.PlayerLosses}";
             lblTies.Content = $"Number of Ties: {Statistics.PlayerTies}";
             lblTotal.Content = $"Number of Games Played: {Statistics.PlayerTotal}";
+            
         }
     }
 }
