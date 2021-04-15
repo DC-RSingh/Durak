@@ -1,11 +1,5 @@
-﻿using CardLib;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace CardUI
 {
@@ -16,7 +10,7 @@ namespace CardUI
         public static void UpdateGame()
         {
             var pwd = Directory.GetCurrentDirectory();
-            var fileName = System.IO.Path.Combine(pwd, "GameLog");
+            var fileName = System.IO.Path.Combine(pwd, "Stats");
             var textFile = System.IO.Path.Combine(fileName, "statistics.txt");
 
             // Store each line in array of strings
@@ -173,6 +167,6 @@ namespace CardUI
                 writer.WriteLine("0");
             }
         }
+        #endregion
     }
 }
-#endregion
