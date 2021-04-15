@@ -26,30 +26,24 @@ namespace Client
 
         private void PlayMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (AbortGamePrompt() == MessageBoxResult.No) return;
             GameView gameView = new GameView(Statistics.DeckSize, Statistics.PlayerName);
             DataContext = gameView;
         }
 
         private void AboutMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (AbortGamePrompt() == MessageBoxResult.No) return; 
             AboutView aboutView = new AboutView();
             DataContext = aboutView;
         }
 
         private void HelpMenu_Click(object sender, RoutedEventArgs e)
         {
-            //if (AbortGamePrompt() == MessageBoxResult.No) return;
-            // TODO: HelpView is still using old empty view, brings up new window and does not change
             HelpView helpWindow = new HelpView {Name = "GameRules"};
-
             helpWindow.Show();
         }
 
         private void GameOptionsMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (AbortGamePrompt() == MessageBoxResult.No) return;
             GameSettingsView gameSettingsView = new GameSettingsView();
             DataContext = gameSettingsView;
         }
@@ -59,7 +53,6 @@ namespace Client
         }
         private void MainMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (AbortGamePrompt() == MessageBoxResult.No) return;
             MainPageView dataContext = new MainPageView();
             DataContext = dataContext;
         }
