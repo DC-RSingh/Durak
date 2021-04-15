@@ -338,10 +338,10 @@
 
     <!--Durak Header Label Style-->
     <Style x:Key="GameViewHeaderLabel" TargetType="{x:Type Label}">
-        <Setter Property="Foreground" Value="{StaticResource durakButtonText}"/>
+        <Setter Property="Foreground" Value="{StaticResource durakTextBlockHeader}"/>
         <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Opacity" Value="0.6" />
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Opacity" Value="0.75" />
         <Setter Property="Height" Value="70"/>
         <Setter Property="Width" Value="200"/>
     </Style>

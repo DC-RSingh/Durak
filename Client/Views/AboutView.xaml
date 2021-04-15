@@ -28,7 +28,7 @@
             <Image Source="/Resources/Background/aboutdurak.png" Stretch="Fill"/>
         </DockPanel>
         <DockPanel Grid.Row="2" Grid.RowSpan="6" Grid.ColumnSpan="5">
-            <TextBlock Text =" This is the final project for OOP4200, group 4. We have created a working version of the card game 'Durak'. It was created by Gabriel Dietrich, Fleur Blanckaert, Raje Singh, and Dalton Young." FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="350" TextAlignment="Center" TextWrapping="Wrap" Foreground="white"/>
+            <TextBlock  Style="{DynamicResource BodyTextBlock}" Text ="Durak is a Russian Card Game. We created a working version of it for our final project in OOP4200, group 4. Group 4 consists of Gabriel Dietrich, Fleur Blanckaert, Raje Singh, and Dalton Young." HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="536" />
         </DockPanel>
     </Grid>
 </UserControl>

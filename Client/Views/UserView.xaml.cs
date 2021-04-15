@@ -19,10 +19,8 @@ namespace Client.Views
         private void Enter_Click(object sender, RoutedEventArgs e)
         {
             var nameString = tbName.Text;
-            // TODO: Could just use the value from the file when the press ok without giving a name.
             if (tbName.Text.Trim() == string.Empty)
-            {
-                
+            {                
                 if (tbName.Text == string.Empty)
                 {
                     lblError.Content = "Please enter your name.";
