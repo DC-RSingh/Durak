@@ -353,9 +353,7 @@ namespace Client.Views
         /// <param name="e">The event arguments.</param>
         private void btnDealNew_Click(object sender, RoutedEventArgs e)
         {
-            var msgBoxResult = MessageBox.Show("Are you sure you want to start a new game?", "Start New Game?", MessageBoxButton.YesNo);
-
-            if (msgBoxResult == MessageBoxResult.Yes) InitGame();
+            InitGame();
         }
 
         #endregion
@@ -397,6 +395,8 @@ namespace Client.Views
         /// </summary>
         private void InitGame()
         {
+            txtGameLog.Text = string.Empty;
+
             Logger.Log($"{Statistics.PlayerName} has started a new game...", LoggingLevel.Log, typeof(GameView));
             var vm = new GameViewModel(_chosenDeckSize, _username);
             this.DataContext = vm;

@@ -32,6 +32,7 @@ namespace CardUI
 
         #region METHODS
         /// <summary>
+        /// Allows you to move a card from one point to another
         /// Reference: https://stackoverflow.com/questions/35969705/double-animations-with-image-in-wpf-form
         /// </summary>
         /// <param name="target"></param>
