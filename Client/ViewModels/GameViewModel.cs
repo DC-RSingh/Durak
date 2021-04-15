@@ -381,7 +381,7 @@ namespace Client.ViewModels
                 do
                 {
                     if (player.HandSize >= refillTo) continue;
-                    player.Hand.Add(PlayDeck.Draw());
+                    if (PlayDeck.CanDraw) player.Hand.Add(PlayDeck.Draw());
                 } while (PlayDeck.CanDraw && player.HandSize < refillTo);
             }
 
