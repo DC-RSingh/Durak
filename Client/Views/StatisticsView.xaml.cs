@@ -32,6 +32,7 @@ namespace Client.Views
         /// </summary>
         private void GenerateStatistics()
         {
+            Statistics.ParseOrCreateStatsFile();
             lbl1.Content = $"{Statistics.PlayerName}";
             lblWins.Content = $"Number of Wins: {Statistics.PlayerWins}";
             lblLosses.Content = $"Number of Losses: {Statistics.PlayerLosses}";
