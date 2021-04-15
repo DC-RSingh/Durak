@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using CardUI;
 using Client.ViewModels;
@@ -18,9 +19,11 @@ namespace Client.Views
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-            var nameString = tbName.Text;
+            var nameString = string.IsNullOrWhiteSpace(tbName.Text)
+                ? tbName.Text
+                : tbName.Text.Substring(0, Math.Min(tbName.Text.Length, 40));
             // TODO: Could just use the value from the file when the press ok without giving a name.
-            if (tbName.Text.Trim() == string.Empty)
+            if (nameString == string.Empty)
             {
                 var result = MessageBox.Show("You did not enter a name! Continue without entering a name?",
                     "Continue without Entering Name?", MessageBoxButton.YesNo, MessageBoxImage.Question);

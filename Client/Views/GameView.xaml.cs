@@ -418,7 +418,7 @@ namespace Client.Views
             this.DataContext = vm;
             _gameViewModel = vm;
 
-            _gameViewModel.AiPlayer.ThinkDelay = 0;
+            _gameViewModel.AiPlayer.ThinkDelay = 200;
 
             pnlAIHand.Children.Clear();
             pnlPlayerHand.Children.Clear();
