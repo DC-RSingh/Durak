@@ -26,14 +26,14 @@ namespace Client
 
         private void PlayMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (AbortGamePrompt() == MessageBoxResult.No) return;
+            CheckIfGameExists();
             GameView gameView = new GameView(Statistics.DeckSize, Statistics.PlayerName);
             DataContext = gameView;
         }
 
         private void AboutMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (AbortGamePrompt() == MessageBoxResult.No) return; 
+            CheckIfGameExists();
             AboutView aboutView = new AboutView();
             DataContext = aboutView;
         }
@@ -49,7 +49,7 @@ namespace Client
 
         private void GameOptionsMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (AbortGamePrompt() == MessageBoxResult.No) return;
+            CheckIfGameExists();
             GameSettingsView gameSettingsView = new GameSettingsView();
             DataContext = gameSettingsView;
         }
@@ -59,7 +59,7 @@ namespace Client
         }
         private void MainMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (AbortGamePrompt() == MessageBoxResult.No) return;
+            CheckIfGameExists();
             MainPageView dataContext = new MainPageView();
             DataContext = dataContext;
         }
@@ -82,6 +82,12 @@ namespace Client
                         MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             return MessageBoxResult.Cancel;
+        }
+
+        private void CheckIfGameExists()
+        {
+            if (AbortGamePrompt() == MessageBoxResult.No) return;
+            GameViewModel.GameInProgress = false;
         }
     }
 }

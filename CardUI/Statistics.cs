@@ -33,8 +33,8 @@ namespace CardUI
 
         public static void UpdateSettings(DeckSize newDeckSize)
         {
-            DeckSize = newDeckSize;
             ParseOrCreateStatsFile();
+            DeckSize = newDeckSize;
 
             using (StreamWriter writer = File.CreateText(SettingsFilePath))
             {
