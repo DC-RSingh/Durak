@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using CardUI;
 using Client.ViewModels;
 
 namespace Client.Views
@@ -19,43 +20,26 @@ namespace Client.Views
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-            //string fileName = @"log/pregame_settings.txt";
-            var pwd = Directory.GetCurrentDirectory();
-            var fileName = System.IO.Path.Combine(pwd, "GameLog");
-            var textFile = System.IO.Path.Combine(fileName, "pregame_settings.txt");
             var chosenDeckSize = DeckSize.ThirtySix;
 
-            //Check if the file exists
-            if (!Directory.Exists(fileName))
+
+            if (rb1.IsChecked == true)
             {
-                Directory.CreateDirectory(fileName);
+                chosenDeckSize = DeckSize.FiftyTwo;
+            }
+            else if (rb2.IsChecked == true)
+            {
+                chosenDeckSize = DeckSize.ThirtySix;
+            }
+            else if (rb3.IsChecked == true)
+            {
+                chosenDeckSize = DeckSize.Twenty;
             }
 
-            // Create the file and use streamWriter to write text to it.
-            //If the file existence is not check, this will overwrite said file.
-            //Use the using block so the file can close and vairable disposed correctly
-            using (StreamWriter writer = File.CreateText(textFile))
-            {
-                if (rb1.IsChecked == true)
-                {
-                    chosenDeckSize = DeckSize.FiftyTwo;
-                }
-                else if (rb2.IsChecked == true)
-                {
-                    chosenDeckSize = DeckSize.ThirtySix;
-                }
-                else if (rb3.IsChecked == true)
-                {
-                    chosenDeckSize = DeckSize.Twenty;
-                }
+            Statistics.UpdateSettings(chosenDeckSize);
 
-                writer.WriteLine(chosenDeckSize);
-            }
-
-            GameView gameView = new GameView(chosenDeckSize);
+            GameView gameView = new GameView(Statistics.DeckSize, Statistics.PlayerName);
             DataContext = gameView;
-
-
         }
     }
 }
