@@ -7,6 +7,7 @@ using CardUI;
 using Client.ViewModels;
 using Client.Views;
 
+// TODO: Make app single instance?
 namespace Client
 {
     /// <summary>
@@ -14,7 +15,7 @@ namespace Client
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        
         public MainWindow()
         {
             InitializeComponent();
