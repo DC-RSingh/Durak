@@ -33,6 +33,14 @@ namespace CardLib
             return Convert.ToBoolean(Face) ? $"{Rank} of {Suit}s" : "Face Down";
         }
 
+        /// <summary>
+        /// Flips the card's current <see cref="Face"/>.
+        /// </summary>
+        public void Flip()
+        {
+            Face = Face == Face.Up ? Face.Down : Face.Up;
+        }
+
         #endregion
 
         #region Static Members
