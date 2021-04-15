@@ -181,6 +181,11 @@ namespace Client.ViewModels
         /// </summary>
         public event EventHandler DefenseSuccessful;
 
+        /// <summary>
+        /// Invoked when players' hands are refilled.
+        /// </summary>
+        public event EventHandler HandsRefilled;
+
         #endregion
 
         #region METHODS
@@ -254,6 +259,7 @@ namespace Client.ViewModels
                     if (player.HandSize != 0) continue;
                     Winner = player;
                     OnPropertyChanged(nameof(HasWinner));
+                    GameInProgress = false;
                     WinnerFound?.Invoke(this, EventArgs.Empty);
                     return;
                 }
@@ -370,23 +376,14 @@ namespace Client.ViewModels
         {
             if (!PlayDeck.CanDraw) return;
 
-            var refilledCount = 0;
-            do
+            foreach (var player in Players)
             {
-                foreach (var player in Players)
+                do
                 {
-                    if (player.HandSize >= refillTo)
-                    {
-                        refilledCount++;
-                        continue;
-                    }
-
-                    if (!PlayDeck.CanDraw) continue;
+                    if (player.HandSize >= refillTo) continue;
                     player.Hand.Add(PlayDeck.Draw());
-
-                    if (player.HandSize == refillTo) refilledCount++;
-                }
-            } while (PlayDeck.CanDraw && refilledCount < Players.Length);
+                } while (PlayDeck.CanDraw && player.HandSize < refillTo);
+            }
 
             OnPropertyChanged(nameof(CurrentDeckSize));
             AiCards.Clear();
@@ -394,6 +391,7 @@ namespace Client.ViewModels
             AiPlayer.Hand.ForEach(card => card.Face = Face.Down);
             AddHandToObservableCollection(AiCards, AiPlayer.Hand);
             AddHandToObservableCollection(HumanCards, HumanPlayer.Hand);
+            HandsRefilled?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
