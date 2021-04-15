@@ -4,9 +4,16 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Security;
 
-// TODO: Make the console more useful
 namespace Client
 {
+    /**
+     * Much of this class was not programmed by any of the collaborators of this project. You can find the original code from this
+     * stack overflow question: https://stackoverflow.com/questions/160587/no-output-to-console-from-a-wpf-application
+     * on this answer : https://stackoverflow.com/a/718505
+     * from this user : https://stackoverflow.com/users/58961/john-leidegren
+     *
+     * All credit goes to John Leidegren.
+     */
     /// <summary>
     /// Provides methods to attach and detach a console from an application.
     /// </summary>

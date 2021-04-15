@@ -1,9 +1,15 @@
 ﻿using System;
 // TODO: Support for different string formats in toString, based on options given
-// TODO: Maybe incorporate LoggingLevel to the output format
-// TODO: Add Invoking method to the log message
 namespace Logging
 {
+    /**
+     * Much of this class was not programmed by any of the collaborators of this project. You can find the original code from this
+     * stack exchange question: https://softwareengineering.stackexchange.com/questions/149346/logging-asynchronously-how-should-it-be-done
+     * on this answer : https://softwareengineering.stackexchange.com/a/298292
+     * from this user : https://softwareengineering.stackexchange.com/users/166199/gleb-sevruk
+     *
+     * Credit goes to Gleb Sevruk.
+     */
     /// <summary>
     /// Creates messages that may be cached to log messages in a performant way.
     /// </summary>
@@ -58,13 +64,13 @@ namespace Logging
         /// <param name="timestamp">The timestamp the message was created.</param>
         /// <param name="importance">The logging level of the log message.</param>
         /// <param name="message">The contents of the log message.</param>
-        /// <param name="source">The source of the log message.</param>
+        /// <param name="loggerFor">The source of the log message.</param>
         /// <param name="threadId">The thread Id of the thread this message originated from.</param>
         /// <returns>Returns a new <see cref="LogMessage"/> with the specified attributes.</returns>
         public static LogMessage Create(DateTime timestamp, LoggingLevel importance, string message, Type loggerFor,
-            int thread_id)
+            int threadId)
         {
-            return new LogMessage(timestamp, importance, message, loggerFor, thread_id);
+            return new LogMessage(timestamp, importance, message, loggerFor, threadId);
         }
 
         /// <summary>
