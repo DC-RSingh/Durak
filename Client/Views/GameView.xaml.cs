@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -60,6 +61,11 @@ namespace Client.Views
 
         #region EVENT HANDLERS
 
+        /// <summary>
+        /// Occurs when the hands are first dealt. Logs contents using the <see cref="Logger"/> class.
+        /// </summary>
+        /// <param name="sender">A <see cref="GameViewModel"/></param>
+        /// <param name="e">The event arguments.</param>
         private void Players_HandsDealt(object sender, EventArgs e)
         {
             if (!(sender is GameViewModel gvm)) return;
@@ -72,48 +78,38 @@ namespace Client.Views
 
                 if (player.GetType() == typeof(DurakAI)) player.Hand.ForEach(card => card.Flip());
             }
-        }
 
-        private void PlayDeck_Draw(object sender, EventArgs e)
-        {
-            if (!(sender is Deck<PlayingCard> playDeck)) return;
-
-            
+            Logger.Log($"Trump Card: {gvm.TrumpCard}", source: typeof(CardBase));
         }
 
         /// <summary>
-        /// An EventHandler that handles most of the game logic for the Human <see cref="Player"/> turn in Durak, outputting to and requesting input from the Console.
+        /// Occurs when hands are refilled. Logs contents using the <see cref="Logger"/> class.
         /// </summary>
-        /// <remarks>EventArgs passed is always <seealso cref="EventArgs.Empty"/>.</remarks>
-        /// <param name="sender">The sender of the event.</param>
-        /// <param name="e">The EventArgs of the event</param>
-        private void HumanPlayer_TurnStart(object sender, EventArgs e)
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PlayerHands_Refilled(object sender, EventArgs e)
         {
-        }
-
-        /// <summary>
-        /// An EventHandler that executes at the end of a Human <see cref="Player"/>'s Turn.
-        /// </summary>
-        /// <remarks>EventArgs passed is always <seealso cref="EventArgs.Empty"/>.</remarks>
-        /// <param name="sender">The sender of the event.</param>
-        /// <param name="e">The EventArgs of the event</param>
-        private void HumanPlayer_TurnEnd(object sender, EventArgs e)
-        {
-        }
-
-        //TODO: Removed static 
-        /// <summary>
-        /// An EventHandler that executes when <see cref="DurakAI"/> "starts thinking".
-        /// </summary>
-        /// <remarks>EventArgs passed is always <seealso cref="EventArgs.Empty"/>.</remarks>
-        /// <param name="sender">The sender of the event.</param>
-        /// <param name="e">The EventArgs of the event.</param>
-        private void AI_StartThink(object sender, EventArgs e)
-        {
-            if (sender is DurakAI ai)
+            if (!(sender is GameViewModel gvm)) return;
+            foreach (var player in gvm.Players)
             {
-                //txtAIThink.Text = "Thinking...";
+                if (player.GetType() == typeof(DurakAI)) player.Hand.ForEach(card => card.Flip());
+
+                Logger.Log($"{player.PlayerName}'s Cards Refilled! New Hand: {player.Hand}", LoggingLevel.Log, player.GetType());
+
+                if (player.GetType() == typeof(DurakAI)) player.Hand.ForEach(card => card.Flip());
             }
+        }
+
+        /// <summary>
+        /// Occurs when the human chooses a card. Logs contents using the <see cref="Logger"/> class.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Human_ChoseCard(object sender, EventArgs e)
+        {
+            if (!(sender is Player player)) return;
+
+            Logger.Log($"{player.PlayerName} chose to play {player.ChosenCard} on Turn {_gameViewModel.TurnCount}, Bout {_gameViewModel.BoutCount}", source: typeof(Player));
         }
 
         /// <summary>
@@ -124,24 +120,49 @@ namespace Client.Views
         /// <param name="e">The EventArgs of the event.</param>
         private void AI_StopThink(object sender, EventArgs e)
         {
-            //if (!(sender is DurakAI ai)) return;
-            ////MessageBox.Show(ai.CanPlay ? $"{ai.PlayerName} found a Move! Playing {ai.ChosenCard}.\n" : $"{ai.PlayerName} could not Find a Move! Passing...\n");
+            if (sender is DurakAI ai)
+            {
+                Logger.Log(ai.CanPlay
+                    ? $"{ai.PlayerName} found a Move on Turn {_gameViewModel.TurnCount}, Bout {_gameViewModel.BoutCount}! Played {ai.ChosenCard}."
+                    : $"{ai.PlayerName} could not Find a Move on Turn {_gameViewModel.TurnCount}, Bout {_gameViewModel.BoutCount}! Passing...", source: typeof(DurakAI));
+            }
 
-            //if (!ai.CanPlay) return;
-            //ai.ChosenCard.Face = Face.Up;
-            //_river.Add(ai.ChosenCard);
-            //var card = (PlayingCard)ai.ChosenCard;
-            //pnlRiver.Children.Add(card.CardImage);
-            //pnlAIHand.Children.Clear();
-            //foreach (var handCard in ai.Hand)
-            //{
-            //    var playingCard = (PlayingCard)handCard;
-            //    pnlAIHand.Children.Add(playingCard.UpdateCardImage());
-            //}
+        }
 
-            ////Animate.RealignCards(pnlAIHand);
-            //Animate.RealignCards(pnlRiver);
+        /// <summary>
+        /// Occurs when a successful attack happens in the game of Durak.
+        /// </summary>
+        /// <param name="sender">A <see cref="GameViewModel"/></param>
+        /// <param name="e">The event args.</param>
+        private void Durak_AttackSuccess(object sender, EventArgs e)
+        {
+            if (!(sender is GameViewModel gvm)) return;
 
+            var msg = $"{gvm.Attacker.PlayerName} was successful in their attack! Defender took up river cards!";
+
+            //MessageBox.Show(msg, "Attack Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+            Logger.Log(msg, source: gvm.Attacker.GetType());
+
+            if (gvm.Defender is DurakAI) gvm.Defender.Hand.ForEach(card => card.Flip());
+
+            Logger.Log($"{gvm.Defender.PlayerName}'s Hand: {gvm.Defender.Hand}", source: gvm.Defender.GetType());
+
+            if (gvm.Defender is DurakAI) gvm.Defender.Hand.ForEach(card => card.Flip());
+        }
+
+        /// <summary>
+        /// Occurs when a successful defense happens in the game of Durak.
+        /// </summary>
+        /// <param name="sender">A <see cref="GameViewModel"/></param>
+        /// <param name="e">The event args.</param>
+        private void Durak_DefenseSuccess(object sender, EventArgs e)
+        {
+            if (!(sender is GameViewModel gvm)) return;
+
+            var msg = $"{gvm.Defender.PlayerName} has successfully defended. Attackers have been switched!";
+
+            //MessageBox.Show(msg, "Defense Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+            Logger.Log(msg, source: gvm.Defender.GetType());
         }
 
         /// <summary>
@@ -326,9 +347,12 @@ namespace Client.Views
         /// <param name="e">The event arguments.</param>
         private void Player_Won(object sender, EventArgs e)
         {
-            MessageBox.Show($"{_gameViewModel.Players.First(player => player != _gameViewModel.Winner).PlayerName} is the Fool!");
+            var msg =
+                $"Game Over! {_gameViewModel.Players.First(player => player != _gameViewModel.Winner).PlayerName} is the Fool!";
+            MessageBox.Show(msg, "Game Over!", MessageBoxButton.OK, MessageBoxImage.Information);
+            Logger.Log(msg, source: typeof(GameViewModel));
 
-            //Add to Win Stats
+            //Add to Win or Loss Stats
             if (_gameViewModel.Winner == _gameViewModel.HumanPlayer)
             {
                 Statistics.UpdateWins();
@@ -352,7 +376,9 @@ namespace Client.Views
             }
             else
             {
-                //txtPass.Text = "You Have Chosen Not to Play.";
+                Logger.Log(
+                    $"{_gameViewModel.HumanPlayer.PlayerName} has chosen not to play on Turn {_gameViewModel.TurnCount}, Bout {_gameViewModel.BoutCount}.",
+                    source: typeof(Player));
                 _gameViewModel.PlayerChoseCompletionSource.TrySetResult(true);
             }
         }
@@ -397,7 +423,7 @@ namespace Client.Views
         /// </summary>
         private void InitGame()
         {
-            Logger.Log($"{Statistics.PlayerName} has started a new game.", LoggingLevel.Log, typeof(GameView));
+            Logger.Log($"{Statistics.PlayerName} has started a new game...", LoggingLevel.Log, typeof(GameView));
             var vm = new GameViewModel(_chosenDeckSize, _username);
             this.DataContext = vm;
             _gameViewModel = vm;
@@ -428,13 +454,21 @@ namespace Client.Views
 
             Animate.RealignCards(pnlPlayerHand);
 
-            Statistics.UpdateGame();
+            // Wire Play Deck Events
+            _gameViewModel.HandsRefilled += PlayerHands_Refilled;
 
+            // Wire Hand Dealt Event
             _gameViewModel.HandsDealt += Players_HandsDealt;
 
-            // Wiring Player Turn Events
-            _gameViewModel.HumanPlayer.TurnBegin += HumanPlayer_TurnStart;
-            _gameViewModel.AiPlayer.StartedThinking += AI_StartThink;
+            // Wire Ai Events
+            _gameViewModel.AiPlayer.StoppedThinking += AI_StopThink;
+
+            // Wire Human Events
+            _gameViewModel.HumanPlayer.ChoseCard += Human_ChoseCard;
+
+            // Wire Phasing Events
+            _gameViewModel.AttackSuccessful += Durak_AttackSuccess;
+            _gameViewModel.DefenseSuccessful += Durak_DefenseSuccess;
 
             // Wiring Collection Events
             _gameViewModel.AiCards.CollectionChanged += AiHand_CollectionChanged;
