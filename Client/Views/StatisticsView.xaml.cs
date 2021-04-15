@@ -20,11 +20,8 @@ namespace Client.Views
         }
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("This will reset all of your stats (including your name). Are you sure?", "Reset Stats?", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            if (result == MessageBoxResult.No) return;
             Statistics.Reset();
             GenerateStatistics();
-            MessageBox.Show("Statistics Have been Reset!", "Stats Reset!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
 
         /// <summary>

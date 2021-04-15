@@ -26,7 +26,7 @@
     <SolidColorBrush x:Key="durakTextBoxBg" Color="#FCF2B6" />
 
     <!--Text Block Color brushes-->
-    <SolidColorBrush x:Key="durakTextBlockHeader" Color="#f4d50b"/>
+    <SolidColorBrush x:Key="durakTextBlockHeader" Color="#f4d50b"  Opacity="0.50"/>
     <SolidColorBrush x:Key="durakTextBlockBody" Color="AntiqueWhite" />
 
     <!--Label Color brushes-->

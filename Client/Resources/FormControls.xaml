@@ -1,7 +1,14 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Client.Resources">
-    
+
+<!-- RESOURCE ATTRIBUTION
+*   ==================
+*   Durak buttons were created by following a tutorial on youtube
+*   MikeMDev. (2014, August 29). WPF war tutorial series - Intro. Retrieved 
+*   April 15, 2021, from https://www.youtube.com/watch?v=JGkFSMRUunw
+-->
+
     <!--Durak Main Menu Button--> 
     <Style x:Key="DurakMenuButton" TargetType="{x:Type Button}">
         <Setter Property="Template">
@@ -331,16 +338,18 @@
 
     <!--Durak Header Label Style-->
     <Style x:Key="GameViewHeaderLabel" TargetType="{x:Type Label}">
-        <Setter Property="Foreground" Value="{StaticResource durakButtonText}"/>
+        <Setter Property="Foreground" Value="{StaticResource durakTextBlockHeader}"/>
         <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Opacity" Value="0.6" />
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Opacity" Value="0.75" />
         <Setter Property="Height" Value="70"/>
         <Setter Property="Width" Value="200"/>
     </Style>
 
     <!--Durak Text Style
-        Reference: https://stackoverflow.com/questions/43730714/wpf-textbox-background-color-not-work
+        Reference: StackOverflow. (February 01). 
+        Wpf textbox background color not work. Retrieved April 15, 2021, 
+        from https://stackoverflow.com/questions/43730714/wpf-textbox-background-color-not-work
     -->
     <Style x:Key="GameSettingsTextBox" TargetType="{x:Type TextBox}">
         <Setter Property="FontSize" Value="15"/>
