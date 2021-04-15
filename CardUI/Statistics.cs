@@ -80,7 +80,7 @@ namespace CardUI
             using (StreamWriter writer = File.CreateText(StatsFilePath))
             {
                 writer.WriteLine(PlayerName);
-                writer.WriteLine(PlayerWins);
+                writer.WriteLine(PlayerWins + 1);
                 writer.WriteLine(PlayerLosses);
                 writer.WriteLine(PlayerTies);
                 writer.WriteLine(PlayerTotal + 1);
