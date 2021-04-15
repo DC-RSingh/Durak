@@ -1,4 +1,14 @@
-﻿namespace Logging
+﻿/**
+ * OOP 4200 - Final Project - Durak
+ * 
+ * LoggingLevels.cs represents an enum for different logging levels for the ILogger
+ * 
+ * @author      Raje Singh, Fleur Blanckaert, Gabriel Dietrich, Dalton Young
+ * @version     1.0
+ * @since       2021-02 
+ */
+
+namespace Logging
 {
     /**
      * Much of this class was not programmed by any of the collaborators of this project. You can find the original code from this
@@ -14,7 +24,7 @@
     public enum LoggingLevel
     {
         Debug,
-        Log,    // TODO: Change to INFO, Change all to Capital
+        Log,    
         Warn,
         Fatal
     }

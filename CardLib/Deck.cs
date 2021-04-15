@@ -1,4 +1,15 @@
-﻿using System;
+﻿/**
+ * OOP 4200 - Final Project - Durak
+ * 
+ * Deck.cs is the class used to represent the deck of cards available on the game.
+ * It contains EventHandlers to shuffle cards, draw a card, shown the last card drawn 
+ * 
+ * @author      Raje Singh, Fleur Blanckaert, Gabriel Dietrich, Dalton Young
+ * @version     1.0
+ * @since       2021-02 
+ */
+
+using System;
 using System.Linq;
 
 namespace CardLib
@@ -55,6 +66,10 @@ namespace CardLib
 
         #endregion
 
+        /// <summary>
+        /// Used to clone the deck
+        /// </summary>
+        /// <returns>Returns a new cloned deck</returns>
         public object Clone()
         {
             var newDeck = new Deck<T>(_cards.Clone() as Cards);
@@ -242,7 +257,11 @@ namespace CardLib
         #endregion
 
         #region PRIVATE METHODS
-        // Invokes either LastCardDrawn or CardDrawn depending on the state of the Deck object.
+        
+        /// <summary>
+        /// Invokes either LastCardDrawn or CardDrawn depending on the state of the Deck object.
+        /// </summary>
+        /// <param name="e"></param>
         private void InvokeDrawEvents(EventArgs e)
         {
             if ( _cards.Count == 0)

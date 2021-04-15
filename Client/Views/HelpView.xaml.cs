@@ -1,4 +1,15 @@
-﻿using System;
+﻿/**
+ * OOP 4200 - Final Project - Durak
+ * 
+ * HelpView.xaml.cs supports HelpView.xaml. This is where the user can have a better notion
+ * of how the game works
+ * 
+ * @author      Raje Singh, Fleur Blanckaert, Gabriel Dietrich, Dalton Young
+ * @version     1.0
+ * @since       2021-04
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,12 +31,20 @@ namespace Client.Views
     /// </summary>
     public partial class HelpView : Window
     {
+        /// <summary>
+        /// Initializes the HelpView
+        /// </summary>
         public HelpView()
         {
             InitializeComponent();
             GenerateText();
         }
 
+        /// <summary>
+        /// General text for the HelpView containing Objective, Game Setup, and Game Play rules
+        /// References: https://gathertogethergames.com/durak
+        ///             https://gamerules.com/rules/2-player-durak/#:%7E:text=In%20Durak%2C%20each%20trick%20is,their%20hand%20to%20lead%20first
+        /// </summary>
         private void GenerateText()
         {
             txtHeader1.Text = "Game Objectives";

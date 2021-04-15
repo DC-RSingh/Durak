@@ -8,11 +8,13 @@
                d:DesignHeight="600" d:DesignWidth="750"
              >
     <Grid>
+        <!-- Defines the columns -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <!-- Defines the Rows -->
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition/>
@@ -27,6 +29,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <!-- Image for main help view-->
         <DockPanel Grid.Row="1" Grid.RowSpan="11" Grid.ColumnSpan="5">
             <Image Source="/Resources/Background/howtoplay.png" Stretch="Fill"/>
         </DockPanel>

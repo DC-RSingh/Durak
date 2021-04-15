@@ -8,6 +8,7 @@
              d:DesignHeight="600" d:DesignWidth="750"
              >
     <Grid>
+        <!-- Defines the columns -->
         <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -15,6 +16,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+        <!-- Defines the rows -->
             <Grid.RowDefinitions>
                 <RowDefinition Height="35"/>
                 <RowDefinition/>
@@ -29,15 +31,19 @@
                 <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <!-- Represents the image displayed-->
         <DockPanel Grid.Row="1" Grid.RowSpan="11" Grid.ColumnSpan="5">
             <Image Source="/Resources/Background/statistics.png" Stretch="Fill"/>
         </DockPanel>
+        
+        <!-- Displays the labels -->
         <Label  x:Name="lbl1" Content="Label" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource GameViewLabel}"  />
         <Label  x:Name="lblWins" Content="Number of Wins: 0" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource GameViewLabel}" />
         <Label  x:Name="lblLosses" Content="Number of Losses: 0" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource GameViewLabel}"/>
         <Label  x:Name="lblTies" Content="Number of Ties: 0" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource GameViewLabel}" />
         <Label  x:Name="lblTotal" Content="Number of Games Played: 0" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource GameViewLabel}" />
 
+        <!-- Reset button -->
         <Button Style="{DynamicResource DurakScrollEnterButton}" VerticalAlignment="Center" Grid.Column="2" Grid.Row="9"  Content="Reset" Click="Reset_Click"/>
         <!--Content Control-->
         <ContentControl Grid.RowSpan="12" Grid.ColumnSpan="5" Content="{Binding}"/>

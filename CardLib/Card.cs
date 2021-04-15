@@ -1,11 +1,25 @@
-﻿namespace CardLib
+﻿/**
+ * OOP 4200 - Final Project - Durak
+ * 
+ * Card.cs represents the cards of the game. The cards can have different ranks, suits, 
+ * and be facing up or down.
+ * 
+ * @author      Raje Singh, Fleur Blanckaert, Gabriel Dietrich, Dalton Young
+ * @version     1.0
+ * @since       2021-02 
+ */
+
+namespace CardLib
 {
     /// <summary>
     /// Represents a standard Playing Card with a Rank, Suit and a Face.
     /// </summary>
     public class Card : CardBase
     {
-
+        /// <summary>
+        /// Copies the nonstatic fields to a new object
+        /// </summary>
+        /// <returns>MemberwiseClone() method</returns>
         public override object Clone()
         {
             return MemberwiseClone();

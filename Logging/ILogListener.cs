@@ -1,4 +1,14 @@
-﻿namespace Logging
+﻿/**
+ * OOP 4200 - Final Project - Durak
+ * 
+ * ILogListener.cs essentially represents the type used to listen to logging messages
+ * 
+ * @author      Raje Singh, Fleur Blanckaert, Gabriel Dietrich, Dalton Young
+ * @version     1.0
+ * @since       2021-03
+ */
+
+namespace Logging
 {
     /**
      * Much of this class was not programmed by any of the collaborators of this project. You can find the original code from this

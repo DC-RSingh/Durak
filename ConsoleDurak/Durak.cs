@@ -1,4 +1,14 @@
-﻿using System;
+﻿/**
+ * OOP 4200 - Final Project - Durak
+ * 
+ * Durak.cs contains all the logic for how the game is played.
+ * 
+ * @author      Raje Singh, Fleur Blanckaert, Gabriel Dietrich, Dalton Young
+ * @version     1.0
+ * @since       2021-03
+ */
+
+using System;
 using System.Linq;
 using CardLib;
 using DurakLib;
@@ -101,23 +111,22 @@ namespace ConsoleDurak
             #endregion
 
             #region Player 1 Init
-
-            var player1 = new Player("Human", _playDeck.Draw(DRAW_AMT));
+            
+            var player1 = new Player("Human", _playDeck.Draw(DRAW_AMT)); // Initializes player 1
 
             #endregion
 
             #region Player 2 Init
 
-            var player2 = new DurakAI("AI", _playDeck.Draw(DRAW_AMT));
+            var player2 = new DurakAI("AI", _playDeck.Draw(DRAW_AMT)); // Initializes player 2
 
             #endregion
 
             #region Determine Trump
 
+            // Determines the trump suit
             _trumpCard = _playDeck.Draw();
-
             CardBase.Trump = _trumpCard.Suit;
-
             Console.WriteLine($"Trump Card: {_trumpCard}");
 
             #endregion

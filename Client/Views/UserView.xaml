@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="750">
     <Grid>
+        <!-- Defines the columns -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -18,6 +19,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <!-- Defines the rows -->
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition/>
@@ -29,13 +31,20 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
+        
+        <!-- Presents the log image -->
         <Rectangle Fill="Black" Grid.Row="1" Grid.RowSpan="8" Grid.ColumnSpan="9" Opacity="0.75"/>
         <DockPanel Grid.Row="1" Grid.RowSpan="8" Grid.ColumnSpan="9" Margin="0,0,10,10">
             <Image Source="/Resources/Background/entername.png" Stretch="Fill" Width="748" />
         </DockPanel>
+        
+        <!-- Error -->
         <Label x:Name="lblError" Style="{DynamicResource DangerLabel}"  VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Column="3" Grid.Row="3" Grid.ColumnSpan="3"/>
+        
+        <!-- Player name-->
         <TextBox x:Name="tbName" Style="{DynamicResource GameSettingsTextBox}"  VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="3" TextWrapping="Wrap" Text=""/>
+        
+        <!-- Buttons -->
         <Button x:Name="btnEnter" Style="{DynamicResource DurakScrollEnterButton}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2" Width="70" Content="Enter" Click="Enter_Click"/>
         <Button x:Name="btnSkip" Style="{DynamicResource DurakScrollSkipButton}" VerticalAlignment="Center" Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="2" Width="70" Content="Skip" Click="Skip_Click"/>
         <!--Content Control-->

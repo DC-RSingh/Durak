@@ -1,4 +1,14 @@
-﻿using System;
+﻿/**
+ * OOP 4200 - Final Project - Durak
+ * 
+ * LoggerFactory.cs creates instances from the Asynchronous logger
+ * 
+ * @author      Raje Singh, Fleur Blanckaert, Gabriel Dietrich, Dalton Young
+ * @version     1.0
+ * @since       2021-03 
+ */
+
+using System;
 using System.Collections.Concurrent;
 
 namespace Logging

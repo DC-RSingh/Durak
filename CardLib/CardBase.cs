@@ -1,4 +1,16 @@
-﻿using System;
+﻿/**
+ * OOP 4200 - Final Project - Durak
+ * 
+ * CardBase.cs essentially dictates how the cards will operate within the game
+ * (e.g., if they are facing up or down, which card is more more based on rank, suit, and most
+ * importantly if it is from the same suit as the trump card).
+ * 
+ * @author      Raje Singh, Fleur Blanckaert, Gabriel Dietrich, Dalton Young
+ * @version     1.0
+ * @since       2021-02 
+ */
+
+using System;
 using System.Diagnostics;
 
 namespace CardLib
@@ -16,18 +28,35 @@ namespace CardLib
 
         #region Public Methods
 
+        /// <summary>
+        /// Creates a return copy of the object
+        /// </summary>
+        /// <returns></returns>
         public abstract object Clone();
 
+        /// <summary>
+        /// Method to indicate cards are equal
+        /// </summary>
+        /// <param name="card"></param>
+        /// <returns>Returns a card</returns>
         public override bool Equals(object card)
         {
             return this == (CardBase)card;
         }
 
+        /// <summary>
+        /// Identofoes object (card) in the collection
+        /// </summary>
+        /// <returns>Returns card found</returns>
         public override int GetHashCode()
         {
             return 13 * (int)Suit + (int)Rank;
         }
 
+        /// <summary>
+        /// Overrides ToString method
+        /// </summary>
+        /// <returns>Returns a card facing down</returns>
         public override string ToString()
         {
             return Convert.ToBoolean(Face) ? $"{Rank} of {Suit}s" : "Face Down";

@@ -1,5 +1,15 @@
-﻿using System;
-// TODO: Support for different string formats in toString, based on options given
+﻿/**
+ * OOP 4200 - Final Project - Durak
+ * 
+ * LogMessgaes.cs essentially creates messages to be cached to log messages
+ * 
+ * @author      Raje Singh, Fleur Blanckaert, Gabriel Dietrich, Dalton Young
+ * @version     1.0
+ * @since       2021-03
+ */
+
+using System;
+
 namespace Logging
 {
     /**

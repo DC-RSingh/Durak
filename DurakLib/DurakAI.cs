@@ -1,4 +1,15 @@
-﻿using System;
+﻿/**
+ * OOP 4200 - Final Project - Durak
+ * 
+ * DurakAI.cs contains the logic behind how the computer decides which card to throw when 
+ * it is their turn to play
+ * 
+ * @author      Raje Singh, Fleur Blanckaert, Gabriel Dietrich, Dalton Young
+ * @version     1.0
+ * @since       2021-03 
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 //using System.Threading;

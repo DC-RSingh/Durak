@@ -8,6 +8,7 @@
              d:DesignHeight="600" d:DesignWidth="750">
     <Grid>
 
+        <!-- Defines the columns -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -15,6 +16,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <!-- Defines the Rows -->
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition/>
@@ -26,31 +28,40 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <!-- Represents image used -->
         <DockPanel Grid.Row="1" Grid.RowSpan="7" Grid.ColumnSpan="5">
             <Image Source="/Resources/Background/durak.png" Stretch="Fill"/>
         </DockPanel>
+        
+        <!-- Play button -->
         <DockPanel Grid.Row="3" Grid.Column="3">
             <StackPanel>
                 <Button Style="{DynamicResource DurakMenuButton}" Content="Play" Click="Play_Click"/>
             </StackPanel>
         </DockPanel>
+        
+        <!-- About button -->
         <DockPanel Grid.Row="4" Grid.RowSpan="2" Grid.Column="3">
             <StackPanel>
                 <Button Style="{DynamicResource DurakMenuButton}" Content="About" Click="About_Click"/>
             </StackPanel>
         </DockPanel>
 
+        <!-- Game options button -->
         <DockPanel Grid.Row="5" Grid.RowSpan="2" Grid.Column="3">
             <StackPanel>
                 <Button Style="{DynamicResource DurakMenuButton}" Content="Game Options" Click="GameOptions_Click"/>
             </StackPanel>
         </DockPanel>
         
+        <!-- Help button -->
         <DockPanel Grid.Row="6" Grid.RowSpan="2" Grid.Column="3">
             <StackPanel>
                 <Button Style="{DynamicResource DurakMenuButton}" Content="Help" Click="Help_Click"/>
             </StackPanel>
         </DockPanel>
+        
+        <!-- Statistics button -->
         <DockPanel Grid.Row="7" Grid.RowSpan="2" Grid.Column="3">
             <StackPanel>
                 <Button Style="{DynamicResource DurakMenuButton}" Content="Statistics" Click="Statistics_Click"/>

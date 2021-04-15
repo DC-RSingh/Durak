@@ -1,4 +1,14 @@
-﻿using System;
+﻿/**
+ * OOP 4200 - Final Project - Durak
+ * 
+ * ILogger essentially demonstrates the configuration type for the logging system
+ * 
+ * @author      Raje Singh, Fleur Blanckaert, Gabriel Dietrich, Dalton Young
+ * @version     1.0
+ * @since       2021-03
+ */
+
+using System;
 
 namespace Logging
 {
@@ -20,6 +30,6 @@ namespace Logging
         /// </summary>
         /// <param name="loggerFor">The type to create the logger for.</param>
         /// <returns></returns>
-        ILogger For(Type loggerFor); // TODO: Configure a method for just a String (requires configuring wherever loggerFor is used)
+        ILogger For(Type loggerFor); 
     }
 }

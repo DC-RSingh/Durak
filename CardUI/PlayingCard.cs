@@ -1,4 +1,15 @@
-﻿using System;
+﻿/**
+ * OOP 4200 - Final Project - Durak
+ * 
+ * PlayingCard.cs is a class used to represent the cards being played on the game.
+ * It makes use of the images saved within the application
+ * 
+ * @author      Raje Singh, Fleur Blanckaert, Gabriel Dietrich, Dalton Young
+ * @version     1.0
+ * @since       2021-03 
+ */
+
+using System;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -68,9 +79,9 @@ namespace CardUI
         /// Updates the <see cref="CardImage"/> with the image representing this card with the face provided.
         /// </para>
         /// </summary>
-        /// <param name="suit"></param>
-        /// <param name="rank"></param>
-        /// <param name="face"></param>
+        /// <param name="suit">Represents the suit of the card</param>
+        /// <param name="rank">Represents the rank of the card</param>
+        /// <param name="face">Represents if the card is facing up or down</param>
         public PlayingCard(Suit suit, Rank rank, Face face) : base(suit, rank, face)
         {
             UpdateCardImage();
@@ -79,6 +90,14 @@ namespace CardUI
         #endregion
 
         #region PRIVATE METHODS
+
+        /// <summary>
+        /// Gets the image to be displayed depending on which card
+        /// </summary>
+        /// <param name="newSuit">Represents the new suit of the card</param>
+        /// <param name="newRank">Represents the new rank of the card</param>
+        /// <param name="newFace">Represents if the new card is facing up or down</param>
+        /// <returns></returns>
         private BitmapImage GetCardImage(Suit newSuit, Rank newRank, Face newFace)
         {
 
@@ -90,6 +109,11 @@ namespace CardUI
             return GetImage($"{CARD_PATH + Rank + Suit}.png");
         }
 
+        /// <summary>
+        /// Gets the path for the image used on each card
+        /// </summary>
+        /// <param name="path">Represents the path where the cards are saved in the application</param>
+        /// <returns></returns>
         private BitmapImage GetImage(string path)
         {
             BitmapImage card = new BitmapImage();
@@ -104,9 +128,9 @@ namespace CardUI
         #region PUBLIC METHODS 
 
         /// <summary>
-        /// 
+        /// Updates the image displayed for the cards
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns the image</returns>
         public Image UpdateCardImage()
         {
             Image img = new Image { Width = regularWidth, Height = regularHeight, Source = GetCardImage(Suit, Rank, Face) };

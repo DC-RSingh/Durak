@@ -1,4 +1,14 @@
-﻿using System;
+﻿/**
+ * OOP 4200 - Final Project - Durak
+ * 
+ * ConsoleLogListener.cs essentially logs the console with a new line
+ * 
+ * @author      Raje Singh, Fleur Blanckaert, Gabriel Dietrich, Dalton Young
+ * @version     1.0
+ * @since       2021-03
+ */
+
+using System;
 
 namespace Logging
 {

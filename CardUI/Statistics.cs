@@ -1,11 +1,19 @@
-﻿using System;
+﻿/**
+ * OOP 4200 - Final Project - Durak
+ * 
+ * Statistics.cs is class used to let the user know how many games were played, as well as number
+ * of wins, losses, and ties, including the name of the user playing.
+ * 
+ * @author      Raje Singh, Fleur Blanckaert, Gabriel Dietrich, Dalton Young
+ * @version     1.0
+ * @since       2021-04 
+ */
+
+using System;
 using System.IO;
 using System.Windows;
 using CardLib;
 
-// TODO: Wrong library?
-// TODO: Maybe more firm check of the file or serializable format?
-// TODO: Parse or Create is pretty much required before every property called. Might want to reduce file reads as well.
 namespace CardUI
 {
     public static class Statistics
@@ -13,24 +21,64 @@ namespace CardUI
 
         #region FIELDS AND PROPERTIES
 
+        /// <summary>
+        /// Gets and sets the name of the player
+        /// </summary>
         public static string PlayerName { get; private set; } = "Player 1 (Human)";
+        
+        /// <summary>
+        /// Gets and sets the wins
+        /// </summary>
         public static int PlayerWins { get; private set; } = 0;
+        
+        /// <summary>
+        /// Gets and sets the losses
+        /// </summary>
         public static int PlayerLosses { get; private set; } = 0;
+        
+        /// <summary>
+        /// Gets and sets the ties
+        /// </summary>
         public static int PlayerTies { get; private set; } = 0;
+
+        /// <summary>
+        /// Gets and sets the total number of games played
+        /// </summary>
         public static int PlayerTotal { get; private set; } = 0;
 
+        /// <summary>
+        /// Gets and sets the deck size
+        /// </summary>
         public static DeckSize DeckSize { get; private set; } = DeckSize.ThirtySix;
 
+        /// <summary>
+        /// Represents the current directory
+        /// </summary>
         private static readonly string _currentDir = Directory.GetCurrentDirectory();
+
+        /// <summary>
+        /// Represents the Directory used for the stats
+        /// </summary>
         public static string StatsDirPath => System.IO.Path.Combine(_currentDir, "DurakStats");
+
+        /// <summary>
+        /// Represents the text file used to store the stats
+        /// </summary>
         public static string StatsFilePath => System.IO.Path.Combine(StatsDirPath, "durak_statistics.txt");
 
+        /// <summary>
+        /// Represents the text file to determine the pre game settings including name and deck size
+        /// </summary>
         public static string SettingsFilePath => System.IO.Path.Combine(StatsDirPath, "pregame_settings.txt");
 
         #endregion
 
         #region PUBLIC METHODS
 
+        /// <summary>
+        /// Updates the settings
+        /// </summary>
+        /// <param name="newDeckSize">Represents the new deck size</param>
         public static void UpdateSettings(DeckSize newDeckSize)
         {
             ParseOrCreateStatsFile();
@@ -42,6 +90,10 @@ namespace CardUI
             }
         }
 
+        /// <summary>
+        /// Updates the player name
+        /// </summary>
+        /// <param name="name">Represents the name of the player</param>
         public static void UpdatePlayerName(string name)
         {
             ParseOrCreateStatsFile();
@@ -57,6 +109,9 @@ namespace CardUI
             }
         }
 
+        /// <summary>
+        /// Updates the number of games played by adding 1 to the total
+        /// </summary>
         public static void UpdateGame()
         {
             ParseOrCreateStatsFile();
@@ -73,6 +128,9 @@ namespace CardUI
 
         }
 
+        /// <summary>
+        /// Updates the number of wins by adding 1 to the total of wins
+        /// </summary>
         public static void UpdateWins()
         {
             ParseOrCreateStatsFile();
@@ -88,6 +146,9 @@ namespace CardUI
             }
         }
 
+        /// <summary>
+        /// Updates the total losses by adding one to the total of losses
+        /// </summary>
         public static void UpdateLosses()
         {
             ParseOrCreateStatsFile();
@@ -104,6 +165,9 @@ namespace CardUI
 
         }
 
+        /// <summary>
+        /// Updates the ties by adding one to the total of ties
+        /// </summary>
         public static void UpdateTies()
         {
 
@@ -119,6 +183,9 @@ namespace CardUI
             }
         }
 
+        /// <summary>
+        /// Resets the statistics count, placing them back to 0
+        /// </summary>
         public static void Reset()
         {
             ParseOrCreateStatsFile();
@@ -138,6 +205,9 @@ namespace CardUI
             }
         }
 
+        /// <summary>
+        /// Makes use of StreamWriter to reset the statistics
+        /// </summary>
         public static void ResetSettings()
         {
             ParseOrCreateStatsFile();
