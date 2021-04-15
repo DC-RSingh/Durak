@@ -122,6 +122,11 @@ namespace CardUI
         public static void Reset()
         {
             ParseOrCreateStatsFile();
+            PlayerName = "Player 1 (Human)";
+            PlayerWins = 0;
+            PlayerLosses = 0;
+            PlayerTies = 0;
+            PlayerTotal = 0;
 
             using (var writer = File.CreateText(StatsFilePath))
             {
