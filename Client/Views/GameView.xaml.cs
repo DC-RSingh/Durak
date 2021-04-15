@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,7 +13,6 @@ using Logging;
 
 namespace Client.Views
 {
-    // TODO: Have a Visual Change for Cards that cannot be played
     /// <summary>
     /// Interaction logic for GameView.xaml, presenting a two player game of Durak.
     /// </summary>
@@ -110,7 +107,9 @@ namespace Client.Views
         {
             if (!(sender is Player player)) return;
 
-            Logger.Log($"{player.PlayerName} chose to play {player.ChosenCard} on Turn {_gameViewModel.TurnCount}, Bout {_gameViewModel.BoutCount}", source: typeof(Player));
+            var msg = $"{player.PlayerName} played {player.ChosenCard}";
+
+            OutputToLog(msg, typeof(Player));
         }
 
         /// <summary>
@@ -123,9 +122,11 @@ namespace Client.Views
         {
             if (sender is DurakAI ai)
             {
-                Logger.Log(ai.CanPlay
-                    ? $"{ai.PlayerName} found a Move on Turn {_gameViewModel.TurnCount}, Bout {_gameViewModel.BoutCount}! Played {ai.ChosenCard}."
-                    : $"{ai.PlayerName} could not Find a Move on Turn {_gameViewModel.TurnCount}, Bout {_gameViewModel.BoutCount}! Passing...", source: typeof(DurakAI));
+                if (ai.CanPlay) ai.ChosenCard.Flip();
+                var canPlayMsg = $"{ai.PlayerName} Played {ai.ChosenCard}";
+                var cannotPlayMsg = $"{ai.PlayerName} passed";
+
+                OutputToLog(ai.CanPlay ? canPlayMsg : cannotPlayMsg, typeof(DurakAI));
             }
 
         }
@@ -141,8 +142,7 @@ namespace Client.Views
 
             var msg = $"{gvm.Attacker.PlayerName} was successful in their attack! Defender took up river cards!";
 
-            //MessageBox.Show(msg, "Attack Success!", MessageBoxButton.OK, MessageBoxImage.Information);
-            Logger.Log(msg, source: gvm.Attacker.GetType());
+            OutputToLog(msg, gvm.Attacker.GetType());
 
             if (gvm.Defender is DurakAI) gvm.Defender.Hand.ForEach(card => card.Flip());
 
@@ -162,8 +162,7 @@ namespace Client.Views
 
             var msg = $"{gvm.Defender.PlayerName} has successfully defended. Attackers have been switched!";
 
-            //MessageBox.Show(msg, "Defense Success!", MessageBoxButton.OK, MessageBoxImage.Information);
-            Logger.Log(msg, source: gvm.Defender.GetType());
+            OutputToLog(msg, gvm.Defender.GetType());
         }
 
         /// <summary>
@@ -340,9 +339,9 @@ namespace Client.Views
             }
             else
             {
-                Logger.Log(
-                    $"{_gameViewModel.HumanPlayer.PlayerName} has chosen not to play on Turn {_gameViewModel.TurnCount}, Bout {_gameViewModel.BoutCount}.",
-                    source: typeof(Player));
+                var msg = $"{_gameViewModel.HumanPlayer.PlayerName} passed";
+
+                OutputToLog(msg, typeof(Player));
                 _gameViewModel.PlayerChoseCompletionSource.TrySetResult(true);
             }
         }
@@ -362,6 +361,19 @@ namespace Client.Views
         #endregion
 
         #region HELPER METHODS
+
+        /// <summary>
+        /// Outputs to the <see cref="ScrollViewer"/> acting as the Gamelog and the <see cref="Logger"/>.
+        /// </summary>
+        /// <param name="msg">The message to display.</param>
+        /// <param name="source">The source of the message</param>
+        private void OutputToLog(string msg, Type source)
+        {
+            var message = $"(Turn {_gameViewModel.TurnCount} | Bout {_gameViewModel.BoutCount}): {msg}";
+            txtGameLog.Text += message + "\n--------------------------------\n";
+            Logger.Log(message, source: typeof(Player));
+            scrollGameLog.ScrollToEnd();
+        }
 
         /// <summary>
         /// Disables an image in the playing field 

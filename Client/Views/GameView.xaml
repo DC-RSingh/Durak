@@ -33,11 +33,11 @@
         </DockPanel>
 
         <!--Game Log-->
-        <ScrollViewer VerticalScrollBarVisibility="Auto"  Background="Black" Opacity="0.3" Grid.Row="2" Grid.RowSpan="3" Grid.Column="4" Grid.ColumnSpan="2" >
+        <ScrollViewer x:Name="scrollGameLog" VerticalScrollBarVisibility="Auto"  Background="Black" Opacity="0.3" Grid.Row="2" Grid.RowSpan="3" Grid.Column="4" Grid.ColumnSpan="2" >
             <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock x:Name="txtHeader" FontSize="15" HorizontalAlignment="Center" Style="{DynamicResource HeaderTextBlock}" Text="Game Log"/>
-                <TextBlock x:Name="txtAIThink" Foreground="AntiqueWhite" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,20" Text=""/>
-                <TextBlock x:Name="txtPass" Foreground="AntiqueWhite" TextWrapping="Wrap" Margin="0,0,0,20" Text=""/>
+                <TextBlock x:Name="txtGameLog" Foreground="AntiqueWhite" FontSize="10" TextWrapping="Wrap" Margin="0,0,0,20" Text=""/>
+                <!--<TextBlock x:Name="txtPass" Foreground="AntiqueWhite" TextWrapping="Wrap" Margin="0,0,0,20" Text=""/>-->
             </StackPanel>
         </ScrollViewer>
 
