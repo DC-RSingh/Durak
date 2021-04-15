@@ -72,7 +72,7 @@ namespace Client
                 return;
             }
 
-            Logger.Log("Game of Durak aborted!", source: DataContext.GetType());
+            Logger.Log("Game of Durak aborted!", source: typeof(MainWindow));
 
         }
 
