@@ -18,6 +18,8 @@ namespace Client.Views
             this.DataContext = null;
         }
 
+        public UserControl ParentControl { get; set; }
+
         private void Play_Click(object sender, RoutedEventArgs e)
         {
             var chosenDeckSize = DeckSize.ThirtySix;

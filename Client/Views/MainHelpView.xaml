@@ -32,14 +32,16 @@
         </DockPanel>
 
         <!--Scroll View-->
-        <ScrollViewer HorizontalAlignment="Center" Opacity="0.70" VerticalScrollBarVisibility="Auto" Width="572" Grid.Row="4" Grid.RowSpan="4" Grid.ColumnSpan="3">
-            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">
-                <TextBlock x:Name="txtHeader1" Foreground="AntiqueWhite" FontSize="20" TextWrapping="Wrap"/>
-                <TextBlock x:Name="txtObjective" Foreground="AntiqueWhite" FontSize="20" TextWrapping="Wrap"/>
-                <TextBlock x:Name="txtHeader2" Foreground="AntiqueWhite" FontSize="20" TextWrapping="Wrap"/>
-                <TextBlock x:Name="txtGameSetup" Foreground="AntiqueWhite" FontSize="20" TextWrapping="Wrap"/>
-                <TextBlock x:Name="txtHeader3" Foreground="AntiqueWhite" FontSize="20" TextWrapping="Wrap"/>
-                <TextBlock x:Name="txtGamePlay" Foreground="AntiqueWhite" FontSize="20" TextWrapping="Wrap"/>
+        <ScrollViewer HorizontalAlignment="Center" Opacity="0.70" VerticalScrollBarVisibility="Auto" Grid.Row="4" Grid.RowSpan="4" Grid.ColumnSpan="5">
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50">
+                <TextBlock x:Name="txtHeader1" Style="{DynamicResource HeaderTextBlock}" />
+                <TextBlock x:Name="txtObjective" Style="{DynamicResource BodyTextBlock}"/>
+                <TextBlock x:Name="txtHeader2" Style="{DynamicResource HeaderTextBlock}"/>
+                <TextBlock x:Name="txtGameSetup" Style="{DynamicResource BodyTextBlock}"/>
+                <TextBlock x:Name="txtHeader3" Style="{DynamicResource HeaderTextBlock}"/>
+                <TextBlock x:Name="txtGamePlay" Style="{DynamicResource BodyTextBlock}"/>
+                <TextBlock x:Name="txtHeader4" Style="{DynamicResource HeaderTextBlock}"/>
+                <TextBlock x:Name="txtReferences" Style="{DynamicResource BodyReferences}"/>
             </StackPanel>
         </ScrollViewer>
 

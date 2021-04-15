@@ -10,7 +10,7 @@
 
     <Grid x:Name="DurakRoot">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition />
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -24,19 +24,20 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
 
         <!--Background Image-->
         <DockPanel Grid.Row="1" Grid.RowSpan="7" Grid.ColumnSpan="5">
             <Image Source="/Resources/Background/background.png" Stretch="Fill"/>
-
         </DockPanel>
 
         <!--Game Log-->
-        <ScrollViewer VerticalScrollBarVisibility="Auto"  Background="Black" Opacity="0.3" Grid.Row="2" Grid.RowSpan="3" Grid.Column="3" Grid.ColumnSpan="2" Margin="0,0,0,10" >
-            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">
-                <TextBlock x:Name="txtAIThink" Foreground="AntiqueWhite" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,20" Text="{Binding Attacker.PlayerName}"/>
-                <TextBlock x:Name="txtPass" Foreground="AntiqueWhite" TextWrapping="Wrap" Margin="0,0,0,20" Text="{Binding CurrentDeckSize}"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto"  Background="Black" Opacity="0.3" Grid.Row="2" Grid.RowSpan="3" Grid.Column="4" Grid.ColumnSpan="2" >
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
+                <TextBlock x:Name="txtHeader" FontSize="15" HorizontalAlignment="Center" Style="{DynamicResource HeaderTextBlock}" Text="Game Log"/>
+                <TextBlock x:Name="txtAIThink" Foreground="AntiqueWhite" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,20" Text=""/>
+                <TextBlock x:Name="txtPass" Foreground="AntiqueWhite" TextWrapping="Wrap" Margin="0,0,0,20" Text=""/>
             </StackPanel>
         </ScrollViewer>
 
@@ -49,15 +50,24 @@
 
         <!--Player 1 Playing Field-->
         <Canvas  x:Name="pnlPlayerHand" Height="139" Width="400" Grid.Row="5" Grid.RowSpan="2" Grid.ColumnSpan="3" Margin="25,9,25,40"/>
-        <Label  x:Name="lblPlayer" Content ="{Binding HumanPlayer.PlayerName}" Style="{DynamicResource GameViewLabel}" Grid.ColumnSpan="2" Margin="25,54,125,5" Grid.Row="6" Grid.Column="1"/>
+        <Label  x:Name="lblPlayer" Content ="{Binding HumanPlayer.PlayerName}" Style="{DynamicResource GameViewLabel}" Grid.ColumnSpan="2" Margin="25,54,75,0" Grid.Row="6" Grid.Column="1" Height="58" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2"/>
 
         <!--Deck-->
-        <Canvas  x:Name="pnlDeck" Height="107" Width="120" Grid.Row="5" Grid.RowSpan="2" Grid.Column="3" />
-        <Image Source="/Resources/Pack/gray_back.png" Height="107" Width="75" RenderOptions.BitmapScalingMode="HighQuality" Grid.Column="3" Grid.Row="5" Grid.RowSpan="2"/>
+        <Canvas  x:Name="pnlDeck" Grid.Row="2" Grid.RowSpan="3" Grid.Column="3" Margin="15,79,37,60" />
+        <Image Source="/Resources/Pack/gray_back.png" RenderOptions.BitmapScalingMode="HighQuality" Grid.Column="3" Grid.Row="2" Grid.RowSpan="3" Margin="43,79,10,61"/>
 
         <!--Buttons-->
-        <Button  x:Name="btnPass" Content="Pass" Grid.Row="5" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="2" Style="{DynamicResource DurakPassButton}" Margin="0,24,0,-24" Click="btnPass_Click"/>
-        <Button  x:Name="btnDealNew" Content="New Game" Grid.Row="4" Grid.RowSpan="3" Grid.Column="4" Style="{DynamicResource DurakDealNewButton}" Margin="0,68,0,26" Click="btnDealNew_Click"/>
+        <Button  x:Name="btnPass" Content="Pass" Grid.Row="5" Grid.RowSpan="2" Grid.Column="3" Style="{DynamicResource DurakPassButton}" Margin="0,24,0,-24" Click="btnPass_Click"/>
+        <Button  x:Name="btnDealNew" Content="New Game" Grid.Row="4" Grid.RowSpan="3" Grid.Column="3" Style="{DynamicResource DurakDealNewButton}" Margin="0,68,0,26" Click="btnDealNew_Click"/>
+
+        <!--Labels for deck size and attacking player-->
+        <Rectangle Fill="Black" Opacity="0.3" Stroke="Black" StrokeThickness="1" Grid.Row="7" Grid.ColumnSpan="5"/>
+        <Label  x:Name="lblCurrentPlayerHeader" Content ="Current Attacker: " Style="{DynamicResource GameViewHeaderLabel}" Grid.Row="7"  Grid.ColumnSpan="2" Grid.Column="3" HorizontalAlignment="Center"/>
+        <Label  x:Name="lblCurrentPlayer" Content ="{Binding Attacker.PlayerName}" Style="{DynamicResource GameView1Label}"  Grid.Row="7"  Grid.Column="4" HorizontalAlignment="Right" Margin="0,0,0,-35" Width="120"/>
+        <Label  x:Name="lblDeckSize" Content ="{Binding CurrentDeckSize}" Style="{DynamicResource GameView1Label}" Grid.ColumnSpan="2" Grid.Row="7" Grid.Column="3" HorizontalAlignment="Left"/>
+        <Label  x:Name="lblDeckSizeHeader" Content ="Current Deck Size:" Style="{DynamicResource GameViewHeaderLabel}" Grid.ColumnSpan="2" Grid.Row="7" Grid.Column="2" HorizontalAlignment="Left"/>
+        <Label  x:Name="lblTrump" Content ="{Binding TrumpCard}" Style="{DynamicResource GameView1Label}" Grid.ColumnSpan="2" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left"/>
+        <Label  x:Name="lblTrumpHeader" Content ="Trump:" Style="{DynamicResource GameViewHeaderLabel}" Grid.ColumnSpan="2" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right"/>
 
     </Grid>
 

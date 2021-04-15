@@ -59,8 +59,8 @@
         </Setter>
     </Style>
 
-    <!--Durak Scroll Button-->
-    <Style x:Key="DurakScrollButton" TargetType="{x:Type Button}">
+    <!--Durak Skip Scroll Button-->
+    <Style x:Key="DurakScrollSkipButton" TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -94,7 +94,7 @@
                                     </TransformGroup>
                                 </Setter.Value>
                             </Setter>
-                            <Setter Property="Background" TargetName="btnBorder" Value="{StaticResource durakActiveButton}"/>
+                            <Setter Property="Background" TargetName="btnBorder" Value="{StaticResource durakPassActiveButton}"/>
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -108,7 +108,7 @@
                                     </TransformGroup>
                                 </Setter.Value>
                             </Setter>
-                            <Setter Property="Background" TargetName="btnBorder" Value="{StaticResource durakButtonBorder}"/>
+                            <Setter Property="Background" TargetName="btnBorder" Value="{StaticResource durakPassButtonBorder}"/>
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -116,7 +116,64 @@
         </Setter>
     </Style>
 
-    <!--Durak Pass Turn Button-->
+    <!--Durak Enter Scroll Button-->
+    <Style x:Key="DurakScrollEnterButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="btnBorder"
+                        Padding="4" BorderThickness="1" CornerRadius="15" 
+                        Height="40"
+                        Background="{StaticResource durakButton}"
+                        BorderBrush="{StaticResource durakButtonBorder}"  
+                        Cursor="Hand"
+                        RenderTransformOrigin="0.5,0.5">
+
+                        <ContentPresenter x:Name="btnText" 
+                        TextBlock.Foreground="{StaticResource durakButtonText}"
+                        TextBlock.FontSize="16"
+                        TextBlock.FontWeight="SemiBold"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="{TemplateBinding Content}"
+                     />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                                <Condition Property="IsEnabled" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="RenderTransform" TargetName="btnBorder">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Background" TargetName="btnBorder" Value="{StaticResource durakDealActiveButton}"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="True"/>
+                                <Condition Property="IsEnabled" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="RenderTransform" TargetName="btnBorder">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Background" TargetName="btnBorder" Value="{StaticResource durakDealButtonBorder}"/>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--Durak Deal Pass Button-->
     <Style x:Key="DurakPassButton" TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>
@@ -165,14 +222,14 @@
                                     </TransformGroup>
                                 </Setter.Value>
                             </Setter>
-                            <Setter Property="Background" TargetName="btnBorder1" Value="{StaticResource durakPassButtonBorder}"/>                           
+                            <Setter Property="Background" TargetName="btnBorder1" Value="{StaticResource durakPassButtonBorder}"/>
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
+    
     <!--Durak Deal new Game Button-->
     <Style x:Key="DurakDealNewButton" TargetType="{x:Type Button}">
         <Setter Property="Template">
@@ -254,11 +311,30 @@
     </Style>
 
     <!--Durak Label Style-->
+    <Style x:Key="GameView1Label" TargetType="{x:Type Label}">
+        <Setter Property="Foreground" Value="{StaticResource durakPassButtonText}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Opacity" Value="0.5" />
+        <Setter Property="Height" Value="70"/>
+        <Setter Property="Width" Value="200"/>
+    </Style>
+
+    <!--Durak Label Style-->
     <Style x:Key="GameViewLabel" TargetType="{x:Type Label}">
         <Setter Property="Foreground" Value="{StaticResource durakPassButtonText}"/>
-        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
-        <Setter Property="Opacity" Value="0.95" />
+        <Setter Property="Height" Value="70"/>
+        <Setter Property="Width" Value="200"/>
+    </Style>
+
+    <!--Durak Header Label Style-->
+    <Style x:Key="GameViewHeaderLabel" TargetType="{x:Type Label}">
+        <Setter Property="Foreground" Value="{StaticResource durakButtonText}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Opacity" Value="0.6" />
         <Setter Property="Height" Value="70"/>
         <Setter Property="Width" Value="200"/>
     </Style>
@@ -300,6 +376,44 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <!--Help Menu Text Block Body-->
+    <Style x:Key="HeaderTextBlock" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Foreground" Value="{StaticResource durakTextBlockHeader}"/>
+    </Style>
+
+    <!--Help Menu Text Block Headers-->
+    <Style x:Key="BodyTextBlock" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="{StaticResource durakTextBlockBody}"/>
+    </Style>
+
+    <!--Help Menu Text Block Body References-->
+    <Style x:Key="BodyReferences" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="{StaticResource durakTextBlockBody}"/>
+    </Style>
+
+    <!--Durak Danger Label-->
+    <Style x:Key="DangerLabel" TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Foreground" Value="{StaticResource durakDanger}"/>
+    </Style>
+
+    <Style x:Key="MessageBoxButton" TargetType="{x:Type MessageBoxButton}">
     </Style>
 
 
