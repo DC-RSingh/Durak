@@ -125,7 +125,7 @@ namespace Client.ViewModels
         /// <summary>
         /// Represents whether a game is in progress or not.
         /// </summary>
-        private bool GameInProgress = false;
+        public static bool GameInProgress = false;
 
         #endregion
 
