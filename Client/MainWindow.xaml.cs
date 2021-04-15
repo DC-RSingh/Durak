@@ -72,13 +72,14 @@ namespace Client
                 return;
             }
 
-            Statistics.UpdateGame();
+            Logger.Log("Game of Durak aborted!", source: DataContext.GetType());
+
         }
 
         private static MessageBoxResult AbortGamePrompt()
         {
             if (GameViewModel.GameInProgress) 
-                return MessageBox.Show("Abort your current game? This game will still be added to your statistics.", "Abort Game?",
+                return MessageBox.Show("Abort your current game? This game will not be added to your statistics.", "Abort Game?",
                         MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             return MessageBoxResult.Cancel;
@@ -87,7 +88,7 @@ namespace Client
         private void CheckIfGameExists()
         {
             if (AbortGamePrompt() == MessageBoxResult.No) return;
-            //GameViewModel.GameInProgress = false;
+            Logger.Log("Game of Durak aborted!", source: DataContext.GetType());
         }
     }
 }
