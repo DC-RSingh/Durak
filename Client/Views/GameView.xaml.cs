@@ -192,46 +192,80 @@ namespace Client.Views
         private void WireMouseEvents(Image img, Canvas canvas)
         {
 
-            img.MouseEnter += (sender, args) =>
+            img.MouseEnter -= PlayingCard_MouseEnter;
+            img.MouseEnter += PlayingCard_MouseEnter;
+
+            img.MouseLeave -= PlayingCard_MouseLeave;
+            img.MouseLeave += PlayingCard_MouseLeave;
+
+            //foreach (var card in _gameViewModel.HumanPlayer.PlayableCards)
+            //{
+            //    var playingCard = (PlayingCard) card;
+
+            //    // Wire Visual Effect Events
+            //    img.MouseEnter -= PlayingCard_MouseEnter;
+            //    img.MouseLeave -= PlayingCard_MouseLeave;
+            //    img.MouseLeftButtonDown -= PlayingCard_LeftMouseButtonDown;
+
+            //    if (img.Source != playingCard.CardImage.Source) continue;
+
+            //    img.MouseEnter += PlayingCard_MouseEnter;
+            //    img.MouseLeave += PlayingCard_MouseLeave;
+            //    img.MouseLeftButtonDown += PlayingCard_LeftMouseButtonDown;
+
+            //}
+
+            //img.MouseLeftButtonDown -= PlayingCard_LeftMouseButtonDown;
+            //img.MouseLeftButtonDown += PlayingCard_LeftMouseButtonDown;
+
+        }
+
+        /// <summary>
+        /// Enlarges a card image when it is hovered for visual effect.
+        /// </summary>
+        /// <param name="sender">An <see cref="Image"/>.</param>
+        /// <param name="e">The event arguments.</param>
+        private void PlayingCard_MouseEnter(object sender, MouseEventArgs e)
+        {
+            // Convert sender to a Image
+            if (!(sender is Image img)) return;
+
+            foreach (var card in _gameViewModel.HumanPlayer.PlayableCards)
             {
-                // Convert sender to a CardBox
-                img = sender as Image;
+                var playingCard = (PlayingCard) card;
 
-                // If the conversion worked
-                if (img != null)
-                {
-                    // if the card is in the home panel...
-                    if (img.Parent == canvas)
-                    {
-                        // Enlarge the card for visual effect
-                        img.Height = 132;
-                        img.Width = 100;
+                // Remove Left Mouse Button Down event
+                img.MouseLeftButtonDown -= PlayingCard_LeftMouseButtonDown;
 
-                        // move the card to the top edge of the panel.
-                        Canvas.SetTop(img, 0);
-                    }
-                    else
-                    {
-                        //Disable images
-                        DisableImage(img);
-                    }
-                }
-            };
+                if (img.Source != playingCard.CardImage.Source) continue;
 
-            img.MouseLeave += (sender, args) =>
-            {
                 // Enlarge the card for visual effect
-                img.Height = regularHeight;
-                img.Width = regularWidth;
+                img.Height += POP;
+                img.Width += POP;
 
                 // move the card to the top edge of the panel.
-                Canvas.SetTop(img, POP);
-            };
-            
-            img.MouseLeftButtonDown -= PlayingCard_LeftMouseButtonDown;
-            img.MouseLeftButtonDown += PlayingCard_LeftMouseButtonDown;
+                Canvas.SetTop(img, 0);
 
-        }   
+                img.MouseLeftButtonDown += PlayingCard_LeftMouseButtonDown;
+                break;
+            }
+        }
+
+        /// <summary>
+        /// Sets the card back to its original height and width when the mouse leaves.
+        /// </summary>
+        /// <param name="sender">Ann <see cref="Image"/>.</param>
+        /// <param name="e">The event arguments.</param>
+        private void PlayingCard_MouseLeave(object sender, MouseEventArgs e)
+        {
+            // Set card back to regular height and width
+            if (!(sender is Image img)) return;
+            img.Height = regularHeight;
+            img.Width = regularWidth;
+
+            // move the card to the top edge of the panel.
+            Canvas.SetTop(img, POP);
+        }
 
         /// <summary>
         /// Plays a card when the image is clicked if that card is playable.
@@ -243,17 +277,25 @@ namespace Client.Views
             // Convert sender to a Image
             if (sender is Image cardImage)
             {
-                // Remove the card from the home panel
-                foreach (var card in _gameViewModel.HumanPlayer.PlayableCards)
-                {
-                    var playingCard = (PlayingCard)card;
-                    if (cardImage.Source == playingCard.CardImage.Source) 
-                    {
-                        _gameViewModel.HumanPlayer.ChooseCard(card);
-                        _gameViewModel.PlayerChoseCompletionSource.TrySetResult(true);
-                        break;
-                    }
-                }
+                //// Remove the card from the home panel
+                //foreach (var card in _gameViewModel.HumanPlayer.PlayableCards)
+                //{
+                //    var playingCard = (PlayingCard)card;
+
+                //    // Wire Visual Effect Events
+                //    cardImage.MouseEnter -= PlayingCard_MouseEnter;
+                //    cardImage.MouseLeave -= PlayingCard_MouseLeave;
+
+                //if (cardImage.Source == playingCard.CardImage.Source)
+                //{
+                //cardImage.MouseEnter += PlayingCard_MouseEnter;
+                //cardImage.MouseLeave += PlayingCard_MouseLeave;
+                _gameViewModel.HumanPlayer.ChooseCard(_gameViewModel.HumanPlayer.PlayableCards.First(card => (card as PlayingCard)?.CardImage.Source == cardImage.Source));
+                _gameViewModel.PlayerChoseCompletionSource.TrySetResult(true); 
+                //break;
+                //}
+
+                //}
 
                 //MessageBox.Show($"You have Chosen: {(!(_gameViewModel.Attacker.ChosenCard is null) ? _gameViewModel.Attacker.ChosenCard.ToString() : "You did not choose a card")}");
             }
