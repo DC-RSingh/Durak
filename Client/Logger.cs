@@ -20,8 +20,16 @@ namespace Client
 
         private static FileLogger _fileLogger;
 
+        private static bool _started = false;
+
+        /// <summary>
+        /// Starts the <see cref="LoggingQueueDispatcher"/> with a <see cref="ConsoleLogListener"/> and <see cref="FileLogger"/>, operating with the same
+        /// message queue.
+        /// </summary>
         public static void Start()
         {
+            if (_started) return;
+
             var pwd = Directory.GetCurrentDirectory();
             var logDir = Path.Combine(pwd, "Logs");
 
@@ -34,8 +42,16 @@ namespace Client
 
             var loggingQueueDispatcher = new LoggingQueueDispatcher(_logQueue, listeners, _loggerFactory.For(typeof(LoggingQueueDispatcher)));
             loggingQueueDispatcher.Start();
+            _started = true;
         }
 
+        /// <summary>
+        /// Logs a message to the <see cref="ConsoleLogListener"/> and <see cref="FileLogger"/> with the specified <see cref="LoggingLevel"/> and <see cref="Type"/>
+        /// if any is provided.
+        /// </summary>
+        /// <param name="message">The message to log.</param>
+        /// <param name="level">The logging level of the message.</param>
+        /// <param name="source">The source type of the message.</param>
         public static void Log(string message, LoggingLevel level = LoggingLevel.Log, Type source = null)
         {
             switch (level)

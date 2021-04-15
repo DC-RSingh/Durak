@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -11,11 +7,14 @@ using CardLib;
 
 namespace CardUI
 {
+    /// <summary>
+    /// Extends the <see cref="Card"/> class and adds functionality for use in a 2D GUI.
+    /// </summary>
     public class PlayingCard : Card
     {
         #region FIELD AND PROPERTIES
        
-        //Constant Declaration
+        // Constant Declaration (path to images and pack)
         private const string CARD_PATH = @"pack://application:,,,/Resources/Cards/";
         private const string PACK_PATH = @"pack://application:,,,/Resources/Pack/";
         
@@ -32,40 +31,46 @@ namespace CardUI
         /// </summary>
         private const int regularWidth = 75;
 
+        /// <summary>
+        /// The image that represents the current <see cref="PlayingCard"/>'s state, depending on it's <see cref="CardBase.Face"/>.
+        /// </summary>
+        public Image CardImage { get; private set; }
+
         #endregion
 
         #region CONSTRUCTORS
 
-        //private BitmapImage PlayingCardImage { get; set; }
-
-        public Image CardImage { get; private set; }
-
+        /// <summary>
+        /// Initializes an instance of Playing Card with the given <see cref="Suit"/> and <see cref="Rank"/>. The <see cref="Face"/> is set as <see cref="Face.Up"/> by default.
+        /// <para>
+        /// Updates the <see cref="CardImage"/> with the image representing this card Face up.
+        /// </para>
+        /// </summary>
+        /// 
+        /// <param name="suit">The suit of the card.</param>
+        /// <param name="rank">The rank of the card.</param>
         public PlayingCard(Suit suit, Rank rank) : base(suit, rank)
         {
-            //PlayingCardImage = GetCardImage(suit, rank, Face.Down);
             UpdateCardImage();
         }
 
+        /// <summary>
+        /// Initializes an instance of Playing Card with the given <see cref="Suit"/>, <see cref="Rank"/> and <see cref="Face"/>.
+        /// <para>
+        /// Updates the <see cref="CardImage"/> with the image representing this card with the face provided.
+        /// </para>
+        /// </summary>
+        /// <param name="suit"></param>
+        /// <param name="rank"></param>
+        /// <param name="face"></param>
         public PlayingCard(Suit suit, Rank rank, Face face) : base(suit, rank, face)
         {
-            //PlayingCardImage = GetCardImage(suit, rank, face);
             UpdateCardImage();
         }
 
-        // Class Methods
-        public Image UpdateCardImage()
-        {
-            Image img = new Image { Width = regularWidth, Height = regularHeight, Source = GetCardImage(Suit, Rank, Face) };
+        #endregion
 
-            //Sets image quality to high
-            RenderOptions.SetBitmapScalingMode(img, BitmapScalingMode.HighQuality);
-
-            CardImage = img;
-
-            return img;
-        }
-
-        // Private Methods
+        #region PRIVATE METHODS
         private BitmapImage GetCardImage(Suit newSuit, Rank newRank, Face newFace)
         {
 
@@ -90,29 +95,21 @@ namespace CardUI
 
         #region PUBLIC METHODS 
 
-        #endregion
-
-        #region EVENTS and EVENT HANDLERS
-
         /// <summary>
-        /// An event handler to load the event 
+        /// 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Image_Load(object sender, EventArgs e)
+        /// <returns></returns>
+        public Image UpdateCardImage()
         {
-            UpdateCardImage();
+            Image img = new Image { Width = regularWidth, Height = regularHeight, Source = GetCardImage(Suit, Rank, Face) };
+
+            //Sets image quality to high
+            RenderOptions.SetBitmapScalingMode(img, BitmapScalingMode.HighQuality);
+
+            CardImage = img;
+
+            return img;
         }
-
-        /// <summary>
-        /// An event the client can handle when the users clicks a control 
-        /// </summary>
-        public event EventHandler Click;
-
-        /// <summary>
-        /// An event the client can handle when the users flips a card 
-        /// </summary>
-        public event EventHandler CardFlipped;
 
         #endregion
 

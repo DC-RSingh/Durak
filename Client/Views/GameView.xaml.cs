@@ -1,7 +1,7 @@
 ﻿using System;
-using System.IO;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,10 +14,18 @@ namespace Client.Views
 {
     // TODO: Have a Visual Change for Cards that cannot be played
     /// <summary>
-    /// Interaction logic for GameView.xaml
+    /// Interaction logic for GameView.xaml, presenting a two player game of Durak.
     /// </summary>
     public partial class GameView : UserControl
     {
+        /// <summary>
+        /// Initializes an instance of a <see cref="GameView"/> with the specified <see cref="DeckSize"/> and <paramref name="playerName"/> if any is provided.
+        /// <para>
+        /// Starts a two player game of Durak.
+        /// </para>
+        /// </summary>
+        /// <param name="deckSize">The size of the deck to use in the game of Durak.</param>
+        /// <param name="playerName">The name of the human player.</param>
         public GameView(DeckSize deckSize = DeckSize.ThirtySix, string playerName = "Player 1 (Human)")
         {
             InitializeComponent();
@@ -50,6 +58,7 @@ namespace Client.Views
         #endregion
 
         #region EVENT HANDLERS
+
         /// <summary>
         /// An EventHandler that handles most of the game logic for the Human <see cref="Player"/> turn in Durak, outputting to and requesting input from the Console.
         /// </summary>
@@ -113,6 +122,11 @@ namespace Client.Views
 
         }
 
+        /// <summary>
+        /// Updates the AI Hand canvas when the AI Cards collection changes.
+        /// </summary>
+        /// <param name="sender">A <see cref="ObservableCollection{PlayingCard}"/> of <see cref="PlayingCard"/></param>
+        /// <param name="e">The event arguments.</param>
         private void AiHand_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (sender is ObservableCollection<PlayingCard> collection)
@@ -127,6 +141,11 @@ namespace Client.Views
             
         }
 
+        /// <summary>
+        /// Updates the Human Hand canvas when the Human Cards collection changes.
+        /// </summary>
+        /// <param name="sender">A <see cref="ObservableCollection{PlayingCard}"/> of <see cref="PlayingCard"/></param>
+        /// <param name="e">The event arguments.</param>
         private void HumanHand_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (sender is ObservableCollection<PlayingCard> collection)
@@ -142,6 +161,11 @@ namespace Client.Views
             Animate.RealignCards(pnlPlayerHand);
         }
 
+        /// <summary>
+        /// Updates the River canvas when the River Cards collection changes.
+        /// </summary>
+        /// <param name="sender">A <see cref="ObservableCollection{PlayingCard}"/> of <see cref="PlayingCard"/></param>
+        /// <param name="e">The event arguments.</param>
         private void River_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (sender is ObservableCollection<PlayingCard> river)
@@ -160,6 +184,11 @@ namespace Client.Views
 
         #region HELPER METHODS
 
+        /// <summary>
+        /// Wires Mouse Events to the images of the <see cref="PlayingCard"/> used in the player's hand.
+        /// </summary>
+        /// <param name="img">The image to add events to.</param>
+        /// <param name="canvas">The canvas the image is in.</param>
         private void WireMouseEvents(Image img, Canvas canvas)
         {
 
@@ -204,6 +233,11 @@ namespace Client.Views
 
         }   
 
+        /// <summary>
+        /// Plays a card when the image is clicked if that card is playable.
+        /// </summary>
+        /// <param name="sender">An <see cref="Image"/> associated with a <see cref="PlayingCard"/></param>
+        /// <param name="args">The event arguments.</param>
         private void PlayingCard_LeftMouseButtonDown (object sender, MouseButtonEventArgs args) 
         {
             // Convert sender to a Image
@@ -238,13 +272,15 @@ namespace Client.Views
             //Animate.RealignCards(pnlPlayerHand);
         }
 
-        //private void EnableImage(Image img)
-        //{
-        //    img.Height += POP;
-        //    img.Width += POP;
-        //}
         #endregion
 
+        /// <summary>
+        /// Initializes a game of two player Durak with the <see cref="GameViewModel.PlayGame"/> method.
+        ///
+        /// <para>
+        /// Initializes all canvases and wires events.
+        /// </para>
+        /// </summary>
         private void InitGame()
         {
             var vm = new GameViewModel(ChosenDeckSize, Username);
@@ -294,9 +330,14 @@ namespace Client.Views
             _gameViewModel.PlayGame();
         }
 
+        /// <summary>
+        /// Displays a loser message when the game found a winner.
+        /// </summary>
+        /// <param name="sender">A <see cref="GameViewModel"/></param>
+        /// <param name="e">The event arguments.</param>
         private void Player_Won(object sender, EventArgs e)
         {
-            MessageBox.Show($"{_gameViewModel.Winner.PlayerName} has won the match!");
+            MessageBox.Show($"{_gameViewModel.Players.First(player => player != _gameViewModel.Winner).PlayerName} is the Fool!");
 
             //Add to Win Stats
             if (_gameViewModel.Winner == _gameViewModel.HumanPlayer)
@@ -309,11 +350,16 @@ namespace Client.Views
             }
         }
 
+        /// <summary>
+        /// Passes the human player's current turn.
+        /// </summary>
+        /// <param name="sender">A <see cref="GameView"/></param>
+        /// <param name="e">The event arguments.</param>
         private void btnPass_Click(object sender, RoutedEventArgs e)
         {
             if (_gameViewModel.BoutCount == 1 && _gameViewModel.HumanPlayer == _gameViewModel.Attacker)
             {
-                MessageBox.Show("You must choose a card to play on the first bout!");
+                MessageBox.Show("You must choose a card to play on the first bout as the attacker!");
             }
             else
             {
@@ -322,6 +368,11 @@ namespace Client.Views
             }
         }
 
+        /// <summary>
+        /// Prompts the user before they start a new game.
+        /// </summary>
+        /// <param name="sender">A <see cref="GameView"/>.</param>
+        /// <param name="e">The event arguments.</param>
         private void btnDealNew_Click(object sender, RoutedEventArgs e)
         {
             var msgBoxResult = MessageBox.Show("Are you sure you want to start a new game?", "Start New Game?", MessageBoxButton.YesNo);
