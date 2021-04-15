@@ -27,6 +27,11 @@ namespace DurakLib
         /// </remarks>
         public event EventHandler TurnEnd;
 
+        /// <summary>
+        /// Invoked when a player chooses a card using <see cref="ChooseCard(int)"/> pr <see cref="ChooseCard(CardBase)"/>.
+        /// </summary>
+        public event EventHandler ChoseCard;
+
         #region Properties
 
         /// <summary>
@@ -145,6 +150,7 @@ namespace DurakLib
         {
             HasChosen = true;
             ChosenCard = Hand.Retrieve(Hand.IndexOf(PlayableCards.CardAt(choice)));
+            ChoseCard?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
