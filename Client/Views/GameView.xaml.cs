@@ -269,15 +269,16 @@ namespace Client.Views
             // Convert sender to a Image
             if (!(sender is Image img)) return;
 
-            foreach (var card in _gameViewModel.HumanPlayer.PlayableCards)
+            // TODO: Extreme Optimize this
+            foreach (var card in _gameViewModel.HumanPlayer.Hand)
             {
                 var playingCard = (PlayingCard) card;
 
                 // Remove Left Mouse Button Down event
                 img.MouseLeftButtonDown -= PlayingCard_LeftMouseButtonDown;
 
-                if (img.Source != playingCard.CardImage.Source) continue;
-
+                if (!_gameViewModel.HumanPlayer.PlayableCards.Contains(playingCard) ||
+                    img.Source != playingCard.CardImage.Source) continue;
                 // Enlarge the card for visual effect
                 img.Height += POP;
                 img.Width += POP;
@@ -311,32 +312,21 @@ namespace Client.Views
         /// </summary>
         /// <param name="sender">An <see cref="Image"/> associated with a <see cref="PlayingCard"/></param>
         /// <param name="args">The event arguments.</param>
-        private void PlayingCard_LeftMouseButtonDown (object sender, MouseButtonEventArgs args) 
+        private void PlayingCard_LeftMouseButtonDown(object sender, MouseButtonEventArgs args)
         {
             // Convert sender to a Image
             if (sender is Image cardImage)
             {
-                //// Remove the card from the home panel
-                //foreach (var card in _gameViewModel.HumanPlayer.PlayableCards)
+                //try
                 //{
-                //    var playingCard = (PlayingCard)card;
-
-                //    // Wire Visual Effect Events
-                //    cardImage.MouseEnter -= PlayingCard_MouseEnter;
-                //    cardImage.MouseLeave -= PlayingCard_MouseLeave;
-
-                //if (cardImage.Source == playingCard.CardImage.Source)
+                _gameViewModel.HumanPlayer.ChooseCard(_gameViewModel.HumanPlayer.PlayableCards.First(card =>
+                    (card as PlayingCard)?.CardImage.Source == cardImage.Source));
+                _gameViewModel.PlayerChoseCompletionSource.TrySetResult(true);
+                //}
+                //catch (InvalidOperationException)
                 //{
-                //cardImage.MouseEnter += PlayingCard_MouseEnter;
-                //cardImage.MouseLeave += PlayingCard_MouseLeave;
-                _gameViewModel.HumanPlayer.ChooseCard(_gameViewModel.HumanPlayer.PlayableCards.First(card => (card as PlayingCard)?.CardImage.Source == cardImage.Source));
-                _gameViewModel.PlayerChoseCompletionSource.TrySetResult(true); 
-                //break;
+                // Silently handle invalid OP for if event fires more than once
                 //}
-
-                //}
-
-                //MessageBox.Show($"You have Chosen: {(!(_gameViewModel.Attacker.ChosenCard is null) ? _gameViewModel.Attacker.ChosenCard.ToString() : "You did not choose a card")}");
             }
         }
 
