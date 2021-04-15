@@ -18,6 +18,14 @@ using CardLib;
 
 namespace CardUI
 {
+    /** IMAGE ATTRIBUTION
+*   ==================
+*   Original playing card images in the cards folder and everthing location within the pack folder are 
+*   created by the American Contract Bridge Leauge
+*   52 playing cards. (n.d.). Retrieved April 15, 2021, 
+*   from http://acbl.mybigcommerce.com/52-playing-cards/
+*/
+
     /// <summary>
     /// Extends the <see cref="Card"/> class and adds functionality for use in a 2D GUI.
     /// </summary>

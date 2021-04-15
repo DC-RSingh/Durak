@@ -21,6 +21,21 @@ using Logging;
 
 namespace Client
 {
+
+    /** JOKER IN BACKGROUND IMAGE ATTRIBUTION
+    *   ==========================================
+    *  The joker in the main menu background imagae was found at 
+    *  FAVPNG.com. (n.d.). Joker playing card suit spades - png - 
+    *  download free. Retrieved April 15, 2021, from 
+    *  https://favpng.com/png_view/vector-funny-clown-joker-playing-card-suit-spades-png/0WRitCAm#
+*/
+
+    /** REMAINING DESIGN ELEMENTS
+    *   =========================
+    All other designs were created on Canva, and Illustrator.
+*/
+
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -46,7 +61,6 @@ namespace Client
         /// <param name="e"></param>
         private void PlayMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckIfGameExists()) return;
             GameView gameView = new GameView(Statistics.DeckSize, Statistics.PlayerName);
             DataContext = gameView;
         }
@@ -58,7 +72,6 @@ namespace Client
         /// <param name="e"></param>
         private void AboutMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckIfGameExists()) return;
             AboutView aboutView = new AboutView();
             DataContext = aboutView;
         }
@@ -81,7 +94,6 @@ namespace Client
         /// <param name="e"></param>
         private void GameOptionsMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckIfGameExists()) return;
             GameSettingsView gameSettingsView = new GameSettingsView();
             DataContext = gameSettingsView;
         }
@@ -103,7 +115,6 @@ namespace Client
         /// <param name="e"></param>
         private void MainMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckIfGameExists()) return;
             MainPageView dataContext = new MainPageView();
             DataContext = dataContext;
         }
@@ -141,7 +152,7 @@ namespace Client
         /// <summary>
         /// Checks if game is still going on
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns true if aborted game, otherwise returns false</returns>
         private bool CheckIfGameExists()
         {
             if (AbortGamePrompt() == MessageBoxResult.No) return true;
