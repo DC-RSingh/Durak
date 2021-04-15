@@ -9,11 +9,6 @@
         mc:Ignorable="d"
         Title="HelpView" Height="450" Width="300">
 
-    <Window.Resources>
-        <DataTemplate x:Name="attackingViewTemplate" DataType="{x:Type viewmodels:AttackingViewModel}">
-            <views:AttackingView DataContext="{Binding}"/>
-        </DataTemplate>
-    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -32,10 +27,5 @@
         <DockPanel  Grid.Row="0" Grid.Column="0"  Grid.RowSpan="6" Grid.ColumnSpan="5">
             <Image Source="/Resources/Background/background.png" Stretch="Fill"/>
         </DockPanel>
-        <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Background="Gray" MaxHeight="30" Margin="0,0,0,40"/>
-        <Button Content="Attacking" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Top" Width="70" Margin="0,5,0,0" Click="Attacking_Clicked" />
-        <Button Content="Defending" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Top" Width="70" Margin="0,5,0,0"/>
-        <Button Content="Trump Card" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Top" Width="70" Margin="0,5,0,0"/>
-        <Button Content="End of Turn" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Top" Width="70" Margin="0,5,0,0"/>
     </Grid>
 </Window>

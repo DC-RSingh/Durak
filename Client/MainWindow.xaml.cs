@@ -32,7 +32,9 @@ namespace Client
 
         private void HelpMenu_Click(object sender, RoutedEventArgs e)
         {
-            HelpView helpWindow = new HelpView {Name = "GameRules"};
+            HelpView helpWindow = new HelpView();
+
+            helpWindow.Name = "GameRules";
 
             helpWindow.Show();
         }

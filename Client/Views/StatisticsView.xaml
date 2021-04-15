@@ -29,7 +29,7 @@
                 <RowDefinition/>
         </Grid.RowDefinitions>
 
-            <DockPanel Grid.Row="1" Grid.RowSpan="11" Grid.ColumnSpan="5">
+        <DockPanel Grid.Row="1" Grid.RowSpan="11" Grid.ColumnSpan="5">
             <Image Source="/Resources/Background/statistics.png" Stretch="Fill"/>
         </DockPanel>
         <Label  x:Name="lbl1" Content="Label" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource GameViewLabel}"  />
@@ -40,7 +40,7 @@
 
         <Button Style="{DynamicResource DurakScrollButton}" VerticalAlignment="Center" Grid.Column="2" Grid.Row="9"  Content="Reset" Click="Reset_Click"/>
         <!--Content Control-->
-        <ContentControl Grid.RowSpan="11" Grid.ColumnSpan="5" Content="{Binding}"/>
+        <ContentControl Grid.RowSpan="12" Grid.ColumnSpan="5" Content="{Binding}"/>
     </Grid>
     
 </UserControl>

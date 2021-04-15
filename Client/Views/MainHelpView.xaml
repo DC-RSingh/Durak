@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="Client.Views.MainHelpView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Views"
+             mc:Ignorable="d" 
+               d:DesignHeight="600" d:DesignWidth="750"
+             >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="1" Grid.RowSpan="11" Grid.ColumnSpan="5">
+            <Image Source="/Resources/Background/howtoplay.png" Stretch="Fill"/>
+        </DockPanel>
+
+        <!--Scroll View-->
+        <ScrollViewer HorizontalAlignment="Center" Opacity="0.70" VerticalScrollBarVisibility="Auto" Width="572" Grid.Row="4" Grid.RowSpan="4" Grid.ColumnSpan="3">
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">
+                <TextBlock x:Name="txtHeader1" Foreground="AntiqueWhite" FontSize="20" TextWrapping="Wrap"/>
+                <TextBlock x:Name="txtObjective" Foreground="AntiqueWhite" FontSize="20" TextWrapping="Wrap"/>
+                <TextBlock x:Name="txtHeader2" Foreground="AntiqueWhite" FontSize="20" TextWrapping="Wrap"/>
+                <TextBlock x:Name="txtGameSetup" Foreground="AntiqueWhite" FontSize="20" TextWrapping="Wrap"/>
+                <TextBlock x:Name="txtHeader3" Foreground="AntiqueWhite" FontSize="20" TextWrapping="Wrap"/>
+                <TextBlock x:Name="txtGamePlay" Foreground="AntiqueWhite" FontSize="20" TextWrapping="Wrap"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!--Play button-->
+        <Button Style="{DynamicResource DurakMenuButton}" Grid.Column="1" Grid.Row="9" Content="Play Game!" Click="Play_Click"/>
+
+        <!--Content Control-->
+        <ContentControl Grid.RowSpan="11" Grid.ColumnSpan="5" Content="{Binding}"/>
+    </Grid>
+</UserControl>
+

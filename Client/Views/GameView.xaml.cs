@@ -330,6 +330,5 @@ namespace Client.Views
             Statistics.UpdateGame();
         }
 
-
     }
 }

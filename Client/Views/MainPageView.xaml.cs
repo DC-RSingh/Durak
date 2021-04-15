@@ -26,11 +26,16 @@ namespace Client.Views
             DataContext = aboutView;
         }
 
+        private void GameOptions_Click(object sender, RoutedEventArgs e)
+        {
+            GameSettingsView gameSettingsView = new GameSettingsView();
+            DataContext = gameSettingsView;
+        }
+
         private void Help_Click(object sender, RoutedEventArgs e)
         {
-            HelpView helpWindow = new HelpView();
-            helpWindow.Show();
-            //System.Diagnostics.Process.Start("https://www.pagat.com/beating/podkidnoy_durak.html");
+            MainHelpView helpWindow = new MainHelpView();
+            DataContext = helpWindow;
         }
 
         private void Statistics_Click(object sender, RoutedEventArgs e)

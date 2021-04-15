@@ -25,9 +25,6 @@ namespace Client.Views
             InitializeComponent();
         }
 
-        private void Attacking_Clicked(object sender, RoutedEventArgs e)
-        {
-            DataContext = new AttackingView();
-        }
+        
     }
 }

@@ -23,10 +23,11 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="1" Grid.RowSpan="7" Grid.ColumnSpan="5">
-            <Image Source="/Resources/Background/durak.png" Stretch="Fill"/>
+            <Image Source="/Resources/Background/durak (5).png" Stretch="Fill"/>
         </DockPanel>
         <DockPanel Grid.Row="3" Grid.Column="3">
             <StackPanel>
@@ -38,17 +39,24 @@
                 <Button Style="{DynamicResource DurakMenuButton}" Content="About" Click="About_Click"/>
             </StackPanel>
         </DockPanel>
+
         <DockPanel Grid.Row="5" Grid.RowSpan="2" Grid.Column="3">
+            <StackPanel>
+                <Button Style="{DynamicResource DurakMenuButton}" Content="Game Options" Click="GameOptions_Click"/>
+            </StackPanel>
+        </DockPanel>
+        
+        <DockPanel Grid.Row="6" Grid.RowSpan="2" Grid.Column="3">
             <StackPanel>
                 <Button Style="{DynamicResource DurakMenuButton}" Content="Help" Click="Help_Click"/>
             </StackPanel>
         </DockPanel>
-        <DockPanel Grid.Row="6" Grid.RowSpan="2" Grid.Column="3">
+        <DockPanel Grid.Row="7" Grid.RowSpan="2" Grid.Column="3">
             <StackPanel>
                 <Button Style="{DynamicResource DurakMenuButton}" Content="Statistics" Click="Statistics_Click"/>
             </StackPanel>
         </DockPanel>
         
-        <ContentControl Grid.RowSpan="7" Grid.ColumnSpan="5" Content="{Binding}"/>
+        <ContentControl Grid.RowSpan="8" Grid.ColumnSpan="5" Content="{Binding}"/>
     </Grid>
 </UserControl>
