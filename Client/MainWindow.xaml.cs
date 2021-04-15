@@ -10,6 +10,21 @@ using Client.Views;
 // TODO: Make app single instance?
 namespace Client
 {
+
+    /** JOKER IN BACKGROUND IMAGE ATTRIBUTION
+    *   ==========================================
+    *  The joker in the main menu background imagae was found at 
+    *  FAVPNG.com. (n.d.). Joker playing card suit spades - png - 
+    *  download free. Retrieved April 15, 2021, from 
+    *  https://favpng.com/png_view/vector-funny-clown-joker-playing-card-suit-spades-png/0WRitCAm#
+*/
+
+    /** REMAINING DESIGN ELEMENTS
+    *   =========================
+    All other designs were created on Canva, and Illustrator.
+*/
+
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>

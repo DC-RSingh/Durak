@@ -33,7 +33,7 @@
         </DockPanel>
 
         <!--Game Log-->
-        <ScrollViewer VerticalScrollBarVisibility="Auto"  Background="Black" Opacity="0.3" Grid.Row="2" Grid.RowSpan="3" Grid.Column="4" Grid.ColumnSpan="2" >
+        <ScrollViewer VerticalScrollBarVisibility="Auto"  Background="Black" Opacity="0.3" Grid.Row="2" Grid.RowSpan="3" Grid.Column="3" Grid.ColumnSpan="2" Margin="86,0,0,0" >
             <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock x:Name="txtHeader" FontSize="15" HorizontalAlignment="Center" Style="{DynamicResource HeaderTextBlock}" Text="Game Log"/>
                 <TextBlock x:Name="txtAIThink" Foreground="AntiqueWhite" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,20" Text=""/>
@@ -53,8 +53,8 @@
         <Label  x:Name="lblPlayer" Content ="{Binding HumanPlayer.PlayerName}" Style="{DynamicResource GameViewLabel}" Grid.ColumnSpan="2" Margin="25,54,75,0" Grid.Row="6" Grid.Column="1" Height="58" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2"/>
 
         <!--Deck-->
-        <Canvas  x:Name="pnlDeck" Grid.Row="2" Grid.RowSpan="3" Grid.Column="3" Margin="15,79,37,60" />
-        <Image Source="/Resources/Pack/gray_back.png" RenderOptions.BitmapScalingMode="HighQuality" Grid.Column="3" Grid.Row="2" Grid.RowSpan="3" Margin="43,79,10,61"/>
+        <Canvas  x:Name="pnlDeck" Height="107" Width="120" Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2"/>
+        <Image Source="/Resources/Pack/gray_back.png" Height="107" Width="75" RenderOptions.BitmapScalingMode="HighQuality" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="2"/>
 
         <!--Buttons-->
         <Button  x:Name="btnPass" Content="Pass" Grid.Row="5" Grid.RowSpan="2" Grid.Column="3" Style="{DynamicResource DurakPassButton}" Margin="0,24,0,-24" Click="btnPass_Click"/>
