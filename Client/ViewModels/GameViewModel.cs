@@ -353,8 +353,9 @@ namespace Client.ViewModels
 
         #region HELPER METHODS
 
+        // TODO: FIX A BUG WHERE REFILL HANDS FILLS TO 1 LESS THAN THE REFILL COUNT
         /// <summary>
-        /// Sets the number of cards in hands of the <see cref="Player"/> instances in <see cref="_players"/>, alternating until target amount
+        /// Sets the number of cards in hands of the <see cref="Player"/> instances in <see cref="Players"/>, alternating until target amount
         /// is met or the <see cref="PlayDeck"/> is empty.
         /// </summary>
         /// <param name="refillTo">The amount to refill the hands to.</param>
