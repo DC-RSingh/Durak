@@ -58,5 +58,20 @@ namespace CardLib
         {
             return this.ElementAt(pos);
         }
+
+        public override string ToString()
+        {
+            var cardList = "";
+            for (var index = 0; index < this.Count; index++)
+            {
+                var cardBase = this[index];
+                if (index != this.Count - 1)
+                    cardList += $"{index + 1}: {cardBase}, ";
+                else
+                    cardList += $"{index + 1}: {cardBase}";
+            }
+
+            return cardList;
+        }
     }
 }
