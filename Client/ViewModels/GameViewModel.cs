@@ -6,8 +6,13 @@ using CardLib;
 using CardUI;
 using DurakLib;
 
+// TODO: Configure for up to 6 players.
+// TODO: Maybe not use loops?
 namespace Client.ViewModels
 {
+    /// <summary>
+    /// Provides fields and a method to play a two-player game of Durak between a human and an AI.
+    /// </summary>
     public class GameViewModel : BaseViewModel
     {
         #region FIELDS
@@ -20,29 +25,56 @@ namespace Client.ViewModels
         /// <summary>
         /// A <see cref="Cards"/> collection representing the cards in play during a bout.
         /// </summary>
-        private readonly Cards _river;
+        private Cards _river;
 
         /// <summary>
         /// An array of <see cref="Player"/> containing the players of the game.
         /// </summary>
         public Player[] Players { get; set; }
 
+        /// <summary>
+        /// The Human Player in this game.
+        /// </summary>
         public Player HumanPlayer { get; set; }
 
+        /// <summary>
+        /// The AI player in this game.
+        /// </summary>
         public DurakAI AiPlayer { get; set; }
 
+        /// <summary>
+        /// An <see cref="ObservableCollection{T}"/> of <see cref="PlayingCard"/> representing the <see cref="PlayingCard"/> in the Human's hand.
+        /// </summary>
         public ObservableCollection<PlayingCard> HumanCards { get; set; } = new ObservableCollection<PlayingCard>();
 
+        /// <summary>
+        /// An <see cref="ObservableCollection{T}"/> of <see cref="PlayingCard"/> representing the <see cref="PlayingCard"/> in the AI's hand.
+        /// </summary>
         public ObservableCollection<PlayingCard> AiCards { get; set; } = new ObservableCollection<PlayingCard>();
 
+        /// <summary>
+        /// An <see cref="ObservableCollection{T}"/> of <see cref="PlayingCard"/> representing the <see cref="PlayingCard"/> in the play area (River).
+        /// </summary>
         public ObservableCollection<PlayingCard> River { get; set; } = new ObservableCollection<PlayingCard>();
 
+        /// <summary>
+        /// The Attacker in this current turn.
+        /// </summary>
         public Player Attacker { get; set; }
 
+        /// <summary>
+        /// The Defender in this current turn.
+        /// </summary>
         public Player Defender { get; set; }
 
+        /// <summary>
+        /// The player who is currently making a play in the bout.
+        /// </summary>
         public Player CurrentPlayer { get; set; }
 
+        /// <summary>
+        /// The size of the <see cref="Deck{T}"/> used in the game.
+        /// </summary>
         public int CurrentDeckSize => PlayDeck.Size;
 
         /// <summary>
@@ -62,24 +94,100 @@ namespace Client.ViewModels
 
         private const int _drawAmount = 6;
 
-        public bool AttackSuccess { get; set; } = true;
+        /// <summary>
+        /// Represents whether the last attack in a turn was a success.
+        /// </summary>
+        private bool AttackSuccess { get; set; } = true;
 
-        public bool DefenseSuccess { get; set; } = true;
+        /// <summary>
+        /// Represents whether the last defense in a turn was a success.
+        /// </summary>
+        private bool DefenseSuccess { get; set; } = true;
 
         /// <summary>
         /// Whether the game has a winner or not.
         /// </summary>
         public bool HasWinner => Winner != null;
 
+        /// <summary>
+        /// The first player to get
+        /// </summary>
         public Player Winner { get; set; }
 
+        /// <summary>
+        /// A <see cref="TaskCompletionSource{TResult}"/> which tells the game when the player has chose.
+        /// <para>
+        /// Try to set the result of this object when you have confirmed a player's choice using <see cref="TaskCompletionSource{TResult}.TrySetResult"/>
+        /// </para>
+        /// </summary>
         public TaskCompletionSource<bool> PlayerChoseCompletionSource { get; set; } = null;
+
+        /// <summary>
+        /// Represents whether a game is in progress or not.
+        /// </summary>
+        private bool GameInProgress = false;
 
         #endregion
 
-        #region Constructors
+        #region CONSTRUCTORS
 
+        /// <summary>
+        /// Initializes and sets up a new two-player game of Durak using the specified <see cref="DeckSize"/>, <see cref="HumanPlayer"/> name and
+        /// <see cref="AiPlayer"/> name, if any.
+        ///
+        /// <para>
+        /// The game does not start unless <see cref="GameViewModel.PlayGame"/> is invoked.
+        /// </para>
+        /// </summary>
+        /// <param name="gameDeckSize">The size of the game deck to use.</param>
+        /// <param name="humanName">The name of the human player.</param>
+        /// <param name="aiName">The name of the AI player.</param>
         public GameViewModel(DeckSize gameDeckSize = DeckSize.ThirtySix, string humanName = "Human", string aiName = "Player 2 (AI)")
+        {
+            ResetGame(gameDeckSize, humanName, aiName);
+        }
+
+        #endregion
+
+        #region EVENTS
+
+        /// <summary>
+        /// Invoked when a Winner of the game is found.
+        /// </summary>
+        public EventHandler WinnerFound;
+
+        /// <summary>
+        /// Invoked when the turn changed (after a successful defense or attack).
+        /// </summary>
+        public EventHandler TurnChange;
+
+        /// <summary>
+        /// Invoked when the bout changed (after both players have played).
+        /// </summary>
+        public EventHandler BoutChange;
+
+        /// <summary>
+        /// Invoked when a successful attack occurs.
+        /// </summary>
+        public EventHandler AttackSuccessful;
+
+        /// <summary>
+        /// Invoked when a successful defense occurs.
+        /// </summary>
+        public EventHandler DefenseSuccessful;
+
+        #endregion
+
+        #region METHODS
+
+        // Not sure how this would interact when invoked while PlayGame is executing.
+        /// <summary>
+        /// Resets the game, creating a completely new game of Durak.
+        /// </summary>
+        /// <param name="gameDeckSize"></param>
+        /// <param name="humanName"></param>
+        /// <param name="aiName"></param>
+        private void ResetGame(DeckSize gameDeckSize = DeckSize.ThirtySix, string humanName = "Human", string aiName = "Player 2 (AI)")
         {
             PlayDeck = new Deck<PlayingCard>(true, true, size: gameDeckSize);
             _river = new Cards();
@@ -115,24 +223,22 @@ namespace Client.ViewModels
 
             Winner = null;
 
+            GameInProgress = false;
         }
 
-        #endregion
-
-        #region EVENTS
-
-        public EventHandler WinnerFound;
-        public EventHandler TurnChange;
-        public EventHandler BoutChange;
-        public EventHandler AttackSuccessful;
-        public EventHandler DefenseSuccessful;
-
-        #endregion
-
-        #region METHODS
-
+        /// <summary>
+        /// Plays the Game of Durak, terminating when a winner is found. Multiple events are invoked during gameplay.
+        /// <para>
+        /// The game waits for player input when it is a human's turn to attack or defend. Use the <see cref="PlayerChoseCompletionSource"/>
+        /// to notify the game when the player has made their move.
+        /// </para>
+        /// </summary>
         public async void PlayGame()
         {
+            if (GameInProgress) return;
+
+            GameInProgress = true;
+
             // Game Loop
             do
             {
@@ -140,6 +246,7 @@ namespace Client.ViewModels
                 {
                     if (player.HandSize != 0) continue;
                     Winner = player;
+                    OnPropertyChanged(nameof(HasWinner));
                     WinnerFound?.Invoke(this, EventArgs.Empty);
                     return;
                 }
@@ -281,7 +388,12 @@ namespace Client.ViewModels
             AddHandToObservableCollection(HumanCards, HumanPlayer.Hand);
         }
 
-        private void AddHandToObservableCollection(ObservableCollection<PlayingCard> collection, Cards hand)
+        /// <summary>
+        /// Adds a <see cref="Cards"/> collection to an <see cref="ObservableCollection{T}"/> as <see cref="PlayingCard"/>.
+        /// </summary>
+        /// <param name="collection">The observable collection to add cards to.</param>
+        /// <param name="hand">The cards to add to the collection.</param>
+        private static void AddHandToObservableCollection(ObservableCollection<PlayingCard> collection, Cards hand)
         {
             foreach (var card in hand.Cast<PlayingCard>())
             {
@@ -291,7 +403,12 @@ namespace Client.ViewModels
             }
         }
 
-        private void AddCardToObservableCollection(ObservableCollection<PlayingCard> collection, PlayingCard card)
+        /// <summary>
+        /// Adds a <see cref="PlayingCard"/> to an <see cref="ObservableCollection{T}"/> of <see cref="PlayingCard"/>.
+        /// </summary>
+        /// <param name="collection">The collection to add the card to.</param>
+        /// <param name="card">The card to add to the collection.</param>
+        private static void AddCardToObservableCollection(ObservableCollection<PlayingCard> collection, PlayingCard card)
         {
             card.UpdateCardImage();
             collection.Add(card);
