@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -237,26 +238,6 @@ namespace Client.Views
             img.MouseLeave -= PlayingCard_MouseLeave;
             img.MouseLeave += PlayingCard_MouseLeave;
 
-            //foreach (var card in _gameViewModel.HumanPlayer.PlayableCards)
-            //{
-            //    var playingCard = (PlayingCard) card;
-
-            //    // Wire Visual Effect Events
-            //    img.MouseEnter -= PlayingCard_MouseEnter;
-            //    img.MouseLeave -= PlayingCard_MouseLeave;
-            //    img.MouseLeftButtonDown -= PlayingCard_LeftMouseButtonDown;
-
-            //    if (img.Source != playingCard.CardImage.Source) continue;
-
-            //    img.MouseEnter += PlayingCard_MouseEnter;
-            //    img.MouseLeave += PlayingCard_MouseLeave;
-            //    img.MouseLeftButtonDown += PlayingCard_LeftMouseButtonDown;
-
-            //}
-
-            //img.MouseLeftButtonDown -= PlayingCard_LeftMouseButtonDown;
-            //img.MouseLeftButtonDown += PlayingCard_LeftMouseButtonDown;
-
         }
 
         /// <summary>
@@ -317,16 +298,9 @@ namespace Client.Views
             // Convert sender to a Image
             if (sender is Image cardImage)
             {
-                //try
-                //{
                 _gameViewModel.HumanPlayer.ChooseCard(_gameViewModel.HumanPlayer.PlayableCards.First(card =>
                     (card as PlayingCard)?.CardImage.Source == cardImage.Source));
                 _gameViewModel.PlayerChoseCompletionSource.TrySetResult(true);
-                //}
-                //catch (InvalidOperationException)
-                //{
-                // Silently handle invalid OP for if event fires more than once
-                //}
             }
         }
 
@@ -398,8 +372,6 @@ namespace Client.Views
             img.Height = regularHeight;
             img.Width = regularWidth;
             img.Opacity = 0.7;
-
-            //Animate.RealignCards(pnlPlayerHand);
         }
 
         
@@ -418,7 +390,7 @@ namespace Client.Views
             this.DataContext = vm;
             _gameViewModel = vm;
 
-            _gameViewModel.AiPlayer.ThinkDelay = 200;
+            _gameViewModel.AiPlayer.ThinkDelay = 0;
 
             pnlAIHand.Children.Clear();
             pnlPlayerHand.Children.Clear();

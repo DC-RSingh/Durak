@@ -303,9 +303,10 @@ namespace Client.ViewModels
                     }
                     else
                     {
+                        AttackSuccess = false;
+                        DefenseSuccessful?.Invoke(this, EventArgs.Empty);
                         _river.Clear();
                         River.Clear();
-                        AttackSuccess = false;
                         continue;
                     }
 
@@ -331,6 +332,7 @@ namespace Client.ViewModels
                     }
                     else
                     {
+                        DefenseSuccess = false;
                         Defender.Hand.AddRange(_river);
                         if (HumanPlayer == Defender) AddHandToObservableCollection(HumanCards, _river);
                         if (AiPlayer == Defender)
@@ -338,9 +340,9 @@ namespace Client.ViewModels
                             _river.ForEach(card => card.Face = Face.Down);
                             AddHandToObservableCollection(AiCards, _river);
                         }
+                        AttackSuccessful?.Invoke(this, EventArgs.Empty);
                         _river.Clear();
                         River.Clear();
-                        DefenseSuccess = false;
                     }
 
                     BoutCount++;
@@ -352,14 +354,11 @@ namespace Client.ViewModels
 
                 if (DefenseSuccess)
                 {
-                    DefenseSuccessful?.Invoke(this, EventArgs.Empty);
-
                     foreach (var player in Players)
                     {
                         player.IsAttacking = !player.IsAttacking;
                     }
                 }
-                else AttackSuccessful?.Invoke(this, EventArgs.Empty);
             } while (true); // End of Game Loop
         }
         #endregion
