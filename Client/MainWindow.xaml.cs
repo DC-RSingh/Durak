@@ -24,7 +24,7 @@ namespace Client
 
     /** JOKER IN BACKGROUND IMAGE ATTRIBUTION
     *   ==========================================
-    *  The joker in the main menu background imagae was found at 
+    *  The joker in the main menu background image was found at 
     *  FAVPNG.com. (n.d.). Joker playing card suit spades - png - 
     *  download free. Retrieved April 15, 2021, from 
     *  https://favpng.com/png_view/vector-funny-clown-joker-playing-card-suit-spades-png/0WRitCAm#
@@ -32,7 +32,7 @@ namespace Client
 
     /** REMAINING DESIGN ELEMENTS
     *   =========================
-    All other designs were created on Canva, and Illustrator.
+    All other designs were created on Canvas, and Illustrator.
 */
 
 
@@ -126,13 +126,14 @@ namespace Client
         /// <param name="e"></param>
         private void MainWindow_Closing(object sender, CancelEventArgs e)
         {
-            if (AbortGamePrompt() == MessageBoxResult.No)
+            var result = AbortGamePrompt();
+            if (result == MessageBoxResult.No)
             {
                 e.Cancel = true;
                 return;
             }
 
-            Logger.Log("Game of Durak aborted!", source: typeof(MainWindow));
+            if (result == MessageBoxResult.Yes) Logger.Log("Game of Durak aborted!", source: typeof(MainWindow));
 
         }
 
