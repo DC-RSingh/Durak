@@ -152,41 +152,46 @@ namespace Client.ViewModels
         #region EVENTS
 
         /// <summary>
+        /// Invoked when the first hands are dealt, before the game actually starts.
+        /// </summary>
+        public event EventHandler HandsDealt;
+
+        /// <summary>
         /// Invoked when a Winner of the game is found.
         /// </summary>
-        public EventHandler WinnerFound;
+        public event EventHandler WinnerFound;
 
         /// <summary>
         /// Invoked when the turn changed (after a successful defense or attack).
         /// </summary>
-        public EventHandler TurnChange;
+        public event EventHandler TurnChange;
 
         /// <summary>
         /// Invoked when the bout changed (after both players have played).
         /// </summary>
-        public EventHandler BoutChange;
+        public event EventHandler BoutChange;
 
         /// <summary>
         /// Invoked when a successful attack occurs.
         /// </summary>
-        public EventHandler AttackSuccessful;
+        public event EventHandler AttackSuccessful;
 
         /// <summary>
         /// Invoked when a successful defense occurs.
         /// </summary>
-        public EventHandler DefenseSuccessful;
+        public event EventHandler DefenseSuccessful;
 
         #endregion
 
         #region METHODS
 
-        // Not sure how this would interact when invoked while PlayGame is executing.
+        // Not sure how this would interact when invoked while PlayGame is executing, so private for now.
         /// <summary>
         /// Resets the game, creating a completely new game of Durak.
         /// </summary>
-        /// <param name="gameDeckSize"></param>
-        /// <param name="humanName"></param>
-        /// <param name="aiName"></param>
+        /// <param name="gameDeckSize">The size of the deck.</param>
+        /// <param name="humanName">The name of the human player.</param>
+        /// <param name="aiName">The name of the AI player.</param>
         private void ResetGame(DeckSize gameDeckSize = DeckSize.ThirtySix, string humanName = "Human", string aiName = "Player 2 (AI)")
         {
             PlayDeck = new Deck<PlayingCard>(true, true, size: gameDeckSize);
@@ -236,6 +241,8 @@ namespace Client.ViewModels
         public async void PlayGame()
         {
             if (GameInProgress) return;
+
+            HandsDealt?.Invoke(this, EventArgs.Empty);
 
             GameInProgress = true;
 

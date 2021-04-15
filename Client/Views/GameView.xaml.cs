@@ -9,6 +9,7 @@ using CardLib;
 using CardUI;
 using Client.ViewModels;
 using DurakLib;
+using Logging;
 
 namespace Client.Views
 {
@@ -29,14 +30,14 @@ namespace Client.Views
         public GameView(DeckSize deckSize = DeckSize.ThirtySix, string playerName = "Player 1 (Human)")
         {
             InitializeComponent();
-            ChosenDeckSize = deckSize;
-            Username = playerName;
+            _chosenDeckSize = deckSize;
+            _username = playerName;
             InitGame();
         }
 
         private GameViewModel _gameViewModel;
-        private string Username;
-        private DeckSize ChosenDeckSize;
+        private readonly string _username;
+        private readonly DeckSize _chosenDeckSize;
 
         #region FIELDS
 
@@ -59,6 +60,27 @@ namespace Client.Views
 
         #region EVENT HANDLERS
 
+        private void Players_HandsDealt(object sender, EventArgs e)
+        {
+            if (!(sender is GameViewModel gvm)) return;
+
+            foreach (var player in gvm.Players)
+            {
+                if(player.GetType() == typeof(DurakAI)) player.Hand.ForEach(card => card.Flip());
+
+                Logger.Log($"{player.PlayerName}'s Cards: {player.Hand}", LoggingLevel.Log, player.GetType());
+
+                if (player.GetType() == typeof(DurakAI)) player.Hand.ForEach(card => card.Flip());
+            }
+        }
+
+        private void PlayDeck_Draw(object sender, EventArgs e)
+        {
+            if (!(sender is Deck<PlayingCard> playDeck)) return;
+
+            
+        }
+
         /// <summary>
         /// An EventHandler that handles most of the game logic for the Human <see cref="Player"/> turn in Durak, outputting to and requesting input from the Console.
         /// </summary>
@@ -75,7 +97,7 @@ namespace Client.Views
         /// <remarks>EventArgs passed is always <seealso cref="EventArgs.Empty"/>.</remarks>
         /// <param name="sender">The sender of the event.</param>
         /// <param name="e">The EventArgs of the event</param>
-        private static void HumanPlayer_TurnEnd(object sender, EventArgs e)
+        private void HumanPlayer_TurnEnd(object sender, EventArgs e)
         {
         }
 
@@ -179,10 +201,6 @@ namespace Client.Views
 
             Animate.RealignCards(pnlRiver);
         }
-
-        #endregion
-
-        #region HELPER METHODS
 
         /// <summary>
         /// Wires Mouse Events to the images of the <see cref="PlayingCard"/> used in the player's hand.
@@ -302,77 +320,6 @@ namespace Client.Views
         }
 
         /// <summary>
-        /// Disables an image in the playing field 
-        /// </summary>
-        /// <param name="img"></param>
-        private void DisableImage(Image img)
-        {
-            img.Height = regularHeight;
-            img.Width = regularWidth;
-            img.Opacity = 0.7;
-
-            //Animate.RealignCards(pnlPlayerHand);
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Initializes a game of two player Durak with the <see cref="GameViewModel.PlayGame"/> method.
-        ///
-        /// <para>
-        /// Initializes all canvases and wires events.
-        /// </para>
-        /// </summary>
-        private void InitGame()
-        {
-            var vm = new GameViewModel(ChosenDeckSize, Username);
-            this.DataContext = vm;
-            _gameViewModel = vm;
-
-            _gameViewModel.AiPlayer.ThinkDelay = 0;
-
-            pnlAIHand.Children.Clear();
-            pnlPlayerHand.Children.Clear();
-            pnlRiver.Children.Clear();
-
-            pnlDeck.Children.Clear();
-
-            pnlDeck.Children.Add(_gameViewModel.TrumpCard.UpdateCardImage());
-
-            // Align and Initialize AI and Human Hand Canvases
-            foreach (var card in _gameViewModel.AiCards)
-            {
-                pnlAIHand.Children.Add(card.CardImage);
-            }
-
-            Animate.RealignCards(pnlAIHand);
-
-            foreach (var card in _gameViewModel.HumanCards)
-            {
-                WireMouseEvents(card.CardImage, pnlPlayerHand);
-                pnlPlayerHand.Children.Add(card.CardImage);
-            }
-
-            Animate.RealignCards(pnlPlayerHand);
-
-            Statistics.UpdateGame();
-
-            // Wiring Player Turn Events
-            _gameViewModel.HumanPlayer.TurnBegin += HumanPlayer_TurnStart;
-            _gameViewModel.AiPlayer.StartedThinking += AI_StartThink;
-
-            // Wiring Collection Events
-            _gameViewModel.AiCards.CollectionChanged += AiHand_CollectionChanged;
-            _gameViewModel.HumanCards.CollectionChanged += HumanHand_CollectionChanged;
-            _gameViewModel.River.CollectionChanged += River_CollectionChanged;
-
-            // Wiring Winner Event
-            _gameViewModel.WinnerFound += Player_Won;
-
-            _gameViewModel.PlayGame();
-        }
-
-        /// <summary>
         /// Displays a loser message when the game found a winner.
         /// </summary>
         /// <param name="sender">A <see cref="GameViewModel"/></param>
@@ -421,6 +368,86 @@ namespace Client.Views
 
             if (msgBoxResult == MessageBoxResult.Yes) InitGame();
         }
+
+        #endregion
+
+        #region HELPER METHODS
+
+        /// <summary>
+        /// Disables an image in the playing field 
+        /// </summary>
+        /// <param name="img"></param>
+        private void DisableImage(Image img)
+        {
+            img.Height = regularHeight;
+            img.Width = regularWidth;
+            img.Opacity = 0.7;
+
+            //Animate.RealignCards(pnlPlayerHand);
+        }
+
+        
+
+        /// <summary>
+        /// Initializes a game of two player Durak with the <see cref="GameViewModel.PlayGame"/> method.
+        ///
+        /// <para>
+        /// Initializes all canvases and wires events.
+        /// </para>
+        /// </summary>
+        private void InitGame()
+        {
+            Logger.Log($"{Statistics.PlayerName} has started a new game.", LoggingLevel.Log, typeof(GameView));
+            var vm = new GameViewModel(_chosenDeckSize, _username);
+            this.DataContext = vm;
+            _gameViewModel = vm;
+
+            _gameViewModel.AiPlayer.ThinkDelay = 0;
+
+            pnlAIHand.Children.Clear();
+            pnlPlayerHand.Children.Clear();
+            pnlRiver.Children.Clear();
+
+            pnlDeck.Children.Clear();
+
+            pnlDeck.Children.Add(_gameViewModel.TrumpCard.UpdateCardImage());
+
+            // Align and Initialize AI and Human Hand Canvases
+            foreach (var card in _gameViewModel.AiCards)
+            {
+                pnlAIHand.Children.Add(card.CardImage);
+            }
+
+            Animate.RealignCards(pnlAIHand);
+
+            foreach (var card in _gameViewModel.HumanCards)
+            {
+                WireMouseEvents(card.CardImage, pnlPlayerHand);
+                pnlPlayerHand.Children.Add(card.CardImage);
+            }
+
+            Animate.RealignCards(pnlPlayerHand);
+
+            Statistics.UpdateGame();
+
+            _gameViewModel.HandsDealt += Players_HandsDealt;
+
+            // Wiring Player Turn Events
+            _gameViewModel.HumanPlayer.TurnBegin += HumanPlayer_TurnStart;
+            _gameViewModel.AiPlayer.StartedThinking += AI_StartThink;
+
+            // Wiring Collection Events
+            _gameViewModel.AiCards.CollectionChanged += AiHand_CollectionChanged;
+            _gameViewModel.HumanCards.CollectionChanged += HumanHand_CollectionChanged;
+            _gameViewModel.River.CollectionChanged += River_CollectionChanged;
+
+            // Wiring Winner Event
+            _gameViewModel.WinnerFound += Player_Won;
+
+            _gameViewModel.PlayGame();
+        }
+
+        #endregion
 
     }
 }

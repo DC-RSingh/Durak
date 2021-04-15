@@ -6,6 +6,7 @@ using System.Windows;
 using CardUI;
 using Client.ViewModels;
 using Client.Views;
+using Logging;
 
 // TODO: Make app single instance?
 namespace Client
@@ -22,19 +23,20 @@ namespace Client
             Closing += MainWindow_Closing;
             DataContextChanged += (sender, args) => { GameViewModel.GameInProgress = false; };
             Logger.Start();
+            Logger.Log("Program launched...", LoggingLevel.Log, typeof(MainWindow));
             Statistics.ParseOrCreateStatsFile();
         }
 
         private void PlayMenu_Click(object sender, RoutedEventArgs e)
         {
-            CheckIfGameExists();
+            //CheckIfGameExists();
             GameView gameView = new GameView(Statistics.DeckSize, Statistics.PlayerName);
             DataContext = gameView;
         }
 
         private void AboutMenu_Click(object sender, RoutedEventArgs e)
         {
-            CheckIfGameExists();
+            //CheckIfGameExists();
             AboutView aboutView = new AboutView();
             DataContext = aboutView;
         }
@@ -47,7 +49,7 @@ namespace Client
 
         private void GameOptionsMenu_Click(object sender, RoutedEventArgs e)
         {
-            CheckIfGameExists();
+            //CheckIfGameExists();
             GameSettingsView gameSettingsView = new GameSettingsView();
             DataContext = gameSettingsView;
         }
@@ -57,7 +59,7 @@ namespace Client
         }
         private void MainMenu_Click(object sender, RoutedEventArgs e)
         {
-            CheckIfGameExists();
+            //CheckIfGameExists();
             MainPageView dataContext = new MainPageView();
             DataContext = dataContext;
         }

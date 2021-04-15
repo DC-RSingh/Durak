@@ -22,6 +22,8 @@ namespace Client
 
         private static bool _started = false;
 
+        private static readonly string FileNameForSession = $"durak-{DateTime.Now:yyyy-MM-dd}.log";
+
         /// <summary>
         /// Starts the <see cref="LoggingQueueDispatcher"/> with a <see cref="ConsoleLogListener"/> and <see cref="FileLogger"/>, operating with the same
         /// message queue.
@@ -35,7 +37,7 @@ namespace Client
 
             if (!Directory.Exists(logDir)) Directory.CreateDirectory(logDir);
            
-            _fileLogger = new FileLogger(logDir, "testLog.txt");
+            _fileLogger = new FileLogger(logDir, FileNameForSession);
             _fileLogger.Start();
             var consoleListener = new ConsoleLogListener();
             var listeners = new ILogListener[] {_fileLogger, consoleListener};
