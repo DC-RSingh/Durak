@@ -27,7 +27,7 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="1" Grid.RowSpan="7" Grid.ColumnSpan="5">
-            <Image Source="/Resources/Background/durak (5).png" Stretch="Fill"/>
+            <Image Source="/Resources/Background/durak.png" Stretch="Fill"/>
         </DockPanel>
         <DockPanel Grid.Row="3" Grid.Column="3">
             <StackPanel>

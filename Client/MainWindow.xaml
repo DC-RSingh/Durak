@@ -29,7 +29,7 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.RowSpan="7" Grid.ColumnSpan="5">
-            <Image Source="/Resources/Background/durak.png" Stretch="Fill"/>
+            <Image Source="/Resources/Background/durakresized.png" Stretch="Fill"/>
         </DockPanel>
         <StackPanel VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="5">
             <Menu  Style="{DynamicResource DurakMenu}" Width="Auto" Height="35">
