@@ -16,18 +16,27 @@ namespace Client.Views
             this.DataContext = null;
         }
 
-        private void Play_Click(object sender, RoutedEventArgs e)
+        private void Enter_Click(object sender, RoutedEventArgs e)
         {
             var nameString = tbName.Text;
             // TODO: Could just use the value from the file when the press ok without giving a name.
             if (tbName.Text.Trim() == string.Empty)
             {
-                var result = MessageBox.Show("You did not enter a name! Continue without entering a name?",
-                    "Continue without Entering Name?", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result == MessageBoxResult.No) return;
+                
+                if (tbName.Text == string.Empty)
+                {
+                    lblError.Content = "Please enter your name.";
+                    return;
+                }
                 nameString = Statistics.PlayerName;
             }
             Statistics.UpdatePlayerName(nameString);
+            GameView gameView = new GameView(Statistics.DeckSize, Statistics.PlayerName);
+            DataContext = gameView;
+        }
+
+        private void Skip_Click(object sender, RoutedEventArgs e)
+        {
             GameView gameView = new GameView(Statistics.DeckSize, Statistics.PlayerName);
             DataContext = gameView;
         }

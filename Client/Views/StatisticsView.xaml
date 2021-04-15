@@ -38,7 +38,7 @@
         <Label  x:Name="lblTies" Content="Number of Ties: 0" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource GameViewLabel}" />
         <Label  x:Name="lblTotal" Content="Number of Games Played: 0" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource GameViewLabel}" />
 
-        <Button Style="{DynamicResource DurakScrollButton}" VerticalAlignment="Center" Grid.Column="2" Grid.Row="9"  Content="Reset" Click="Reset_Click"/>
+        <Button Style="{DynamicResource DurakScrollEnterButton}" VerticalAlignment="Center" Grid.Column="2" Grid.Row="9"  Content="Reset" Click="Reset_Click"/>
         <!--Content Control-->
         <ContentControl Grid.RowSpan="12" Grid.ColumnSpan="5" Content="{Binding}"/>
     </Grid>

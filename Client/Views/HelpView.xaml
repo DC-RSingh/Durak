@@ -15,6 +15,12 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -23,9 +29,26 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <DockPanel  Grid.Row="0" Grid.Column="0"  Grid.RowSpan="6" Grid.ColumnSpan="5">
-            <Image Source="/Resources/Background/background.png" Stretch="Fill"/>
+        <DockPanel  Grid.Row="0" Grid.Column="0"  Grid.RowSpan="9" Grid.ColumnSpan="10">
+            <Image Source="/Resources/Background/helpresized.png" Stretch="Fill"/>
         </DockPanel>
+
+        <!--Scroll View-->
+        <ScrollViewer HorizontalAlignment="Center" Opacity="0.70" VerticalScrollBarVisibility="Auto" Grid.Row="2" Grid.RowSpan="9" Grid.ColumnSpan="11">
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10">
+                <TextBlock x:Name="txtHeader1" Style="{DynamicResource HeaderTextBlock}" />
+                <TextBlock x:Name="txtObjective" Style="{DynamicResource BodyTextBlock}"/>
+                <TextBlock x:Name="txtHeader2" Style="{DynamicResource HeaderTextBlock}"/>
+                <TextBlock x:Name="txtGameSetup" Style="{DynamicResource BodyTextBlock}"/>
+                <TextBlock x:Name="txtHeader3" Style="{DynamicResource HeaderTextBlock}"/>
+                <TextBlock x:Name="txtGamePlay" Style="{DynamicResource BodyTextBlock}"/>
+                <TextBlock x:Name="txtHeader4" Style="{DynamicResource HeaderTextBlock}"/>
+                <TextBlock x:Name="txtReferences" Style="{DynamicResource BodyReferences}"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>

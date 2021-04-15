@@ -1,23 +1,35 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Client.Resources">
+    
+    <!--Durak Main Menu Button Color brushes-->
     <SolidColorBrush x:Key="durakButtonText" Color="#808000"/>
     <SolidColorBrush x:Key="durakButton" Color="#FFE533" />
     <SolidColorBrush x:Key="durakButtonBorder" Color="#FFE533" Opacity="0.75"/>
     <SolidColorBrush x:Key="durakActiveButton" Color="#FFE533" Opacity="0.75"/>
 
+    <!--Pass Button Color Brushes-->
     <SolidColorBrush x:Key="durakPassButtonText" Color="white"/>
     <SolidColorBrush x:Key="durakPassButton" Color="#FFE533" Opacity="0.75"/>
     <SolidColorBrush x:Key="durakPassButtonBorder" Color="#ff3333" Opacity="0.5"/>
     <SolidColorBrush x:Key="durakPassActiveButton" Color="#ff3333" Opacity="0.75"/>
 
+    <!--Deal Button Color brushes-->
     <SolidColorBrush x:Key="durakDealButtonBorder" Color="#47d147" Opacity="0.5"/>
     <SolidColorBrush x:Key="durakDealActiveButton" Color="#47d147" Opacity="0.75"/>
 
+    <!--Text Box Color brushes-->
     <SolidColorBrush x:Key="durakTextBoxBorder" Color="#FFE533" Opacity="0.75"/>
     <SolidColorBrush x:Key="durakTextBoxHoverBorder" Color="#c3aa09" Opacity="0.75"/>
     <SolidColorBrush x:Key="durakTextBoxFocusBorder" Color="#aa9508" Opacity="0.75"/>
     <SolidColorBrush x:Key="durakTextBoxText" Color="#808000"/>
     <SolidColorBrush x:Key="durakTextBoxBg" Color="#FCF2B6" />
+
+    <!--Text Block Color brushes-->
+    <SolidColorBrush x:Key="durakTextBlockHeader" Color="#f4d50b"/>
+    <SolidColorBrush x:Key="durakTextBlockBody" Color="AntiqueWhite" />
+
+    <!--Label Color brushes-->
+    <SolidColorBrush x:Key="durakDanger" Color="#ff4d4d"/>
 
 </ResourceDictionary>

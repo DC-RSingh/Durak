@@ -30,7 +30,7 @@
             <Image Source="/Resources/Background/gameoptions.png" Stretch="Fill" Width="748" />
         </DockPanel>
 
-        <Button Style="{DynamicResource DurakScrollButton}" Grid.Column="2" Grid.Row="4"  Content="Continue" Click="Play_Click"/>
+        <Button Style="{DynamicResource DurakScrollEnterButton}" Grid.Column="2" Grid.Row="4"  Content="Play new game" Click="Play_Click"/>
         
         <RadioButton x:Name="rb1" Content="52" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
         <RadioButton x:Name="rb2" Content="36" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>

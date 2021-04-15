@@ -13,25 +13,32 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition Height="130"/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition />
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Rectangle Fill="Black" Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="5" Opacity="0.75"/>
-        <DockPanel Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="5" Margin="0,0,10,10">
+        <Rectangle Fill="Black" Grid.Row="1" Grid.RowSpan="8" Grid.ColumnSpan="9" Opacity="0.75"/>
+        <DockPanel Grid.Row="1" Grid.RowSpan="8" Grid.ColumnSpan="9" Margin="0,0,10,10">
             <Image Source="/Resources/Background/entername.png" Stretch="Fill" Width="748" />
         </DockPanel>
-
-        <TextBox x:Name="tbName" Style="{DynamicResource GameSettingsTextBox}"  VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" TextWrapping="Wrap" Text=""/>
-        <Button Style="{DynamicResource DurakScrollButton}" VerticalAlignment="Center" Grid.Column="2" Grid.Row="4"  Content="Continue" Click="Play_Click"/>
+        <Label x:Name="lblError" Style="{DynamicResource DangerLabel}"  VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Column="3" Grid.Row="3" Grid.ColumnSpan="3"/>
+        <TextBox x:Name="tbName" Style="{DynamicResource GameSettingsTextBox}"  VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="3" TextWrapping="Wrap" Text=""/>
+        <Button x:Name="btnEnter" Style="{DynamicResource DurakScrollEnterButton}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2" Width="70" Content="Enter" Click="Enter_Click"/>
+        <Button x:Name="btnSkip" Style="{DynamicResource DurakScrollSkipButton}" VerticalAlignment="Center" Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="2" Width="70" Content="Skip" Click="Skip_Click"/>
         <!--Content Control-->
-        <ContentControl Grid.RowSpan="7" Grid.ColumnSpan="5" Content="{Binding}"/>
+        <ContentControl Grid.RowSpan="9" Grid.ColumnSpan="9" Content="{Binding}"/>
     </Grid>
 </UserControl>

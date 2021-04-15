@@ -417,9 +417,9 @@ namespace Client.Views
         /// <param name="e">The event arguments.</param>
         private void btnDealNew_Click(object sender, RoutedEventArgs e)
         {
-            var msgBoxResult = MessageBox.Show("Are you sure you want to start a new game?", "Start New Game?", MessageBoxButton.YesNo);
+            //var msgBoxResult = MessageBox.Show("Are you sure you want to start a new game?", "Start New Game?", MessageBoxButton.YesNo);
 
-            if (msgBoxResult == MessageBoxResult.Yes) InitGame();
+            InitGame();
         }
 
     }

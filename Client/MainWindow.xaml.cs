@@ -46,7 +46,6 @@ namespace Client
 
         private void GameOptionsMenu_Click(object sender, RoutedEventArgs e)
         {
-            //CheckIfGameExists();
             GameSettingsView gameSettingsView = new GameSettingsView();
             DataContext = gameSettingsView;
         }
