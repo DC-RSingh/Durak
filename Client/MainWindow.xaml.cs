@@ -29,14 +29,12 @@ namespace Client
 
         private void PlayMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckIfGameExists()) return;
             GameView gameView = new GameView(Statistics.DeckSize, Statistics.PlayerName);
             DataContext = gameView;
         }
 
         private void AboutMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckIfGameExists()) return;
             AboutView aboutView = new AboutView();
             DataContext = aboutView;
         }
@@ -49,7 +47,6 @@ namespace Client
 
         private void GameOptionsMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckIfGameExists()) return;
             GameSettingsView gameSettingsView = new GameSettingsView();
             DataContext = gameSettingsView;
         }
@@ -59,7 +56,6 @@ namespace Client
         }
         private void MainMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckIfGameExists()) return;
             MainPageView dataContext = new MainPageView();
             DataContext = dataContext;
         }
@@ -83,13 +79,6 @@ namespace Client
                         MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             return MessageBoxResult.Cancel;
-        }
-
-        private bool CheckIfGameExists()
-        {
-            if (AbortGamePrompt() == MessageBoxResult.No) return true;
-            Logger.Log("Game of Durak aborted!", source: typeof(MainWindow));
-            return false;
         }
     }
 }
