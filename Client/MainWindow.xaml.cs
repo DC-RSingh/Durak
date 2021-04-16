@@ -30,6 +30,14 @@ namespace Client
     *  https://favpng.com/png_view/vector-funny-clown-joker-playing-card-suit-spades-png/0WRitCAm#
 */
 
+    /** GREEN CASINO IMAGE ATTRIBUTION
+ *   ==========================================
+ *  Kerr, D. (2013, February 27). Solitaire and Spider Solitaire for WPF. 
+ *  Retrieved April 16, 2021, from https://www.codeproject.com/Articles/252152/Solitaire-and-Spider-Solitaire-for-WPF
+*/
+
+
+
     /** REMAINING DESIGN ELEMENTS
     *   =========================
     All other designs were created on Canvas, and Illustrator.
